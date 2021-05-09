@@ -11,6 +11,6 @@
   "author": "Kevin Lin",
   "license": "MIT",
   "dependencies": {
-    "concurrently": "^5.1.0"
+    "concurrently": "^6.1.0"
   }
 }

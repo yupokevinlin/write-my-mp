@@ -1,5 +1,8 @@
 import {AppActionTypes} from "./types";
-export type AppAction = AppInitAction;
+import {MapPolygon} from "../../../../../shared/types/data/Map/MapTypes";
+export type AppAction = AppInitAction
+| AppSetIsInitCompleteAction
+| AppSetMapPolygonsAction;
 
 export interface AppInitAction {
   type: typeof AppActionTypes.INIT;
@@ -7,5 +10,27 @@ export interface AppInitAction {
 export const init = (): AppInitAction => {
   return {
     type: AppActionTypes.INIT,
+  };
+};
+
+export interface AppSetIsInitCompleteAction {
+  type: typeof AppActionTypes.SET_IS_INIT_COMPLETE;
+  isInitComplete: boolean;
+}
+export const setIsInitComplete = (isInitComplete: boolean): AppSetIsInitCompleteAction => {
+  return {
+    type: AppActionTypes.SET_IS_INIT_COMPLETE,
+    isInitComplete: isInitComplete,
+  };
+};
+
+export interface AppSetMapPolygonsAction {
+  type: typeof AppActionTypes.SET_MAP_POLYGONS;
+  mapPolygons: Array<MapPolygon>;
+}
+export const setMapPolygons = (mapPolygons: Array<MapPolygon>): AppSetMapPolygonsAction => {
+  return {
+    type: AppActionTypes.SET_MAP_POLYGONS,
+    mapPolygons: mapPolygons,
   };
 };

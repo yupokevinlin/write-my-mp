@@ -14,6 +14,7 @@ export interface MPData {
   constituency: string;
   province: string;
   party: string;
+  photoSrc: string;
 }
 
 export interface MPDataMap {

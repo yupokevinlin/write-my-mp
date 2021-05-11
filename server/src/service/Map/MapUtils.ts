@@ -20,6 +20,7 @@ export namespace MapUtils {
         const constituency: string = mpData[3];
         const province: string = mpData[4];
         const party: string = mpData[5];
+        const photoSrc: string = getPhotoSrc(lastName, firstName, party);
         mpDataMap[constituency] = {
           title: title,
           firstName: firstName,
@@ -27,6 +28,7 @@ export namespace MapUtils {
           constituency: constituency,
           province: province,
           party: party,
+          photoSrc: photoSrc,
         };
       }
     });
@@ -52,12 +54,107 @@ export namespace MapUtils {
         };
         return mapPolygon;
       } else {
-        console.log(`Unable to find MP for constituency: ${constituency}`);
+        console.log(`Unable to find MP for constituency: ${constituency}.`);
         return null;
       }
     }).filter((mapPolygon: any) => !!mapPolygon);
     data = mapPolygons;
     return true;
+  };
+
+  const getPhotoSrc = (lastName: string, firstName: string, party: string): string => {
+    const parliamentSession: string = "43";
+    const partyAbbreviation: string = getPartyAbbreviation(party);
+    const processedFirstName: string = encodeURIComponent(firstName.replace(/-/g, "").replace("'", "").replace(/ /g, ""));
+    const processedLastName: string = encodeURIComponent(lastName.replace(/-/g, "").replace("'", "").replace(/ /g, ""));
+    const photoSrc: string = `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/${parliamentSession}/${processedLastName}${processedFirstName}_${partyAbbreviation}.jpg`;
+    const nameString: string = `${firstName}${lastName}`;
+    switch (nameString) {
+      case "LouisPlamondon": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/PlamondonLouis_PQ.jpg`;
+      }
+      case "SorayaMartinez Ferrada": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/MartinezFerradaSoraya_Lib.jpg`;
+      }
+      case "StéphaneBergeron": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/BergeronStephane_BQ.jpg`;
+      }
+      case "François-PhilippeChampagne": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/ChampagneFrancoisPhilippe_Lib.jpg`;
+      }
+      case "JoëlLightbound": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/LightboundJoel_Lib.jpg`;
+      }
+      case "RameshSangha": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/SanghaRamesh_Lib.jpg`;
+      }
+      case "DerekSloan": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/SloanDerek_CPC.jpg`;
+      }
+      case "YasminRatansi": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/RatansiYasmin_Lib.jpg`;
+      }
+      case "MarwanTabbara": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/TabbaraMarwan_Lib.jpg`;
+      }
+      case "DavidMcGuinty": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/McGuintyDavidJ_Lib.jpg`;
+      }
+      case "MichelleRempel Garner": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/RempelMichelle_CPC.jpg`;
+      }
+      case "Judy A.Sgro": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/SgroJudyA_Lib.jpg`;
+      }
+      case "AhmedHussen": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/HussenAhmedD_Lib.jpg`;
+      }
+      case "MelArnold": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/ArnoldMel_CPC%20web.jpg`;
+      }
+      case "Kerry-LynneFindlay": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/FindlayKerryLynneD_CPC.jpg`;
+      }
+      case "DaneLloyd": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/LloydDane._CPC.jpg`;
+      }
+      case "Harjit S.Sajjan": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/SajjanHarjitS_Lib.jpg`;
+      }
+      case "MichaelMcLeod": {
+        return `https://www.ourcommons.ca/Content/Parliamentarians/Images/OfficialMPPhotos/43/McLeodMichaelV_Lib.jpg`;
+      }
+      default: {
+        return photoSrc;
+      }
+    }
+  };
+
+  const getPartyAbbreviation = (party: string): string => {
+    switch (party) {
+      case "Liberal": {
+        return "LIB";
+      }
+      case "Conservative": {
+        return "CPC";
+      }
+      case "NDP": {
+        return "NDP";
+      }
+      case "Bloc Québécois": {
+        return "BQ";
+      }
+      case "Green Party": {
+        return "GP";
+      }
+      case "Independent": {
+        return "Ind";
+      }
+      default: {
+        console.log(`Unable to find party: ${party}.`);
+        return "";
+      }
+    }
   };
 
   const getCsvArray = async (url: string): Promise<Array<Array<string>>> => {

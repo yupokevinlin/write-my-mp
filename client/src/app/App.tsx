@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {createStyles, Theme, useTheme} from "@material-ui/core";
 import {Provider} from "react-redux";
 import {configureStore} from "../state/store";
 import {makeStyles} from "@material-ui/core/styles";
+import {MapApi} from "../api/MapApi/MapApi";
+import HomePageContainer from "../display/containers/HomePageContainer/HomePageContainer";
 
 export type AppProps = AppDataProps & AppStyleProps & AppEventProps;
 
@@ -45,7 +47,7 @@ const App: React.FC<AppProps> = (props) => {
   return (
     <Provider store={AppStore.store}>
       <div className={classes.app}>
-
+        <HomePageContainer/>
       </div>
     </Provider>
   );

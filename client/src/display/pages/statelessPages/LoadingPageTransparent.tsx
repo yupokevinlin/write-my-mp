@@ -3,7 +3,6 @@ import {createStyles, Theme, useTheme} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop"
-import {appBarHeightLg, appBarHeightMd, appBarHeightSm, appBarHeightXs} from "../../components/Navigation/Navigation";
 
 export type LoadingPageTransparentProps = LoadingPageTransparentDataProps & LoadingPageTransparentStyleProps & LoadingPageTransparentEventProps;
 
@@ -30,20 +29,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      height: `calc(100% - ${appBarHeightXs}px)`,
-      top: appBarHeightXs,
-      [theme.breakpoints.up("sm")]: {
-        height: `calc(100% - ${appBarHeightSm}px)`,
-        top: appBarHeightSm,
-      },
-      [theme.breakpoints.up("md")]: {
-        height: `calc(100% - ${appBarHeightMd}px)`,
-        top: appBarHeightMd,
-      },
-      [theme.breakpoints.up("lg")]: {
-        height: `calc(100% - ${appBarHeightLg}px)`,
-        top: appBarHeightLg,
-      },
+      height: "100%",
+      top: "0px",
     },
     progress: {
       color: theme.palette.background.paper,

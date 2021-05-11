@@ -1,12 +1,6 @@
 import React from "react";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {
-  appBarHeightLg,
-  appBarHeightMd,
-  appBarHeightSm,
-  appBarHeightXs
-} from "../../components/Navigation/Navigation";
 import {Breakpoint} from "@material-ui/core/styles/createBreakpoints";
 import Typography from "@material-ui/core/Typography";
 
@@ -36,20 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       justifyContent: "center",
       zIndex: theme.zIndex.tooltip + 100,
-      height: `calc(100% - ${appBarHeightXs}px)`,
-      top: appBarHeightXs,
-      [theme.breakpoints.up("sm")]: {
-        height: `calc(100% - ${appBarHeightSm}px)`,
-        top: appBarHeightSm,
-      },
-      [theme.breakpoints.up("md")]: {
-        height: `calc(100% - ${appBarHeightMd}px)`,
-        top: appBarHeightMd,
-      },
-      [theme.breakpoints.up("lg")]: {
-        height: `calc(100% - ${appBarHeightLg}px)`,
-        top: appBarHeightLg,
-      },
+      height: "100%",
+      top: "0px",
     },
     text: {
       marginBottom: "50px",

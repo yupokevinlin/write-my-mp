@@ -54,7 +54,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 
   const [isESRIMapLoaded, setIsESRIMapLoaded] = useState<boolean>(false);
   const [currentMapPolygon, setCurrentMapPolygon] = useState<MapPolygon | null>(null);
-  const [currentPosition, setCurrentPosition] = useState<XYCoord>({x: 0, y: 0,});
+  const [currentPosition, setCurrentPosition] = useState<XYCoord>({x: -1, y: -1,});
 
   const handleLoadComplete = (): void => {
     setIsESRIMapLoaded(true);
@@ -70,7 +70,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
   };
 
   const handleUnableToFindPolygonAtCurrentPosition = (): void => {
-    
+
   };
 
   return (

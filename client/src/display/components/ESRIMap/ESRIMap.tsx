@@ -50,6 +50,7 @@ let map: Map = null;
 let mapView: MapView = null;
 let polygonLayer: FeatureLayer = null;
 let highlightLayer: GraphicsLayer = null;
+let currentPositionLayer: FeatureLayer = null;
 let localMapPolygons: Array<MapPolygon> = [];
 
 export const destroyESRIMap = (): void => {
@@ -57,6 +58,7 @@ export const destroyESRIMap = (): void => {
   mapView = null;
   polygonLayer = null;
   highlightLayer = null;
+  currentPositionLayer = null;
   localMapPolygons = [];
 };
 
@@ -100,11 +102,14 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
         if (prevProps.currentPosition !== currentPosition) {
           handleCurrentPositionChange(geometryEngine, Point);
         }
+        if (prevProps.width !== width) {
+          handleWidthChange();
+        }
       }
       handleHighlightGeometryChange(Polygon, Graphic);
       return destroyESRIMap;
     });
-  }, [mapPolygons, highlightGeometry, currentPosition]);
+  }, [mapPolygons, highlightGeometry, currentPosition, width]);
 
   const initialize = (Map, MapView, FeatureLayer, GraphicsLayer, Legend): void => {
     map = new Map({
@@ -130,8 +135,9 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
 
     polygonLayer = getPolygonLayer(FeatureLayer);
     highlightLayer = getHighlightLayer(GraphicsLayer);
+    currentPositionLayer = getCurrentPositionLayer(FeatureLayer);
 
-    const layers: Array<FeatureLayer | GraphicsLayer> = [polygonLayer, highlightLayer];
+    const layers: Array<FeatureLayer | GraphicsLayer> = [polygonLayer, highlightLayer, currentPositionLayer];
     layers.forEach(layer => map.add(layer));
 
     const legend: Legend = new Legend({
@@ -230,9 +236,10 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
         x: currentPosition.x,
         y: currentPosition.y,
         spatialReference: { wkid: 4326 },
-      })
+      });
       const intersectingPolygons: Array<Graphic> = allPolygons.filter((graphic) => geometryEngine.intersects(graphic.geometry, point));
       const intersectingPolygon: Graphic | undefined = intersectingPolygons[0];
+      updateCurrentPositionLayer();
       if (intersectingPolygon) {
         const constituency: string = intersectingPolygon.attributes.constituency;
         const matchingMapPolygon: MapPolygon = localMapPolygons.find(mapPolygon => mapPolygon.constituency === constituency);
@@ -249,6 +256,37 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
         handleUnableToFindPolygonAtCurrentPosition();
       }
     }));
+  };
+
+  const updateCurrentPositionLayer = (): void => {
+    if (currentPosition.x !== -1 && currentPosition.x !== -1) {
+      const renderer = (currentPositionLayer.renderer as __esri.UniqueValueRenderer).clone();
+      currentPositionLayer.queryObjectIds().then(oldObjectIds => {
+        const addFeatures: Array<any> = []
+        addFeatures.push({
+          attributes: {
+            width: width,
+          },
+          geometry: {
+            type: "point",
+            x: currentPosition.x,
+            y: currentPosition.y,
+            spatialReference: { wkid: 4326 },
+          }
+        })
+
+        const deleteFeatures: Array<{ objectId: number }> = oldObjectIds.map(oldObjectId => ({ objectId: oldObjectId }));
+
+        currentPositionLayer.renderer = renderer;
+
+        currentPositionLayer.applyEdits({
+          addFeatures: addFeatures,
+          deleteFeatures: deleteFeatures,
+        }).then(rsp => {
+
+        });
+      });
+    }
   };
 
   const handleHighlightGeometryChange = (Polygon, Graphic): void => {
@@ -406,6 +444,96 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
     return new GraphicsLayer({
       id: ESRIMapLayerNames.highlightLayer,
     });
+  };
+
+  const getCurrentPositionLayer = (FeatureLayer): FeatureLayer => {
+    const iconString: string = "data:image/svg+xml;base64,CiAgICA8c3ZnIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCI+CiAgICAgIDxnPgogICAgICAgIDxwYXRoIGQ9Ik01MTEuOTg2IDZjLTgwLjg1NCAwLjE4Ny0xNjIuOTAzIDI2LjY5Ny0yMjQuODQgODMuNzgxcy0xMDMuMzk1IDE0NC43MTktMTAzLjM5NSAyNjUuNTk2YzAgNDIuNTg2IDIwLjUgMTA0LjA0NiA1MC44MjIgMTczLjUxNHM3MC42NTggMTQ2LjYwMSAxMTAuOTc1IDIxOC42MzNjODAuNjM0IDE0NC4wNjQgMTYxLjI0IDI2Ny43NTIgMTYxLjI0IDI2Ny43NTIgNi40OTggMTEuMDk1IDMuOTk5IDExLjk2MiA5Ljg5NiAxLjA4OGwwLjcwOS0xLjA4OGMwIDAgODAuNTYzLTEyMy42OSAxNjEuMTUtMjY3Ljc1NCA0MC4yOTQtNzIuMDMyIDgwLjYwNS0xNDkuMTY0IDExMC45MS0yMTguNjMxczUwLjc5My0xMzAuOTI5IDUwLjc5My0xNzMuNTE0YzAtMTIwLjg3Ni00MS40NTgtMjA4LjUxMi0xMDMuMzk1LTI2NS41OTZzLTE0My45ODYtODMuNTk1LTIyNC44NC04My43ODFoLTAuMDE0ek01MTEuOTg2IDE4Yzc4LjI0OSAwLjE4MSAxNTcuMzI0IDI1Ljg0OSAyMTYuNzM2IDgwLjYwNXM5OS41MjUgMTM4LjYyNSA5OS41MjUgMjU2Ljc3MWMwIDM4LjYyMS0xOS43NDYgOTkuODM5LTQ5Ljc5MyAxNjguNzE1cy03MC4yMDYgMTQ1Ljc1LTExMC4zODMgMjE3LjU3MmMtNzMuNDQ2IDEzMS4yOTYtMTQzLjg5NCAyNDAuOTYtMTU1Ljk4MiAyNTkuNjU4LTEyLjA5NS0xOC42OTctODIuNTgzLTEyOC4zNjMtMTU2LjA3MC0yNTkuNjYtNDAuMTk5LTcxLjgyMi04MC4zODMtMTQ4LjY5Ny0xMTAuNDQ3LTIxNy41NzJzLTQ5LjgyLTEzMC4wOTMtNDkuODItMTY4LjcxM2MwLTExOC4xNDYgNDAuMTE0LTIwMi4wMTUgOTkuNTI1LTI1Ni43NzEgNTkuNDA1LTU0Ljc1MSAxMzguNDY5LTgwLjQxOSAyMTYuNzA5LTgwLjYwNXoiIGZpbGw9IiMwMDk2ODgiLz48cGF0aCBkPSJNODEyIDM1Mi44NDhjMCAxNjUuNjg1LTEzNC4zMTUgMzAwLTMwMCAzMDBzLTMwMC0xMzQuMzE1LTMwMC0zMDBjMC0xNjUuNjg1IDEzNC4zMTUtMzAwIDMwMC0zMDBzMzAwIDEzNC4zMTUgMzAwIDMwMHoiIGZpbGw9IiNGRkZGRkYiLz48cGF0aCBkPSJNNTEyIDEwMTEuNDQ5YzAgMC4xODQgMC4zNjcgMC41NTEgMC4zNjcgMC41NTFzMzIxLjg4MS00OTQuMjEzIDMyMS44ODEtNjU2LjYyM2MwLTIzOS4wMjMtMTYzLjE0NS0zNDMuMDA5LTMyMi4yNDktMzQzLjM3Ny0xNTkuMTAzIDAuMzY3LTMyMi4yNDkgMTA0LjM1NC0zMjIuMjQ5IDM0My4zNzcgMCAxNjIuNDEgMzIyLjA2NSA2NTYuNjIzIDMyMi4wNjUgNjU2LjYyM3MwLjE4NC0wLjU1MSAwLjE4NC0wLjU1MXpNNDAwLjQ4MSAzNDEuNzgxYzAtNjEuNzMxIDQ5Ljk3Mi0xMTEuNzAzIDExMS43MDMtMTExLjcwM3MxMTEuNzAzIDQ5Ljk3MiAxMTEuNzAzIDExMS43MDNjMCA2MS43MzEtNTAuMTU2IDExMS43MDMtMTExLjg4NyAxMTEuNzAzLTYxLjU0NyAwLTExMS41MTktNDkuOTcyLTExMS41MTktMTExLjcwM3oiIGZpbGw9IiMwMDk2ODgiLz4KICAgICAgPC9nPgogICAgPC9zdmc+CiAg";
+
+    const fields: Array<FieldProperties> = [
+      {
+        name: "OBJECTID",
+        alias: "OBJECTID",
+        type: "oid",
+      },
+      {
+        name: "width",
+        alias: "width",
+        type: "string",
+      },
+    ];
+
+    const renderer = {
+      type: "unique-value",
+      field: "width",
+      uniqueValueInfos: [
+        {
+          value: "xs",
+          symbol: {
+            type: "picture-marker",
+            url: iconString,
+            height: "20px",
+            width: "20px",
+            yoffset: "10px",
+          }
+        },
+        {
+          value: "sm",
+          symbol: {
+            type: "picture-marker",
+            url: iconString,
+            height: "20px",
+            width: "20px",
+            yoffset: "10px",
+          }
+        },
+        {
+          value: "md",
+          symbol: {
+            type: "picture-marker",
+            url: iconString,
+            height: "30px",
+            width: "30px",
+            yoffset: "15px",
+          }
+        },
+        {
+          value: "lg",
+          symbol: {
+            type: "picture-marker",
+            url: iconString,
+            height: "40px",
+            width: "40px",
+            yoffset: "20px",
+          }
+        },
+        {
+          value: "xl",
+          symbol: {
+            type: "picture-marker",
+            url: iconString,
+            height: "40px",
+            width: "40px",
+            yoffset: "20px",
+          }
+        },
+      ],
+    };
+
+    return new FeatureLayer({
+      id: ESRIMapLayerNames.currentPositionLayer,
+      title: "",
+      geometryType: "point",
+      source: [],
+      fields: fields,
+      objectIdField: "OBJECTID",
+      renderer: renderer,
+      popupEnabled: false,
+      legendEnabled: false,
+    });
+  };
+
+  const handleWidthChange = (): void => {
+    updateCurrentPositionLayer();
   };
 
   return (

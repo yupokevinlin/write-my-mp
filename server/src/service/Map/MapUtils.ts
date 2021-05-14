@@ -41,9 +41,8 @@ export namespace MapUtils {
       const constituencyId: string = feature.properties.FEDUID;
       const provinceId: string = feature.properties.PRUID;
       const mpData: MPData | undefined = mpDataMap[constituency];
-
+      const geometry: Array<Array<[number, number]>> = getGeometryFromGeometry(feature.geometry.coordinates, feature.geometry.type);
       if (mpData) {
-        const geometry: Array<Array<[number, number]>> = getGeometryFromGeometry(feature.geometry.coordinates, feature.geometry.type);
         const mapPolygon: MapPolygon = {
           constituency: constituency,
           constituencyFrench: constituencyFrench,
@@ -55,11 +54,74 @@ export namespace MapUtils {
         return mapPolygon;
       } else {
         console.log(`Unable to find MP for constituency: ${constituency}.`);
-        return null;
+        const mapPolygon: MapPolygon = {
+          constituency: constituency,
+          constituencyFrench: constituencyFrench,
+          constituencyId: constituencyId,
+          provinceId: provinceId,
+          geometry: geometry,
+          mpData: {
+            title: "",
+            firstName: "",
+            lastName: "",
+            constituency: constituency,
+            province: getProvinceFromProvinceId(provinceId),
+            party: "Vacant",
+            photoSrc: "",
+          },
+        };
+        return mapPolygon;
       }
     }).filter((mapPolygon: any) => !!mapPolygon);
     data = mapPolygons;
     return true;
+  };
+
+  const getProvinceFromProvinceId = (provinceId: string): string => {
+    switch (provinceId) {
+      case "59": {
+        return "British Columbia";
+      }
+      case "48": {
+        return "Alberta";
+      }
+      case "47": {
+        return "Saskatchewan";
+      }
+      case "46": {
+        return "Manitoba";
+      }
+      case "35": {
+        return "Ontario";
+      }
+      case "24": {
+        return "Quebec";
+      }
+      case "13": {
+        return "New Brunswick";
+      }
+      case "11": {
+        return "Prince Edward Island";
+      }
+      case "12": {
+        return "Nova Scotia";
+      }
+      case "10": {
+        return "Newfoundland and Labrador";
+      }
+      case "60": {
+        return "Yukon";
+      }
+      case "61": {
+        return "Northwest Territories";
+      }
+      case "62": {
+        return "Nunavut";
+      }
+      default: {
+        return "";
+      }
+    }
   };
 
   const getPhotoSrc = (lastName: string, firstName: string, party: string): string => {

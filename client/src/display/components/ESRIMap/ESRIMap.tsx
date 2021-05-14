@@ -102,8 +102,8 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
     mapView = new MapView({
       container: mapRef.current,
       map: map,
-      center: [-98.35, 39.5],
-      zoom: 4,
+      center: [-93, 53],
+      zoom: 5,
       ui: {
         components: ["attribution", "zoom", "compass"],
       },

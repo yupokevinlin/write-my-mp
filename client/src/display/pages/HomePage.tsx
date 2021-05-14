@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import ESRIMap from "../components/ESRIMap/ESRIMap";
 import {Breakpoint} from "@material-ui/core/styles/createBreakpoints";
 import LoadingPageTransparent from "./statelessPages/LoadingPageTransparent";
+import {XYCoord} from "../components/ESRIMap/types";
 
 export type HomePageProps = HomePageDataProps & HomePageStyleProps & HomePageEventProps;
 
@@ -53,9 +54,15 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 
   const [isESRIMapLoaded, setIsESRIMapLoaded] = useState<boolean>(false);
   const [currentMapPolygon, setCurrentMapPolygon] = useState<MapPolygon | null>(null);
+  const [currentPosition, setCurrentPosition] = useState<XYCoord>({x: 0, y: 0,});
 
   const handleLoadComplete = (): void => {
     setIsESRIMapLoaded(true);
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setCurrentPosition({x: position.coords.longitude, y: position.coords.latitude,});
+      });
+    }
   };
 
   const handleMapPolygonClick = (mapPolygon: MapPolygon | null): void => {
@@ -65,11 +72,11 @@ const HomePage: React.FC<HomePageProps> = (props) => {
   return (
     <div className={classes.root}>
       <div className={classes.esriContainer}>
-        <ESRIMap initComplete={isESRIMapLoaded} mapPolygons={mapPolygons} initialBaseMap={"topo"} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete}/>
+        <ESRIMap initComplete={isESRIMapLoaded} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete}/>
         <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
       </div>
       <div className={classes.tableContainer}>
-        
+
       </div>
     </div>
   );

@@ -14,8 +14,9 @@ import ClassBreaksRenderer = __esri.ClassBreaksRenderer;
 import GraphicsLayer = __esri.GraphicsLayer;
 import Graphic = __esri.Graphic;
 import Polygon = __esri.Polygon;
+import Point = __esri.Point;
 import {MapPolygon} from "../../../../../shared/types/data/Map/MapTypes";
-import {ESRIMapLayerNames} from "./types";
+import {ESRIMapLayerNames, XYCoord} from "./types";
 
 export type ESRIMapProps = ESRIMapDataProps & ESRIMapStyleProps & ESRIMapEventProps;
 
@@ -23,6 +24,7 @@ export interface ESRIMapDataProps {
   initComplete: boolean;
   mapPolygons: Array<MapPolygon>;
   initialBaseMap: string;
+  currentPosition: XYCoord;
 }
 
 export interface ESRIMapStyleProps {
@@ -66,6 +68,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
   const {
     initComplete,
     mapPolygons,
+    currentPosition,
     initialBaseMap,
     width,
     handleMapPolygonClick,
@@ -77,14 +80,14 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
   const prevProps: ESRIMapProps = usePreviousProps<ESRIMapProps>(props);
   useEffect(() => {
     loadModules(
-      ["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer", "esri/layers/GraphicsLayer", "esri/widgets/Legend", "esri/geometry/Point", "esri/geometry/Polygon", "esri/Graphic"],
+      ["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer", "esri/layers/GraphicsLayer", "esri/widgets/Legend", "esri/geometry/Point", "esri/geometry/Polygon", "esri/Graphic", "esri/geometry/geometryEngine"],
       {
         css: true,
       }
-    ).then(([Map, MapView, FeatureLayer, GraphicsLayer, Legend, Point, Polygon, Graphic]) => {
+    ).then(([Map, MapView, FeatureLayer, GraphicsLayer, Legend, Point, Polygon, Graphic, geometryEngine]) => {
 
       if (!map) {
-        initialize(Map, MapView, FeatureLayer, GraphicsLayer, Legend, Point);
+        initialize(Map, MapView, FeatureLayer, GraphicsLayer, Legend);
       }
 
       if (prevProps) {
@@ -92,13 +95,16 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
           localMapPolygons = mapPolygons;
           handleMapPolygonsChange();
         }
+        if (prevProps.currentPosition !== currentPosition) {
+          handleCurrentPositionChange(geometryEngine, Point);
+        }
       }
       handleHighlightGeometryChange(Polygon, Graphic);
       return destroyESRIMap;
     });
-  }, [mapPolygons, highlightGeometry]);
+  }, [mapPolygons, highlightGeometry, currentPosition]);
 
-  const initialize = (Map, MapView, FeatureLayer, GraphicsLayer, Legend, Point): void => {
+  const initialize = (Map, MapView, FeatureLayer, GraphicsLayer, Legend): void => {
     map = new Map({
       basemap: initialBaseMap,
     });
@@ -107,7 +113,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
       container: mapRef.current,
       map: map,
       center: [-93, 53],
-      zoom: 5,
+      zoom: 4,
       ui: {
         components: ["attribution", "zoom", "compass"],
       },
@@ -213,6 +219,30 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
         }
       });
     });
+  };
+
+  const handleCurrentPositionChange = (geometryEngine, Point): void => {
+    polygonLayer.queryFeatures().then((rsp => {
+      const allPolygons: Array<Graphic> = rsp.features;
+      const point: Point = new Point({
+        x: currentPosition.x,
+        y: currentPosition.y,
+        spatialReference: { wkid: 4326 },
+      })
+      const intersectingPolygons: Array<Graphic> = allPolygons.filter((graphic) => geometryEngine.intersects(graphic.geometry, point));
+      const intersectingPolygon: Graphic | undefined = intersectingPolygons[0];
+      if (intersectingPolygon) {
+        const constituency: string = intersectingPolygon.attributes.constituency;
+        const matchingMapPolygon: MapPolygon = localMapPolygons.find(mapPolygon => mapPolygon.constituency === constituency);
+        if (matchingMapPolygon) {
+          setHighlightGeometry(matchingMapPolygon.geometry);
+          handleMapPolygonClick(matchingMapPolygon);
+          mapView.goTo(intersectingPolygon.geometry.extent, {
+            duration: 1000,
+          });
+        }
+      }
+    }));
   };
 
   const handleHighlightGeometryChange = (Polygon, Graphic): void => {

@@ -48,13 +48,14 @@ const HomePage: React.FC<HomePageProps> = (props) => {
   } = props;
 
   const [isESRIMapLoaded, setIsESRIMapLoaded] = useState<boolean>(false);
+  const [currentMapPolygon, setCurrentMapPolygon] = useState<MapPolygon | null>(null);
 
   const handleLoadComplete = (): void => {
     setIsESRIMapLoaded(true);
   };
 
-  const handleMapPolygonClick = (mapPolygon: MapPolygon): void => {
-    console.log(mapPolygon);
+  const handleMapPolygonClick = (mapPolygon: MapPolygon | null): void => {
+    setCurrentMapPolygon(mapPolygon);
   };
 
   return (

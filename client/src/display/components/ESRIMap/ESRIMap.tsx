@@ -30,7 +30,7 @@ export interface ESRIMapStyleProps {
 }
 
 export interface ESRIMapEventProps {
-  handleMapPolygonClick(mapPolygon: MapPolygon): void;
+  handleMapPolygonClick(mapPolygon: MapPolygon | null): void;
   handleLoadComplete(): void;
 }
 
@@ -171,6 +171,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
         }
         case 2: {
           setHighlightGeometry([]);
+          handleMapPolygonClick(null);
         }
       }
     });

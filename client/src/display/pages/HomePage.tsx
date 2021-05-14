@@ -69,10 +69,14 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     setCurrentMapPolygon(mapPolygon);
   };
 
+  const handleUnableToFindPolygonAtCurrentPosition = (): void => {
+    
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.esriContainer}>
-        <ESRIMap initComplete={isESRIMapLoaded} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete}/>
+        <ESRIMap initComplete={isESRIMapLoaded} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition}/>
         <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
       </div>
       <div className={classes.tableContainer}>

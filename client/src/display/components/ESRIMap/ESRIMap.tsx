@@ -34,6 +34,7 @@ export interface ESRIMapStyleProps {
 export interface ESRIMapEventProps {
   handleMapPolygonClick(mapPolygon: MapPolygon | null): void;
   handleLoadComplete(): void;
+  handleUnableToFindPolygonAtCurrentPosition(): void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -73,6 +74,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
     width,
     handleMapPolygonClick,
     handleLoadComplete,
+    handleUnableToFindPolygonAtCurrentPosition,
   } = props;
 
   const [highlightGeometry, setHighlightGeometry] = useState<Array<Array<[number, number]>>>([]);
@@ -241,6 +243,10 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
             duration: 1000,
           });
         }
+      } else {
+        setHighlightGeometry([]);
+        handleMapPolygonClick(null);
+        handleUnableToFindPolygonAtCurrentPosition();
       }
     }));
   };

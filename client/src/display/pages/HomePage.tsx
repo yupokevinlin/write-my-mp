@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
-      flexDirection: "column",
+      flexDirection: "row",
       alignItems: "flex-start",
       justifyContent: "flex-start",
       height: "100%",
@@ -33,8 +33,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     esriContainer: {
       height: "100%",
-      width: "100%",
-    }
+      width: "60%",
+    },
+    tableContainer: {
+      height: "100%",
+      width: "40%",
+    },
   }),
 );
 
@@ -63,6 +67,9 @@ const HomePage: React.FC<HomePageProps> = (props) => {
       <div className={classes.esriContainer}>
         <ESRIMap initComplete={isESRIMapLoaded} mapPolygons={mapPolygons} initialBaseMap={"topo"} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete}/>
         <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
+      </div>
+      <div className={classes.tableContainer}>
+        
       </div>
     </div>
   );

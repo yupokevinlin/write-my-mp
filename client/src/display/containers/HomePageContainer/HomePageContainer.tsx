@@ -47,15 +47,16 @@ const HomePageContainer: React.FC<HomePageContainerProps> = (props) => {
     width,
   } = props;
 
-  if (appState.isInitComplete) {
-    return (
+  return (
+    <React.Fragment>
       <HomePage mapPolygons={appState.mapPolygons}/>
-    );
-  } else {
-    return (
-      <LoadingPage width={width} text={"Loading data... Please wait."}/>
-    )
-  }
+      {
+        !appState.isInitComplete ? (
+          <LoadingPage width={width} text={"Loading data... Please wait."}/>
+        ) : null
+      }
+    </React.Fragment>
+  );
 };
 
 export default withWidth()(HomePageContainer);

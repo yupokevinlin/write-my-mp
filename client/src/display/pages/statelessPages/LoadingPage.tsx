@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
       zIndex: theme.zIndex.tooltip + 100,
       height: "100%",
-      top: "0px",
+      top: 0,
     },
     text: {
       marginBottom: "50px",

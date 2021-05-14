@@ -20,6 +20,7 @@ import {ESRIMapLayerNames} from "./types";
 export type ESRIMapProps = ESRIMapDataProps & ESRIMapStyleProps & ESRIMapEventProps;
 
 export interface ESRIMapDataProps {
+  initComplete: boolean;
   mapPolygons: Array<MapPolygon>;
   initialBaseMap: string;
 }
@@ -30,6 +31,7 @@ export interface ESRIMapStyleProps {
 
 export interface ESRIMapEventProps {
   handleMapPolygonClick(mapPolygon: MapPolygon): void;
+  handleLoadComplete(): void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -62,10 +64,12 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
   const mapRef: MutableRefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
 
   const {
+    initComplete,
     mapPolygons,
     initialBaseMap,
     width,
     handleMapPolygonClick,
+    handleLoadComplete,
   } = props;
 
   const [highlightGeometry, setHighlightGeometry] = useState<Array<Array<[number, number]>>>([]);
@@ -203,7 +207,9 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
         addFeatures: addFeatures,
         deleteFeatures: deleteFeatures,
       }).then(rsp => {
-
+        if (!initComplete) {
+          handleLoadComplete();
+        }
       });
     });
   };

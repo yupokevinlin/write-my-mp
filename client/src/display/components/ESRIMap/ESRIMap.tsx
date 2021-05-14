@@ -112,6 +112,9 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
     mapView.popup.dockOptions = {
       position: "top-right"
     };
+    mapView.constraints = {
+      rotationEnabled: false,
+    }
 
     polygonLayer = getPolygonLayer(FeatureLayer);
     highlightLayer = getHighlightLayer(GraphicsLayer);

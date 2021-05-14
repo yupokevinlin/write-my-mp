@@ -7,7 +7,7 @@ import Backdrop from "@material-ui/core/Backdrop"
 export type LoadingPageTransparentProps = LoadingPageTransparentDataProps & LoadingPageTransparentStyleProps & LoadingPageTransparentEventProps;
 
 export interface LoadingPageTransparentDataProps {
-  displayLoadingBar: boolean;
+  isLoading: boolean;
 }
 
 export interface LoadingPageTransparentStyleProps {
@@ -21,16 +21,15 @@ export interface LoadingPageTransparentEventProps {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      position: "absolute",
-      left: 0,
+      zIndex: 1,
+      position: "relative",
+      top: "-100%",
       width: "100%",
+      height: "100%",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      height: "100%",
-      top: "0px",
     },
     progress: {
       color: theme.palette.background.paper,
@@ -43,11 +42,11 @@ const LoadingPageTransparent: React.FC<LoadingPageTransparentProps> = (props) =>
   const classes = useStyles();
 
   const {
-    displayLoadingBar,
+    isLoading,
   } = props;
 
   return (
-    <Backdrop className={classes.backdrop} open={displayLoadingBar}>
+    <Backdrop className={classes.backdrop} open={isLoading}>
       <CircularProgress className={classes.progress}/>
     </Backdrop>
   );

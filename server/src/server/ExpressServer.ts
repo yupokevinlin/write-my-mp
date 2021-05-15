@@ -20,7 +20,7 @@ export class ExpressServer {
     this.httpServer = this.listen(server, port);
     this.server = server;
     this.addEndPoints(server);
-    await MapUtils.fetchData()
+    //await MapUtils.fetchData()
     return this.server;
   }
 
@@ -49,7 +49,7 @@ export class ExpressServer {
   }
 
   private addEndPoints(server: Express) {
-    server.get("/api/map/polygons", MapEndpoints.getMayLayer0Polygons);
+    server.get("/api/map/polygons", MapEndpoints.getMayPolygons);
   }
 }
 

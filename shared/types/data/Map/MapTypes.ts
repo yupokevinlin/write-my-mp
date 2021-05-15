@@ -15,8 +15,29 @@ export interface MPData {
   province: string;
   party: string;
   photoSrc: string;
+  contact: MPContact | null;
+}
+
+export interface MPContact {
+  constituency: string;
+  email: string;
+  website: string;
+  hillOffice: MPOffice;
+  mainOffice: MPOffice;
+  alternateOffice: MPOffice;
+}
+
+export interface MPOffice {
+  name: string | null;
+  address: string | null;
+  telephone: string | null;
+  fax: string | null;
 }
 
 export interface MPDataMap {
   [constituency: string]: MPData;
+}
+
+export interface MPContactMap {
+  [constituency: string]: MPContact;
 }

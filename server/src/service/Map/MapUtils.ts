@@ -1,13 +1,110 @@
-import {MapPolygon, MPData, MPDataMap} from "../../../../shared/types/data/Map/MapTypes";
+import {MapPolygon, MPContact, MPContactMap, MPData, MPDataMap} from "../../../../shared/types/data/Map/MapTypes";
+import {CheerioAPI} from "cheerio/lib/cheerio";
 
 const electoralDistrictsData: any = require("../../../../data/map/2016-canada-electoral-districts.json");
 const csv = require("csv-string");
 const axios = require("axios").default;
+const cheerio = require("cheerio");
+import * as fs from "fs";
 
 export namespace MapUtils {
-  export let data: Array<MapPolygon> = [];
+  export const data: Array<MapPolygon> = require("../../../../data/map/data.json");
 
   export const fetchData = async (): Promise<boolean> => {
+    const currentMembersLinks: Array<string> = [];
+    const currentMembersTileHtml = await axios("https://www.ourcommons.ca/members/en/search?caucusId=all&province=all&gender=all&view=tile").then((rsp: any) => rsp.data).catch(console.error);
+    const loadedCurrentMembersTileHtml = cheerio.load(currentMembersTileHtml);
+    const rows = loadedCurrentMembersTileHtml("#mip-tile-view > div > div");
+    rows.children("div").each((index: number, element: any) => {
+      if (index > 0) {
+        const linkElement = loadedCurrentMembersTileHtml(element).find("div > a");
+        const href = loadedCurrentMembersTileHtml(linkElement).attr("href");
+        currentMembersLinks.push(href);
+      }
+    });
+
+    const mpContacts: MPContactMap = {};
+
+    for (let i = 0; i < currentMembersLinks.length; i++) {
+      const currentMemberLink: string = currentMembersLinks[i];
+      const url: string = `https://www.ourcommons.ca${currentMemberLink}#contact`;
+      const html = await axios(url).then((rsp: any) => rsp.data).catch(console.error);
+      const $: CheerioAPI = cheerio.load(html);
+
+      const constituency: string | null = getText($, "div > div > div.col.ce-mip-overview > dl > dd:nth-child(4) > a");
+      const email: string | null = getText($, "#contact > div > p:nth-child(2)");
+      const website: string | null = getText($, "#contact > div > p:nth-child(4) > a");
+      const hillTelephoneFax: string | null = getText($, "#contact > div > div > div.col-md-3 > p:nth-child(3)");
+      let hillTelephone: string | null = null;
+      let hillFax: string | null = null;
+      if (hillTelephoneFax) {
+        const hillTelephoneFaxArray: Array<string> = hillTelephoneFax.split("\n");
+        hillTelephone = hillTelephoneFaxArray[0] ? hillTelephoneFaxArray[0].replace("Telephone:", "").trim() : null;
+        hillFax = hillTelephoneFaxArray[1] ? hillTelephoneFaxArray[1].replace("Fax:", "").trim() : null;
+      }
+
+      let constituencyName: string | null = null;
+      const constituencyTelephoneFax: string | null = getText($, "#contact > div > div > div.col-md-9 > div > div > p:nth-child(2)");
+      let constituencyTelephone: string | null = null;
+      let constituencyFax: string | null = null;
+      if (constituencyTelephoneFax) {
+        const constituencyTelephoneFaxArray: Array<string> = constituencyTelephoneFax.split("\n");
+        constituencyTelephone = constituencyTelephoneFaxArray[0] ? constituencyTelephoneFaxArray[0].replace("Telephone:", "").trim() : null;
+        constituencyFax = constituencyTelephoneFaxArray[1] ? constituencyTelephoneFaxArray[1].replace("Fax:", "").trim() : null;
+      }
+      const constituencyAddressString: string | null = getText($, "#contact > div > div > div.col-md-9 > div > div > p:nth-child(1)");
+      let constituencyAddress: string | null = null;
+      if (constituencyAddressString) {
+        const constituencyAddressArray: Array<string> = constituencyAddressString.split("\n").map(s => s.trim());
+        constituencyName = constituencyAddressArray[0].replace("Main office -", "").trim();
+        constituencyAddress = constituencyAddressArray.filter((e, index) => index !== 0).join(" ").trim();
+      }
+
+      let constituencyAlternateName: string | null = null;
+      const constituencyAlternateTelephoneFax: string | null = getText($, "#contact > div > div > div.col-md-9 > div > div:nth-child(2) > p:nth-child(2)");
+      let constituencyAlternateTelephone: string | null = null;
+      let constituencyAlternateFax: string | null = null;
+      if (constituencyAlternateTelephoneFax) {
+        const constituencyAlternateTelephoneFaxArray: Array<string> = constituencyAlternateTelephoneFax.split("\n");
+        constituencyAlternateTelephone = constituencyAlternateTelephoneFaxArray[0] ? constituencyAlternateTelephoneFaxArray[0].replace("Telephone:", "").trim() : null;
+        constituencyAlternateFax = constituencyAlternateTelephoneFaxArray[1] ? constituencyAlternateTelephoneFaxArray[1].replace("Fax:", "").trim() : null;
+      }
+      const constituencyAlternateAddressString: string | null = getText($, "#contact > div > div > div.col-md-9 > div > div:nth-child(2) > p:nth-child(1)");
+      let constituencyAlternateAddress: string | null = null;
+      if (constituencyAlternateAddressString) {
+        const constituencyAlternateAddressArray: Array<string> = constituencyAlternateAddressString.split("\n").map(s => s.trim());
+        constituencyAlternateName = constituencyAlternateAddressArray[0].trim();
+        constituencyAlternateAddress = constituencyAlternateAddressArray.filter((e, index) => index !== 0).join(" ").trim();
+      }
+
+      if (constituency === null || email === null || hillTelephone === null || hillFax === null || constituencyTelephone === null || constituencyAddress === null) {
+        console.log(`Unable to find contact information for url: ${url}`);
+      } else {
+        mpContacts[constituency] = {
+          constituency: constituency as string,
+          email: email as string,
+          website: website as string,
+          hillOffice: {
+            name: "House of Commons",
+            address: "Ottawa, Ontario, Canada K1A 0A6",
+            telephone: hillTelephone,
+            fax: hillFax,
+          },
+          mainOffice: {
+            name: constituencyName,
+            address: constituencyAddress,
+            telephone: constituencyTelephone,
+            fax: constituencyFax,
+          },
+          alternateOffice: {
+            name: constituencyAlternateName,
+            address: constituencyAlternateAddress,
+            telephone: constituencyAlternateTelephone,
+            fax: constituencyAlternateFax,
+          },
+        };
+      }
+    }
 
     const mpDataArray: Array<Array<string>> = await getCsvArray("https://www.ourcommons.ca/members/en/search/csv");
     const mpDataMap: MPDataMap = {};
@@ -21,6 +118,10 @@ export namespace MapUtils {
         const province: string = mpData[4];
         const party: string = mpData[5];
         const photoSrc: string = getPhotoSrc(lastName, firstName, party);
+        const matchingContact: MPContact | undefined = mpContacts[constituency];
+        if (!matchingContact) {
+          console.log(`Unable to find contact for constituency: ${constituency}.`);
+        }
         mpDataMap[constituency] = {
           title: title,
           firstName: firstName,
@@ -29,9 +130,11 @@ export namespace MapUtils {
           province: province,
           party: party,
           photoSrc: photoSrc,
+          contact: !!matchingContact ? matchingContact : null,
         };
       }
     });
+
 
     const mapPolygons: Array<MapPolygon> = electoralDistrictsData.features.map((feature: any) => {
       const rawConstituencyName: string = feature.properties.FEDENAME;
@@ -68,13 +171,25 @@ export namespace MapUtils {
             province: getProvinceFromProvinceId(provinceId),
             party: "Vacant",
             photoSrc: "",
+            contact: null,
           },
         };
         return mapPolygon;
       }
     }).filter((mapPolygon: any) => !!mapPolygon);
-    data = mapPolygons;
+
+    fs.writeFile("C:\\Repository\\Private\\write-my-mp\\data\\map\\data.json", JSON.stringify(mapPolygons), () => {});
     return true;
+  };
+
+  const getText = (loadedElement: CheerioAPI, selector: string,): string | null => {
+    const element = loadedElement(selector).eq(0);
+    if (!!element) {
+      const text: string = element.text().trim();
+      return text === "" ? null : text;
+    } else {
+      return null;
+    }
   };
 
   const getProvinceFromProvinceId = (provinceId: string): string => {

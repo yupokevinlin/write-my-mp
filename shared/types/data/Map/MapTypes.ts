@@ -23,9 +23,10 @@ export interface MPContact {
   preferredLanguage: string;
   email: string;
   website: string;
-  hillOffice: MPOffice;
   mainOffice: MPOffice;
+  mainOfficeFrench: MPOffice;
   alternateOffice: MPOffice;
+  alternateOfficeFrench: MPOffice;
 }
 
 export interface MPOffice {

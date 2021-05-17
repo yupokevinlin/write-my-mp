@@ -28,23 +28,19 @@ export namespace MapUtils {
     for (let i = 0; i < currentMembersLinks.length; i++) {
       const currentMemberLink: string = currentMembersLinks[i];
       const url: string = `https://www.ourcommons.ca${currentMemberLink}#contact`;
+      const urlFrench: string = `https://www.noscommunes.ca${currentMemberLink}#contact`.replace("/en/", "/fr/");
       const html = await axios(url).then((rsp: any) => rsp.data).catch(console.error);
-      const $: CheerioAPI = cheerio.load(html);
+      const htmlFrench = await axios(urlFrench).then((rsp: any) => rsp.data).catch(console.error);
+      const loadedPage: CheerioAPI = cheerio.load(html);
+      const loadedPageFrench: CheerioAPI = cheerio.load(htmlFrench);
 
-      const constituency: string | null = getText($, "div > div > div.col.ce-mip-overview > dl > dd:nth-child(4) > a");
-      const email: string | null = getText($, "#contact > div > p:nth-child(2)");
-      const website: string | null = getText($, "#contact > div > p:nth-child(4) > a");
-      const hillTelephoneFax: string | null = getText($, "#contact > div > div > div.col-md-3 > p:nth-child(3)");
-      let hillTelephone: string | null = null;
-      let hillFax: string | null = null;
-      if (hillTelephoneFax) {
-        const hillTelephoneFaxArray: Array<string> = hillTelephoneFax.split("\n");
-        hillTelephone = hillTelephoneFaxArray[0] ? hillTelephoneFaxArray[0].replace("Telephone:", "").trim() : null;
-        hillFax = hillTelephoneFaxArray[1] ? hillTelephoneFaxArray[1].replace("Fax:", "").trim() : null;
-      }
+      const constituency: string | null = getText(loadedPage, "div > div > div.col.ce-mip-overview > dl > dd:nth-child(4) > a");
+      console.log(constituency);
+      const email: string | null = getText(loadedPage, "#contact > div > p:nth-child(2)");
+      const website: string | null = getText(loadedPage, "#contact > div > p:nth-child(4) > a");
 
       let constituencyName: string | null = null;
-      const constituencyTelephoneFax: string | null = getText($, "#contact > div > div > div.col-md-9 > div > div > p:nth-child(2)");
+      const constituencyTelephoneFax: string | null = getText(loadedPage, "#contact > div > div > div.col-md-9 > div > div > p:nth-child(2)");
       let constituencyTelephone: string | null = null;
       let constituencyFax: string | null = null;
       if (constituencyTelephoneFax) {
@@ -52,16 +48,16 @@ export namespace MapUtils {
         constituencyTelephone = constituencyTelephoneFaxArray[0] ? constituencyTelephoneFaxArray[0].replace("Telephone:", "").trim() : null;
         constituencyFax = constituencyTelephoneFaxArray[1] ? constituencyTelephoneFaxArray[1].replace("Fax:", "").trim() : null;
       }
-      const constituencyAddressString: string | null = getText($, "#contact > div > div > div.col-md-9 > div > div > p:nth-child(1)");
+      const constituencyAddressString: string | null = getText(loadedPage, "#contact > div > div > div.col-md-9 > div > div > p:nth-child(1)");
       let constituencyAddress: Array<string> | null = null;
       if (constituencyAddressString) {
         const constituencyAddressArray: Array<string> = constituencyAddressString.split("\n").map(s => s.trim());
-        constituencyName = constituencyAddressArray[0].replace("Main office -", "").trim();
+        constituencyName = constituencyAddressArray[0].trim();
         constituencyAddress = constituencyAddressArray.filter((e, index) => index !== 0).map(s => s.trim()).filter(s => !!s);
       }
 
       let constituencyAlternateName: string | null = null;
-      const constituencyAlternateTelephoneFax: string | null = getText($, "#contact > div > div > div.col-md-9 > div > div:nth-child(2) > p:nth-child(2)");
+      const constituencyAlternateTelephoneFax: string | null = getText(loadedPage, "#contact > div > div > div.col-md-9 > div > div:nth-child(2) > p:nth-child(2)");
       let constituencyAlternateTelephone: string | null = null;
       let constituencyAlternateFax: string | null = null;
       if (constituencyAlternateTelephoneFax) {
@@ -69,7 +65,7 @@ export namespace MapUtils {
         constituencyAlternateTelephone = constituencyAlternateTelephoneFaxArray[0] ? constituencyAlternateTelephoneFaxArray[0].replace("Telephone:", "").trim() : null;
         constituencyAlternateFax = constituencyAlternateTelephoneFaxArray[1] ? constituencyAlternateTelephoneFaxArray[1].replace("Fax:", "").trim() : null;
       }
-      const constituencyAlternateAddressString: string | null = getText($, "#contact > div > div > div.col-md-9 > div > div:nth-child(2) > p:nth-child(1)");
+      const constituencyAlternateAddressString: string | null = getText(loadedPage, "#contact > div > div > div.col-md-9 > div > div:nth-child(2) > p:nth-child(1)");
       let constituencyAlternateAddress: Array<string> | null = null;
       if (constituencyAlternateAddressString) {
         const constituencyAlternateAddressArray: Array<string> = constituencyAlternateAddressString.split("\n").map(s => s.trim());
@@ -77,33 +73,62 @@ export namespace MapUtils {
         constituencyAlternateAddress = constituencyAlternateAddressArray.filter((e, index) => index !== 0).map(s => s.trim()).filter(s => !!s);
       }
 
-      const preferredLanguage: string | null = getText($, "div > div.col.ce-mip-overview > dl > dd:nth-child(8)");
+      let constituencyFrenchName: string | null = null;
+      const constituencyFrenchAddressString: string | null = getText(loadedPageFrench, "#contact > div > div > div.col-md-9 > div > div > p:nth-child(1)");
+      let constituencyFrenchAddress: Array<string> | null = null;
+      if (constituencyFrenchAddressString) {
+        const constituencyFrenchAddressArray: Array<string> = constituencyFrenchAddressString.split("\n").map(s => s.trim());
+        constituencyFrenchName = constituencyFrenchAddressArray[0].trim();
+        constituencyFrenchAddress = constituencyFrenchAddressArray.filter((e, index) => index !== 0).map(s => s.trim()).filter(s => !!s);
+      }
 
-      if (constituency === null || email === null || hillTelephone === null || hillFax === null || constituencyTelephone === null || constituencyAddress === null) {
+      let constituencyFrenchAlternateName: string | null = null;
+      const constituencyFrenchAlternateAddressString: string | null = getText(loadedPageFrench, "#contact > div > div > div.col-md-9 > div > div:nth-child(2) > p:nth-child(1)");
+      let constituencyFrenchAlternateAddress: Array<string> | null = null;
+      if (constituencyFrenchAlternateAddressString) {
+        const constituencyFrenchAlternateAddressArray: Array<string> = constituencyFrenchAlternateAddressString.split("\n").map(s => s.trim());
+        constituencyFrenchAlternateName = constituencyFrenchAlternateAddressArray[0].trim();
+        constituencyFrenchAlternateAddress = constituencyFrenchAlternateAddressArray.filter((e, index) => index !== 0).map(s => s.trim()).filter(s => !!s);
+      }
+
+      const preferredLanguage: string | null = getText(loadedPage, "div > div.col.ce-mip-overview > dl > dd:nth-child(8)");
+
+      if (constituency === null || email === null || constituencyTelephone === null || constituencyAddress === null) {
         console.log(`Unable to find contact information for url: ${url}`);
       } else {
+        const constituencyNameString: string = constituencyName || "";
+        const constituencyFrenchNameString: string = constituencyFrenchName || "";
+        const switchOffices: boolean = !constituencyNameString.includes("Main office");
+        const switchOfficesFrench: boolean = !constituencyFrenchNameString.includes("Bureau principal");
+
         mpContacts[constituency] = {
           constituency: constituency as string,
           preferredLanguage: preferredLanguage as string,
           email: email as string,
           website: website as string,
-          hillOffice: {
-            name: "House of Commons",
-            address: ["Ottawa, Ontario,", "Canada", "K1A 0A6"],
-            telephone: hillTelephone,
-            fax: hillFax,
-          },
           mainOffice: {
-            name: constituencyName,
-            address: constituencyAddress,
-            telephone: constituencyTelephone,
-            fax: constituencyFax,
+            name: switchOffices ? constituencyAlternateName : constituencyName,
+            address: switchOffices ? constituencyAlternateAddress : constituencyAddress,
+            telephone: switchOffices ? constituencyAlternateTelephone : constituencyTelephone,
+            fax: switchOffices ? constituencyAlternateFax : constituencyFax,
           },
           alternateOffice: {
-            name: constituencyAlternateName,
-            address: constituencyAlternateAddress,
-            telephone: constituencyAlternateTelephone,
-            fax: constituencyAlternateFax,
+            name: switchOffices ? constituencyName : constituencyAlternateName,
+            address: switchOffices ? constituencyAddress : constituencyAlternateAddress,
+            telephone: switchOffices ? constituencyTelephone : constituencyAlternateTelephone,
+            fax: switchOffices ? constituencyFax : constituencyAlternateFax,
+          },
+          mainOfficeFrench: {
+            name: switchOfficesFrench ? constituencyFrenchAlternateName : constituencyFrenchName,
+            address: switchOfficesFrench ? constituencyFrenchAlternateAddress : constituencyFrenchAddress,
+            telephone: switchOffices ? constituencyAlternateTelephone : constituencyTelephone,
+            fax: switchOffices ? constituencyAlternateFax : constituencyFax,
+          },
+          alternateOfficeFrench: {
+            name: switchOfficesFrench ? constituencyFrenchName : constituencyFrenchAlternateName,
+            address: switchOfficesFrench ? constituencyFrenchAddress : constituencyFrenchAlternateAddress,
+            telephone: switchOffices ? constituencyTelephone : constituencyAlternateTelephone,
+            fax: switchOffices ? constituencyFax : constituencyAlternateFax,
           },
         };
       }

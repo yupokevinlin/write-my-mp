@@ -49,7 +49,7 @@ const HomePageContainer: React.FC<HomePageContainerProps> = (props) => {
 
   return (
     <React.Fragment>
-      <HomePage mapPolygons={appState.mapPolygons}/>
+      <HomePage mapPolygons={appState.mapPolygons} isEnglish={appState.isEnglish}/>
       {
         !appState.isInitComplete ? (
           <LoadingPage width={width} text={"Loading data... Please wait."}/>

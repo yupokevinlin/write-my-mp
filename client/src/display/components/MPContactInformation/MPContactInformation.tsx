@@ -1,7 +1,6 @@
 import React from "react";
 import {createStyles, Theme, useTheme} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import {MapPolygon} from "../../../../../shared/types/data/Map/MapTypes";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
@@ -11,6 +10,7 @@ import {getPartyColor} from "../MPInformation/types";
 export type MPContactInformationProps = MPContactInformationDataProps & MPContactInformationStyleProps & MPContactInformationEventProps;
 
 export interface MPContactInformationDataProps {
+  isEnglish: boolean;
   currentMapPolygon: MapPolygon | null;
 }
 
@@ -206,6 +206,7 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
   const classes = useStyles();
 
   const {
+    isEnglish,
     currentMapPolygon,
   } = props;
 
@@ -218,11 +219,15 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
   };
 
   const handleWebsiteClick = (e: React.MouseEvent<HTMLElement>): void => {
-    const website: string = currentMapPolygon.mpData.contact.website;
+    const website: string = getWebsite();
     const newWindow: Window = window.open(website, "_blank", "noopener,noreferrer")
     if (newWindow) {
       newWindow.opener = null;
     }
+  };
+
+  const getWebsite = (): string => {
+    return isEnglish ? currentMapPolygon.mpData.contact.website : (currentMapPolygon.mpData.contact.website ? currentMapPolygon.mpData.contact.website.replace(".ca/?lang=en", ".ca").replace(".ca/en", ".ca") : "") || "";
   };
 
   if (!!currentMapPolygon && !!currentMapPolygon.mpData && currentMapPolygon.mpData.party !== "Vacant") {
@@ -236,7 +241,9 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
           <div className={classes.emailWebsite}>
             <div className={classes.label}>
               <Typography className={classes.labelText}>
-                Email:
+                {
+                  isEnglish ? "Email:" : "Courriel:"
+                }
               </Typography>
             </div>
             <div className={classes.value}>
@@ -251,14 +258,14 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
             <div className={classes.label}>
               <Typography className={classes.labelText}>
                 {
-                  hasWebsite ? "Website" : ""
+                  hasWebsite ? (isEnglish ? "Website:" : "Site Web:") : ""
                 }
               </Typography>
             </div>
             <div className={classes.value}>
               <Link component={"button"} variant={"h5"} className={classes.valueText} onClick={handleWebsiteClick}>
                 {
-                  currentMapPolygon.mpData.contact.website || ""
+                  getWebsite()
                 }
               </Link>
             </div>
@@ -270,13 +277,15 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
           })}>
             <div className={classes.contactTitle}>
               <Typography className={classes.contactTitleText}>
-                Hill Office
+                {
+                  isEnglish ? "Hill Office" : "Bureau de la colline"
+                }
               </Typography>
             </div>
             <div className={classes.label}>
               <Typography className={classes.labelText}>
                 {
-                  currentMapPolygon.mpData.contact.hillOffice?.name || "N/A"
+                  currentMapPolygon.mpData.contact.hillOffice?.name || ""
                 }
               </Typography>
             </div>
@@ -294,14 +303,14 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
             <div className={classes.value}>
               <Typography className={classes.valueText}>
                 {
-                  `Telephone: ${currentMapPolygon.mpData.contact.hillOffice?.telephone || "N/A"}`
+                  `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon.mpData.contact.hillOffice?.telephone || ""}`
                 }
               </Typography>
             </div>
             <div className={classes.value}>
               <Typography className={classes.valueText}>
                 {
-                  `Fax: ${currentMapPolygon.mpData.contact.hillOffice?.fax || "N/A"}`
+                  `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon.mpData.contact.hillOffice?.fax || ""}`
                 }
               </Typography>
             </div>
@@ -313,7 +322,7 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
             <div className={classes.contactTitle}>
               <Typography className={classes.contactTitleText}>
                 {
-                  hasMainOffice ? "Main Office" : ""
+                  hasMainOffice ? (isEnglish ? "Main Office" : "Bureau principal") : ""
                 }
               </Typography>
             </div>
@@ -338,14 +347,14 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
             <div className={classes.value}>
               <Typography className={classes.valueText}>
                 {
-                  currentMapPolygon.mpData.contact.mainOffice?.telephone ? `Telephone: ${currentMapPolygon.mpData.contact.mainOffice?.telephone || ""}` : ""
+                  currentMapPolygon.mpData.contact.mainOffice?.telephone ? `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon.mpData.contact.mainOffice?.telephone || ""}` : ""
                 }
               </Typography>
             </div>
             <div className={classes.value}>
               <Typography className={classes.valueText}>
                 {
-                  currentMapPolygon.mpData.contact.mainOffice?.fax ? `Fax: ${currentMapPolygon.mpData.contact.mainOffice?.fax || ""}` : ""
+                  currentMapPolygon.mpData.contact.mainOffice?.fax ? `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon.mpData.contact.mainOffice?.fax || ""}` : ""
                 }
               </Typography>
             </div>
@@ -357,7 +366,7 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
                 <div className={classes.contactTitle}>
                   <Typography className={classes.contactTitleText}>
                     {
-                      hasAlternateOffice ? "Alternate Office" : ""
+                      hasAlternateOffice ? (isEnglish ? "Office" : "Bureau") : ""
                     }
                   </Typography>
                 </div>
@@ -382,14 +391,14 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
                 <div className={classes.value}>
                   <Typography className={classes.valueText}>
                     {
-                      currentMapPolygon.mpData.contact.alternateOffice?.telephone ? `Telephone: ${currentMapPolygon.mpData.contact.alternateOffice?.telephone || ""}` : ""
+                      currentMapPolygon.mpData.contact.alternateOffice?.telephone ? `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon.mpData.contact.alternateOffice?.telephone || ""}` : ""
                     }
                   </Typography>
                 </div>
                 <div className={classes.value}>
                   <Typography className={classes.valueText}>
                     {
-                      currentMapPolygon.mpData.contact.alternateOffice?.fax ? `Fax: ${currentMapPolygon.mpData.contact.alternateOffice?.fax || ""}` : ""
+                      currentMapPolygon.mpData.contact.alternateOffice?.fax ? `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon.mpData.contact.alternateOffice?.fax || ""}` : ""
                     }
                   </Typography>
                 </div>

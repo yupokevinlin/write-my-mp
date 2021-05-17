@@ -9,6 +9,7 @@ import {getPartyColor} from "./types";
 export type MPInformationProps = MPInformationDataProps & MPInformationStyleProps & MPInformationEventProps;
 
 export interface MPInformationDataProps {
+  isEnglish: boolean;
   currentMapPolygon: MapPolygon | null;
 }
 
@@ -228,16 +229,17 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
   const classes = useStyles();
 
   const {
+    isEnglish,
     currentMapPolygon,
   } = props;
 
   if (!!currentMapPolygon && !!currentMapPolygon.mpData) {
     const isVacant: boolean = currentMapPolygon.mpData.party === "Vacant";
-    const name: string = isVacant ? "Vacant Seat" : `${!!currentMapPolygon.mpData.title ? `The ${currentMapPolygon.mpData.title.replace("Hon.", "Honourable")} ` : ""}${currentMapPolygon.mpData.firstName} ${currentMapPolygon.mpData.lastName}`;
-    const party: string = isVacant ? "N/A" : currentMapPolygon.mpData.party;
-    const constituencyName: string = currentMapPolygon.constituency.replace(/—/g, "-").replace(/-/g, " - ");
+    const name: string = isVacant ? "Vacant Seat" : (isEnglish ? (`${!!currentMapPolygon.mpData.title ? `The ${currentMapPolygon.mpData.title.replace("Hon.", "Honourable")} ` : ""}${currentMapPolygon.mpData.firstName} ${currentMapPolygon.mpData.lastName}`) : (`${!!currentMapPolygon.mpData.title ? `L'${currentMapPolygon.mpData.title.replace("Hon.", "honorable")} `.replace("L'Right", "Le très") : ""}${currentMapPolygon.mpData.firstName} ${currentMapPolygon.mpData.lastName}`));
+    const party: string = isVacant ? `${isEnglish ? "N/A" : "n/d"}` : currentMapPolygon.mpData.party;
+    const constituencyName: string = (isEnglish ? currentMapPolygon.constituency : currentMapPolygon.constituencyFrench).replace(/—/g, "-").replace(/-/g, " - ");
     const province: string = currentMapPolygon.mpData.province;
-    const preferredLanguage: string = isVacant ? "N/A" : currentMapPolygon.mpData.contact.preferredLanguage;
+    const preferredLanguage: string = isVacant ? `${isEnglish ? "N/A" : "n/d"}` : currentMapPolygon.mpData.contact.preferredLanguage;
 
     return (
       <div className={classes.paper} style={{backgroundColor: `${getPartyColor(currentMapPolygon.mpData.party)}15`}}>
@@ -260,7 +262,9 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
           </div>
           <div className={classes.label}>
             <Typography className={classes.labelText}>
-              Political Affiliation:
+              {
+                isEnglish ? "Political Affiliation:" : "Affiliation politique:"
+              }
             </Typography>
           </div>
           <div className={classes.value}>
@@ -273,7 +277,9 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
           <div className={classes.partyBar} style={{backgroundColor: getPartyColor(currentMapPolygon.mpData.party)}}/>
           <div className={classes.label}>
             <Typography className={classes.labelText}>
-              Constituency:
+              {
+                isEnglish ? "Constituency:" : "Circonscription:"
+              }
             </Typography>
           </div>
           <div className={classes.value}>
@@ -285,7 +291,9 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
           </div>
           <div className={classes.label}>
             <Typography className={classes.labelText}>
-              Province / Territory:
+              {
+                isEnglish ? "Province / Territory:" : "Province / Territoire:"
+              }
             </Typography>
           </div>
           <div className={classes.value}>
@@ -297,7 +305,9 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
           </div>
           <div className={classes.label}>
             <Typography className={classes.labelText}>
-              Preferred Language:
+              {
+                isEnglish ? "Preferred Language:" : "Langue préférée:"
+              }
             </Typography>
           </div>
           <div className={classes.value}>

@@ -17,7 +17,7 @@ export namespace LanguageUtils {
         return "Ontario";
       }
       case "Quebec": {
-        return "Quebec";
+        return "Québec";
       }
       case "New Brunswick": {
         return "Nouveau-Brunswick";

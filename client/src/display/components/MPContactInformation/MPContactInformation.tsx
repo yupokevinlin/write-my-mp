@@ -230,6 +230,11 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
     return isEnglish ? currentMapPolygon.mpData.contact.website : (currentMapPolygon.mpData.contact.website ? currentMapPolygon.mpData.contact.website.replace(".ca/?lang=en", ".ca").replace(".ca/en", ".ca") : "") || "";
   };
 
+  const hillOfficeName: string = isEnglish ? "House of Commons" : "Chambre des communes";
+  const hillOfficeAddress: Array<string> = isEnglish ? ["Ottawa, Ontario,", "Canada", "K1A 0A6"] : ["Ottawa (Ontario)", "Canada", "K1A 0A6"];
+  const hillOfficeTelephone: string = "613-992-4211";
+  const hillOfficeFax: string = "613-947-0310";
+
   if (!!currentMapPolygon && !!currentMapPolygon.mpData && currentMapPolygon.mpData.party !== "Vacant") {
     const email: string = currentMapPolygon.mpData.contact.email.toLowerCase();
     const hasWebsite: boolean = !!currentMapPolygon.mpData.contact.website;
@@ -285,12 +290,12 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
             <div className={classes.label}>
               <Typography className={classes.labelText}>
                 {
-                  currentMapPolygon.mpData.contact.hillOffice?.name || ""
+                  hillOfficeName
                 }
               </Typography>
             </div>
             {
-              currentMapPolygon.mpData.contact.hillOffice.address.map((address, index) => (
+              hillOfficeAddress.map((address, index) => (
                 <div className={classes.value} key={index}>
                   <Typography className={classes.valueText}>
                     {
@@ -303,14 +308,14 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
             <div className={classes.value}>
               <Typography className={classes.valueText}>
                 {
-                  `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon.mpData.contact.hillOffice?.telephone || ""}`
+                  `${isEnglish ? "Telephone:" : "Téléphone:"} ${hillOfficeTelephone}`
                 }
               </Typography>
             </div>
             <div className={classes.value}>
               <Typography className={classes.valueText}>
                 {
-                  `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon.mpData.contact.hillOffice?.fax || ""}`
+                  `${isEnglish ? "Fax:" : "Télécopieur:"} ${hillOfficeFax}`
                 }
               </Typography>
             </div>
@@ -329,12 +334,12 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
             <div className={classes.label}>
               <Typography className={classes.labelText}>
                 {
-                  currentMapPolygon.mpData.contact.mainOffice?.name || ""
+                  ((isEnglish ? currentMapPolygon.mpData.contact.mainOffice?.name : currentMapPolygon.mpData.contact.mainOfficeFrench?.name) || "").replace("Main office - ", "").replace("Bureau principal - ", "")
                 }
               </Typography>
             </div>
             {
-              (hasMainOffice ? currentMapPolygon.mpData.contact.mainOffice.address : []).map((address, index) => (
+              (hasMainOffice ? (isEnglish ? currentMapPolygon.mpData.contact.mainOffice.address : currentMapPolygon.mpData.contact.mainOfficeFrench.address) : []).map((address, index) => (
                 <div className={classes.value} key={index}>
                   <Typography className={classes.valueText}>
                     {
@@ -373,12 +378,12 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
                 <div className={classes.label}>
                   <Typography className={classes.labelText}>
                     {
-                      currentMapPolygon.mpData.contact.alternateOffice?.name || ""
+                      (isEnglish ? currentMapPolygon.mpData.contact.alternateOffice?.name : currentMapPolygon.mpData.contact.alternateOfficeFrench?.name) || ""
                     }
                   </Typography>
                 </div>
                 {
-                  (hasAlternateOffice ? currentMapPolygon.mpData.contact.alternateOffice.address : []).map((address, index) => (
+                  (hasAlternateOffice ? (isEnglish ? currentMapPolygon.mpData.contact.alternateOffice.address : currentMapPolygon.mpData.contact.alternateOfficeFrench.address) : []).map((address, index) => (
                     <div className={classes.value} key={index}>
                       <Typography className={classes.valueText}>
                         {

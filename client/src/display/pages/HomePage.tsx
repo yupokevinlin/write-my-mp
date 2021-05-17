@@ -14,6 +14,7 @@ export type HomePageProps = HomePageDataProps & HomePageStyleProps & HomePageEve
 
 export interface HomePageDataProps {
   mapPolygons: Array<MapPolygon>;
+  isEnglish: boolean;
 }
 
 export interface HomePageStyleProps {
@@ -67,6 +68,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 
   const {
     mapPolygons,
+    isEnglish,
     width,
   } = props;
 
@@ -99,8 +101,8 @@ const HomePage: React.FC<HomePageProps> = (props) => {
       </div>
       <div className={classes.informationContainer}>
         <Paper className={classes.mpInformationContainer} square elevation={3}>
-          <MPInformation currentMapPolygon={currentMapPolygon}/>
-          <MPContactInformation currentMapPolygon={currentMapPolygon}/>
+          <MPInformation currentMapPolygon={currentMapPolygon} isEnglish={isEnglish}/>
+          <MPContactInformation currentMapPolygon={currentMapPolygon} isEnglish={isEnglish}/>
         </Paper>
       </div>
     </div>

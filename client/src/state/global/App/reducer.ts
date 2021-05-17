@@ -3,6 +3,7 @@ import {AppAction} from "./actions";
 
 export const initialState: AppState = {
   isInitComplete: false,
+  isEnglish: false,
   mapPolygons: [],
 };
 
@@ -18,6 +19,12 @@ export const reducer = (state: AppState = initialState, action: AppAction): AppS
       return {
         ...state,
         mapPolygons: action.mapPolygons,
+      }
+    }
+    case AppActionTypes.SET_IS_ENGLISH: {
+      return {
+        ...state,
+        isEnglish: action.isEnglish,
       }
     }
     default:

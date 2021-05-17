@@ -2,7 +2,8 @@ import {AppActionTypes} from "./types";
 import {MapPolygon} from "../../../../../shared/types/data/Map/MapTypes";
 export type AppAction = AppInitAction
 | AppSetIsInitCompleteAction
-| AppSetMapPolygonsAction;
+| AppSetMapPolygonsAction
+| AppSetIsEnglishAction;
 
 export interface AppInitAction {
   type: typeof AppActionTypes.INIT;
@@ -32,5 +33,16 @@ export const setMapPolygons = (mapPolygons: Array<MapPolygon>): AppSetMapPolygon
   return {
     type: AppActionTypes.SET_MAP_POLYGONS,
     mapPolygons: mapPolygons,
+  };
+};
+
+export interface AppSetIsEnglishAction {
+  type: typeof AppActionTypes.SET_IS_ENGLISH;
+  isEnglish: boolean;
+}
+export const setIsEnglish = (isEnglish: boolean): AppSetIsEnglishAction => {
+  return {
+    type: AppActionTypes.SET_IS_ENGLISH,
+    isEnglish: isEnglish,
   };
 };

@@ -236,7 +236,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
 
   if (!!currentMapPolygon && !!currentMapPolygon.mpData) {
     const isVacant: boolean = currentMapPolygon.mpData.party === "Vacant";
-    const name: string = isVacant ? "Vacant Seat" : (isEnglish ? (`${!!currentMapPolygon.mpData.title ? `The ${currentMapPolygon.mpData.title.replace("Hon.", "Honourable")} ` : ""}${currentMapPolygon.mpData.firstName} ${currentMapPolygon.mpData.lastName}`) : (`${!!currentMapPolygon.mpData.title ? `L'${currentMapPolygon.mpData.title.replace("Hon.", "honorable")} `.replace("L'Right", "Le très") : ""}${currentMapPolygon.mpData.firstName} ${currentMapPolygon.mpData.lastName}`));
+    const name: string = isVacant ? (isEnglish ? "This seat is vacant" : "Ce siège est vacant") : (isEnglish ? (`${!!currentMapPolygon.mpData.title ? `The ${currentMapPolygon.mpData.title.replace("Hon.", "Honourable")} ` : ""}${currentMapPolygon.mpData.firstName} ${currentMapPolygon.mpData.lastName}`) : (`${!!currentMapPolygon.mpData.title ? `L'${currentMapPolygon.mpData.title.replace("Hon.", "honorable")} `.replace("L'Right", "Le très") : ""}${currentMapPolygon.mpData.firstName} ${currentMapPolygon.mpData.lastName}`));
     const party: string = isVacant ? `${isEnglish ? "N/A" : "n/d"}` : (isEnglish ? currentMapPolygon.mpData.party : LanguageUtils.getFrenchPartyFromParty(currentMapPolygon.mpData.party));
     const constituencyName: string = (isEnglish ? currentMapPolygon.constituency : currentMapPolygon.constituencyFrench).replace(/—/g, "-").replace(/-/g, " - ");
     const province: string = isEnglish ? currentMapPolygon.mpData.province : LanguageUtils.getFrenchProvinceFromProvince(currentMapPolygon.mpData.province);

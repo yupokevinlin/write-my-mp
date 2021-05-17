@@ -3,7 +3,6 @@ import {createStyles, Theme, useTheme} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {MapPolygon} from "../../../../../shared/types/data/Map/MapTypes";
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
 import PersonIcon from "@material-ui/icons/Person";
 import {getPartyColor} from "./types";
 
@@ -28,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "row",
       alignItems: "flex-start",
       justifyContent: "flex-start",
+      width: "100%",
       [theme.breakpoints.up("xs")]: {
 
       },
@@ -39,8 +39,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       [theme.breakpoints.up("lg")]: {
         height: "230px",
-        width: "calc(100% - 30px)",
-        margin: "15px",
       },
     },
     picture: {
@@ -216,7 +214,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("lg")]: {
-        width: "70%",
+        width: "calc(100% - 30px)",
         height: "5px",
         marginBottom: "5px",
         marginLeft: "15px",
@@ -242,7 +240,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
     const preferredLanguage: string = isVacant ? "N/A" : currentMapPolygon.mpData.contact.preferredLanguage;
 
     return (
-      <Paper className={classes.paper} elevation={3} square>
+      <div className={classes.paper} style={{backgroundColor: `${getPartyColor(currentMapPolygon.mpData.party)}15`}}>
         {
           isVacant ? (
             <div className={classes.vacantPicture}>
@@ -310,13 +308,13 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
             </Typography>
           </div>
         </div>
-      </Paper>
+      </div>
     );
   } else {
     return (
-      <Paper className={classes.paper} elevation={3} square>
+      <div className={classes.paper}>
 
-      </Paper>
+      </div>
     );
   }
 

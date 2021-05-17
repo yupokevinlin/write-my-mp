@@ -6,6 +6,7 @@ import {MapPolygon} from "../../../../../shared/types/data/Map/MapTypes";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import clsx from "clsx";
+import {getPartyColor} from "../MPInformation/types";
 
 export type MPContactInformationProps = MPContactInformationDataProps & MPContactInformationStyleProps & MPContactInformationEventProps;
 
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "column",
       alignItems: "flex-start",
       justifyContent: "flex-start",
+      width: "100%",
       [theme.breakpoints.up("xs")]: {
 
       },
@@ -39,8 +41,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       [theme.breakpoints.up("lg")]: {
         height: "255px",
-        width: "calc(100% - 30px)",
-        margin: "15px",
       },
     },
     emailWebsiteWrapper: {
@@ -231,7 +231,7 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
     const hasMainOffice: boolean = !!currentMapPolygon.mpData.contact.mainOffice.name;
     const hasAlternateOffice: boolean = !!currentMapPolygon.mpData.contact.alternateOffice.name;
     return (
-      <Paper className={classes.paper} elevation={3} square>
+      <div className={classes.paper} style={{backgroundColor: `${getPartyColor(currentMapPolygon.mpData.party)}15`}}>
         <div className={classes.emailWebsiteWrapper}>
           <div className={classes.emailWebsite}>
             <div className={classes.label}>
@@ -397,13 +397,13 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
             ) : null
           }
         </div>
-      </Paper>
+      </div>
     );
   } else {
     return (
-      <Paper className={classes.paper} elevation={3} square>
+      <div className={classes.paper}>
 
-      </Paper>
+      </div>
     );
   }
 };

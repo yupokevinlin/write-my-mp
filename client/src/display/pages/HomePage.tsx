@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {createStyles, Theme, useTheme, withWidth} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {MapPolygon} from "../../../../shared/types/data/Map/MapTypes";
-import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
 import ESRIMap from "../components/ESRIMap/ESRIMap";
 import {Breakpoint} from "@material-ui/core/styles/createBreakpoints";
 import LoadingPageTransparent from "./statelessPages/LoadingPageTransparent";
@@ -38,10 +38,26 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100%",
       width: "50%",
     },
-    tableContainer: {
+    informationContainer: {
       height: "100%",
       width: "50%",
     },
+    mpInformationContainer: {
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        height: "485px",
+        width: "calc(100% - 30px)",
+        margin: "15px",
+      },
+    }
   }),
 );
 
@@ -81,9 +97,11 @@ const HomePage: React.FC<HomePageProps> = (props) => {
         <ESRIMap initComplete={isESRIMapLoaded} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition}/>
         <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
       </div>
-      <div className={classes.tableContainer}>
-        <MPInformation currentMapPolygon={currentMapPolygon}/>
-        <MPContactInformation currentMapPolygon={currentMapPolygon}/>
+      <div className={classes.informationContainer}>
+        <Paper className={classes.mpInformationContainer} square elevation={3}>
+          <MPInformation currentMapPolygon={currentMapPolygon}/>
+          <MPContactInformation currentMapPolygon={currentMapPolygon}/>
+        </Paper>
       </div>
     </div>
   );

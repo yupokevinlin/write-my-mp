@@ -24,7 +24,7 @@ export interface MPInformationEventProps {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    paper: {
+    root: {
       display: "flex",
       flexDirection: "row",
       alignItems: "flex-start",
@@ -249,7 +249,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
     const preferredLanguage: string = isVacant ? `${isEnglish ? "N/A" : "n/d"}` : (isEnglish ? currentMapPolygon.mpData.contact.preferredLanguage : currentMapPolygon.mpData.contact.preferredLanguage.replace("English", "Anglais").replace("French", "Français"));
 
     return (
-      <div className={classes.paper} style={{backgroundColor: `${getPartyColor(currentMapPolygon.mpData.party)}15`}}>
+      <div className={classes.root} style={{backgroundColor: `${getPartyColor(currentMapPolygon.mpData.party)}15`}}>
         {
           isVacant ? (
             <div className={classes.vacantPicture}>
@@ -329,7 +329,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
     );
   } else {
     return (
-      <div className={classes.paper}>
+      <div className={classes.root}>
 
       </div>
     );

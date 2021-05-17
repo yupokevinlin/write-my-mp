@@ -24,7 +24,7 @@ export interface MPContactInformationEventProps {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    paper: {
+    root: {
       display: "flex",
       flexDirection: "column",
       alignItems: "flex-start",
@@ -241,7 +241,7 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
     const hasMainOffice: boolean = !!currentMapPolygon.mpData.contact.mainOffice.name;
     const hasAlternateOffice: boolean = !!currentMapPolygon.mpData.contact.alternateOffice.name;
     return (
-      <div className={classes.paper} style={{backgroundColor: `${getPartyColor(currentMapPolygon.mpData.party)}15`}}>
+      <div className={classes.root} style={{backgroundColor: `${getPartyColor(currentMapPolygon.mpData.party)}15`}}>
         <div className={classes.emailWebsiteWrapper}>
           <div className={classes.emailWebsite}>
             <div className={classes.label}>
@@ -415,7 +415,7 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
     );
   } else {
     return (
-      <div className={classes.paper}>
+      <div className={classes.root}>
 
       </div>
     );

@@ -209,6 +209,21 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
     currentMapPolygon,
   } = props;
 
+  const handleEmailClick = (e: React.MouseEvent<HTMLElement>): void => {
+    const email: string = currentMapPolygon.mpData.contact.email.toLowerCase();
+    const newWindow: Window = window.open(`mailto:${email}`, "_blank", "noopener,noreferrer")
+    if (newWindow) {
+      newWindow.opener = null;
+    }
+  };
+
+  const handleWebsiteClick = (e: React.MouseEvent<HTMLElement>): void => {
+    const website: string = currentMapPolygon.mpData.contact.website;
+    const newWindow: Window = window.open(website, "_blank", "noopener,noreferrer")
+    if (newWindow) {
+      newWindow.opener = null;
+    }
+  };
 
   if (!!currentMapPolygon && !!currentMapPolygon.mpData && currentMapPolygon.mpData.party !== "Vacant") {
     const email: string = currentMapPolygon.mpData.contact.email.toLowerCase();
@@ -225,11 +240,11 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
               </Typography>
             </div>
             <div className={classes.value}>
-              <Typography className={classes.valueText}>
+              <Link component={"button"} variant={"h5"} className={classes.valueText} onClick={handleEmailClick}>
                 {
                   email
                 }
-              </Typography>
+              </Link>
             </div>
           </div>
           <div className={classes.emailWebsite}>
@@ -241,7 +256,7 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
               </Typography>
             </div>
             <div className={classes.value}>
-              <Link className={classes.valueText}>
+              <Link component={"button"} variant={"h5"} className={classes.valueText} onClick={handleWebsiteClick}>
                 {
                   currentMapPolygon.mpData.contact.website || ""
                 }

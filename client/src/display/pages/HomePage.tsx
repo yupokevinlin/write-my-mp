@@ -7,6 +7,8 @@ import ESRIMap from "../components/ESRIMap/ESRIMap";
 import {Breakpoint} from "@material-ui/core/styles/createBreakpoints";
 import LoadingPageTransparent from "./statelessPages/LoadingPageTransparent";
 import {XYCoord} from "../components/ESRIMap/types";
+import MPInformation from "../components/MPInformation/MPInformation";
+import MPContactInformation from "../components/MPContactInformation/MPContactInformation";
 
 export type HomePageProps = HomePageDataProps & HomePageStyleProps & HomePageEventProps;
 
@@ -34,11 +36,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     esriContainer: {
       height: "100%",
-      width: "60%",
+      width: "50%",
     },
     tableContainer: {
       height: "100%",
-      width: "40%",
+      width: "50%",
     },
   }),
 );
@@ -80,7 +82,8 @@ const HomePage: React.FC<HomePageProps> = (props) => {
         <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
       </div>
       <div className={classes.tableContainer}>
-
+        <MPInformation currentMapPolygon={currentMapPolygon}/>
+        <MPContactInformation currentMapPolygon={currentMapPolygon}/>
       </div>
     </div>
   );

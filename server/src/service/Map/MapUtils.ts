@@ -53,11 +53,11 @@ export namespace MapUtils {
         constituencyFax = constituencyTelephoneFaxArray[1] ? constituencyTelephoneFaxArray[1].replace("Fax:", "").trim() : null;
       }
       const constituencyAddressString: string | null = getText($, "#contact > div > div > div.col-md-9 > div > div > p:nth-child(1)");
-      let constituencyAddress: string | null = null;
+      let constituencyAddress: Array<string> | null = null;
       if (constituencyAddressString) {
         const constituencyAddressArray: Array<string> = constituencyAddressString.split("\n").map(s => s.trim());
         constituencyName = constituencyAddressArray[0].replace("Main office -", "").trim();
-        constituencyAddress = constituencyAddressArray.filter((e, index) => index !== 0).join(" ").trim();
+        constituencyAddress = constituencyAddressArray.filter((e, index) => index !== 0).map(s => s.trim()).filter(s => !!s);
       }
 
       let constituencyAlternateName: string | null = null;
@@ -70,15 +70,14 @@ export namespace MapUtils {
         constituencyAlternateFax = constituencyAlternateTelephoneFaxArray[1] ? constituencyAlternateTelephoneFaxArray[1].replace("Fax:", "").trim() : null;
       }
       const constituencyAlternateAddressString: string | null = getText($, "#contact > div > div > div.col-md-9 > div > div:nth-child(2) > p:nth-child(1)");
-      let constituencyAlternateAddress: string | null = null;
+      let constituencyAlternateAddress: Array<string> | null = null;
       if (constituencyAlternateAddressString) {
         const constituencyAlternateAddressArray: Array<string> = constituencyAlternateAddressString.split("\n").map(s => s.trim());
         constituencyAlternateName = constituencyAlternateAddressArray[0].trim();
-        constituencyAlternateAddress = constituencyAlternateAddressArray.filter((e, index) => index !== 0).join(" ").trim();
+        constituencyAlternateAddress = constituencyAlternateAddressArray.filter((e, index) => index !== 0).map(s => s.trim()).filter(s => !!s);
       }
 
       const preferredLanguage: string | null = getText($, "div > div.col.ce-mip-overview > dl > dd:nth-child(8)");
-      console.log(preferredLanguage);
 
       if (constituency === null || email === null || hillTelephone === null || hillFax === null || constituencyTelephone === null || constituencyAddress === null) {
         console.log(`Unable to find contact information for url: ${url}`);
@@ -90,7 +89,7 @@ export namespace MapUtils {
           website: website as string,
           hillOffice: {
             name: "House of Commons",
-            address: "Ottawa, Ontario, Canada K1A 0A6",
+            address: ["Ottawa, Ontario,", "Canada", "K1A 0A6"],
             telephone: hillTelephone,
             fax: hillFax,
           },

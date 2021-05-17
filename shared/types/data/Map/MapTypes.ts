@@ -30,7 +30,7 @@ export interface MPContact {
 
 export interface MPOffice {
   name: string | null;
-  address: string | null;
+  address: Array<string> | null;
   telephone: string | null;
   fax: string | null;
 }

@@ -20,7 +20,7 @@ export class ExpressServer {
     this.httpServer = this.listen(server, port);
     this.server = server;
     this.addEndPoints(server);
-    //await MapUtils.fetchData()
+    //await MapUtils.fetchData();
     return this.server;
   }
 

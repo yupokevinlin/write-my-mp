@@ -20,6 +20,7 @@ export interface MPData {
 
 export interface MPContact {
   constituency: string;
+  preferredLanguage: string;
   email: string;
   website: string;
   hillOffice: MPOffice;

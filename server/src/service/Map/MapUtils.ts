@@ -77,11 +77,15 @@ export namespace MapUtils {
         constituencyAlternateAddress = constituencyAlternateAddressArray.filter((e, index) => index !== 0).join(" ").trim();
       }
 
+      const preferredLanguage: string | null = getText($, "div > div.col.ce-mip-overview > dl > dd:nth-child(8)");
+      console.log(preferredLanguage);
+
       if (constituency === null || email === null || hillTelephone === null || hillFax === null || constituencyTelephone === null || constituencyAddress === null) {
         console.log(`Unable to find contact information for url: ${url}`);
       } else {
         mpContacts[constituency] = {
           constituency: constituency as string,
+          preferredLanguage: preferredLanguage as string,
           email: email as string,
           website: website as string,
           hillOffice: {

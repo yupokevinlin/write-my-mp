@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       [theme.breakpoints.up("lg")]: {
         height: "230px",
+        paddingBottom: "15px",
       },
     },
     picture: {
@@ -60,6 +61,8 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up("lg")]: {
         height: "100%",
         width: "142px",
+        marginTop: "15px",
+        marginLeft: "15px",
       },
     },
     vacantPicture: {
@@ -80,6 +83,8 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up("lg")]: {
         height: "100%",
         width: "142px",
+        marginTop: "15px",
+        marginLeft: "15px",
       },
     },
     vacantPictureIcon: {
@@ -110,7 +115,8 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       [theme.breakpoints.up("lg")]: {
         height: "100%",
-        width: "calc(100% - 142px)",
+        width: "calc(100% - 157px)",
+        marginTop: "15px",
       },
     },
     title: {

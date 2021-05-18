@@ -9,6 +9,7 @@ import LoadingPageTransparent from "./statelessPages/LoadingPageTransparent";
 import {XYCoord} from "../components/ESRIMap/types";
 import MPInformation from "../components/MPInformation/MPInformation";
 import MPContactInformation from "../components/MPContactInformation/MPContactInformation";
+import MPTable from "../components/MPTable/MPTable";
 
 export type HomePageProps = HomePageDataProps & HomePageStyleProps & HomePageEventProps;
 
@@ -29,19 +30,49 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
-      flexDirection: "row",
+      flexDirection: "column",
       alignItems: "flex-start",
       justifyContent: "flex-start",
       height: "100%",
       width: "100%",
     },
-    esriContainer: {
-      height: "100%",
-      width: "50%",
+    esriMapPaper: {
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        height: "500px",
+        width: "calc(50% - 15px)",
+        marginLeft: "15px",
+        marginRight: 0,
+        marginTop: "15px",
+        marginBottom: "15px",
+      },
     },
-    informationContainer: {
-      height: "100%",
-      width: "50%",
+    esriMapInformationContainer: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "flex-start",
+      justifyContent: "flex-start",
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        height: "530px",
+        width: "100%",
+      },
     },
     mpInformationContainer: {
       [theme.breakpoints.up("xs")]: {
@@ -55,8 +86,26 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       [theme.breakpoints.up("lg")]: {
         height: "500px",
-        width: "calc(100% - 30px)",
+        width: "calc(50% - 30px)",
         margin: "15px",
+      },
+    },
+    mpTableContainer: {
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        height: "calc(100% - 545px)",
+        width: "calc(100% - 30px)",
+        marginLeft: "15px",
+        marginRight: "15px",
+        marginBottom: "15px",
       },
     }
   }),
@@ -95,16 +144,19 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 
   return (
     <div className={classes.root}>
-      <div className={classes.esriContainer}>
-        <ESRIMap initComplete={isESRIMapLoaded} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition}/>
-        <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
-      </div>
-      <div className={classes.informationContainer}>
+      <div className={classes.esriMapInformationContainer}>
+        <Paper className={classes.esriMapPaper} square elevation={3}>
+          <ESRIMap initComplete={isESRIMapLoaded} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition}/>
+          <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
+        </Paper>
         <Paper className={classes.mpInformationContainer} square elevation={3}>
           <MPInformation currentMapPolygon={currentMapPolygon} isEnglish={isEnglish}/>
           <MPContactInformation currentMapPolygon={currentMapPolygon} isEnglish={isEnglish}/>
         </Paper>
       </div>
+      <Paper className={classes.mpTableContainer} square elevation={3}>
+        <MPTable mapPolygons={mapPolygons} isEnglish={isEnglish} currentMapPolygon={currentMapPolygon}/>
+      </Paper>
     </div>
   );
 };

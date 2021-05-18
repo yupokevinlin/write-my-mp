@@ -401,12 +401,16 @@ const MPTable: React.FC<MPTableProps> = (props) => {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const searchString: string = e.target.value;
     setSearchString(searchString);
-    setData(getFilteredData(baseData, searchString));
+    setData(getSortedData(getFilteredData(baseData, searchString), sortKey));
   };
 
   const handleSortChange = (key: MPTableSortKey): void => {
     setSortKey(key);
-    setData(getSortedData(baseData, key));
+    if (searchString !== "") {
+      setData(getSortedData(getFilteredData(baseData, searchString), key));
+    } else {
+      setData(getSortedData(baseData, key));
+    }
   };
 
   return (

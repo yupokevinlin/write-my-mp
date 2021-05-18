@@ -27,6 +27,7 @@ export interface ESRIMapDataProps {
   mapPolygons: Array<MapPolygon>;
   initialBaseMap: string;
   currentPosition: XYCoord;
+  tableSelectedRegionGeometry: Array<Array<[number, number]>>;
 }
 
 export interface ESRIMapStyleProps {
@@ -76,6 +77,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
     currentPosition,
     initialBaseMap,
     isEnglish,
+    tableSelectedRegionGeometry,
     width,
     handleMapPolygonClick,
     handleLoadComplete,
@@ -111,11 +113,16 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
         if (prevProps.isEnglish !== isEnglish) {
           handleIsEnglishChange();
         }
+        if (prevProps.tableSelectedRegionGeometry !== tableSelectedRegionGeometry) {
+          handleTableSelectedRegionGeometryChange(Polygon);
+        } else {
+          handleHighlightGeometryChange(Polygon, Graphic);
+        }
       }
-      handleHighlightGeometryChange(Polygon, Graphic);
+      
       return destroyESRIMap;
     });
-  }, [mapPolygons, highlightGeometry, currentPosition, width, isEnglish]);
+  }, [mapPolygons, highlightGeometry, currentPosition, width, isEnglish, tableSelectedRegionGeometry]);
 
   const initialize = (Map, MapView, FeatureLayer, GraphicsLayer, Legend): void => {
     map = new Map({
@@ -556,6 +563,17 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
   const handleIsEnglishChange = (): void => {
     const renderer = getPolygonLayerRenderer();
     polygonLayer.renderer = renderer;
+  };
+
+  const handleTableSelectedRegionGeometryChange = (Polygon): void => {
+    setHighlightGeometry(tableSelectedRegionGeometry);
+    const polygon: Polygon = new Polygon({
+      rings: tableSelectedRegionGeometry,
+      spatialReference: { wkid: 4326 }
+    })
+    mapView.goTo(polygon.extent, {
+      duration: 1000
+    });
   };
 
   return (

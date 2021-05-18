@@ -17,7 +17,7 @@ export interface MPTableRowStyleProps {
 }
 
 export interface MPTableRowEventProps {
-
+  handleClick(constituency: string): void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -178,11 +178,16 @@ const MPTableRow: React.FC<MPTableRowProps> = (props) => {
 
   const {
     data,
+    handleClick,
   } = props;
+
+  const handleRowClick = (e: React.MouseEvent<HTMLElement>): void => {
+    handleClick(data.constituency);
+  };
 
   return (
     <React.Fragment>
-      <div className={classes.root} style={{backgroundColor: data.selected ? `${getPartyColor(data.party)}15` : theme.palette.background.paper}}>
+      <div className={classes.root} style={{backgroundColor: data.selected ? `${getPartyColor(data.party)}15` : theme.palette.background.paper}} onClick={handleRowClick}>
         <Typography className={`${classes.cell} ${classes.name}`}>
           {
             data.name

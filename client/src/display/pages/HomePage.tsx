@@ -123,6 +123,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 
   const [isESRIMapLoaded, setIsESRIMapLoaded] = useState<boolean>(false);
   const [currentMapPolygon, setCurrentMapPolygon] = useState<MapPolygon | null>(null);
+  const [tableSelectedRegionGeometry, setTableSelectedRegionGeometry] = useState<Array<Array<[number, number]>>>([]);
   const [currentPosition, setCurrentPosition] = useState<XYCoord>({x: -1, y: -1,});
 
   const handleLoadComplete = (): void => {
@@ -138,6 +139,11 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     setCurrentMapPolygon(mapPolygon);
   };
 
+  const handleTableRowClick = (mapPolygon: MapPolygon | null): void => {
+    setCurrentMapPolygon(mapPolygon);
+    setTableSelectedRegionGeometry(mapPolygon.geometry);
+  };
+
   const handleUnableToFindPolygonAtCurrentPosition = (): void => {
 
   };
@@ -146,7 +152,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     <div className={classes.root}>
       <div className={classes.esriMapInformationContainer}>
         <Paper className={classes.esriMapPaper} square elevation={3}>
-          <ESRIMap initComplete={isESRIMapLoaded} isEnglish={isEnglish} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition}/>
+          <ESRIMap initComplete={isESRIMapLoaded} isEnglish={isEnglish} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} tableSelectedRegionGeometry={tableSelectedRegionGeometry} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition}/>
           <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
         </Paper>
         <Paper className={classes.mpInformationContainer} square elevation={3}>
@@ -155,7 +161,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
         </Paper>
       </div>
       <Paper className={classes.mpTableContainer} square elevation={3}>
-        <MPTable mapPolygons={mapPolygons} isEnglish={isEnglish} currentMapPolygon={currentMapPolygon}/>
+        <MPTable mapPolygons={mapPolygons} isEnglish={isEnglish} currentMapPolygon={currentMapPolygon} handleTableRowClick={handleTableRowClick}/>
       </Paper>
     </div>
   );

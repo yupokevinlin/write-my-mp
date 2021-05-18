@@ -25,7 +25,7 @@ export interface MPTableStyleProps {
 }
 
 export interface MPTableEventProps {
-
+  handleTableRowClick(mapPolygon: MapPolygon | null): void;
 }
 
 export interface MPRowData {
@@ -243,6 +243,7 @@ const MPTable: React.FC<MPTableProps> = (props) => {
     isEnglish,
     mapPolygons,
     currentMapPolygon,
+    handleTableRowClick,
   } = props;
 
   const [searchString, setSearchString] = useState<string>("");
@@ -427,6 +428,11 @@ const MPTable: React.FC<MPTableProps> = (props) => {
     }
   };
 
+  const handleMPRowClick = (constituency: string): void => {
+    const matchingMapPolygon: MapPolygon | null = mapPolygons.find(mapPolygon => mapPolygon.constituency === constituency);
+    handleTableRowClick(matchingMapPolygon);
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.titleBar}>
@@ -458,7 +464,7 @@ const MPTable: React.FC<MPTableProps> = (props) => {
           <div className={classes.rowInnerWrapper}>
             {
               data.map(row => (
-                <MPTableRow key={row.constituency} data={row}/>
+                <MPTableRow key={row.constituency} data={row} handleClick={handleMPRowClick}/>
               ))
             }
           </div>

@@ -263,7 +263,7 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
             <div className={classes.label}>
               <Typography className={classes.labelText}>
                 {
-                  hasWebsite ? (isEnglish ? "Website:" : "Site Web:") : ""
+                  hasWebsite ? (isEnglish ? "Website:" : "Site web:") : ""
                 }
               </Typography>
             </div>

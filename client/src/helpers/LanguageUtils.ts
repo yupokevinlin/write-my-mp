@@ -61,7 +61,7 @@ export namespace LanguageUtils {
         return "NDP";
       }
       case "Green Party": {
-        return "Parti vert";
+        return "Parti Vert";
       }
       case "Independent": {
         return "Indépendant";

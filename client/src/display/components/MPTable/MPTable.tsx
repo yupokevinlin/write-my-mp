@@ -31,6 +31,7 @@ export interface MPTableEventProps {
 export interface MPRowData {
   name: string;
   party: string;
+  constituencyName: string;
   constituency: string;
   province: string;
   selected: boolean;
@@ -264,7 +265,8 @@ const MPTable: React.FC<MPTableProps> = (props) => {
             name: name,
             province: province,
             party: party,
-            constituency: constituencyName,
+            constituencyName: constituencyName,
+            constituency: mapPolygon.constituency,
             selected: selected,
           }
         });
@@ -273,17 +275,29 @@ const MPTable: React.FC<MPTableProps> = (props) => {
         setData(newData);
       }
       if (prevProps.currentMapPolygon !== currentMapPolygon) {
-        setBaseData(setSelected(baseData, currentMapPolygon));
+        const newBaseData: Array<MPRowData> = setSelected(baseData, currentMapPolygon);
+        setBaseData(newBaseData);
+        const newData: Array<MPRowData> = getSortedData(getFilteredData(newBaseData, searchString), sortKey);
+        setData(newData);
       }
     }
   }, [mapPolygons, currentMapPolygon, isEnglish]);
 
   const setSelected = (dataToSelect: Array<MPRowData>, currentMapPolygon: MapPolygon | null): Array<MPRowData> => {
     if (!!currentMapPolygon) {
-      return dataToSelect.map(e => ({
-        ...e,
-        selected: e.constituency === currentMapPolygon.constituency,
-      }));
+      return dataToSelect.map(e => {
+        if (e.constituency === currentMapPolygon.constituency) {
+          return {
+            ...e,
+            selected: true,
+          };
+        } else {
+          return {
+            ...e,
+            selected: false,
+          };
+        }
+      });
     } else {
       return dataToSelect.map(e => ({
         ...e,

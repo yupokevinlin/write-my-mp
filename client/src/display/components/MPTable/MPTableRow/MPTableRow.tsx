@@ -182,7 +182,7 @@ const MPTableRow: React.FC<MPTableRowProps> = (props) => {
 
   return (
     <React.Fragment>
-      <div className={classes.root}>
+      <div className={classes.root} style={{backgroundColor: data.selected ? `${getPartyColor(data.party)}15` : theme.palette.background.paper}}>
         <Typography className={`${classes.cell} ${classes.name}`}>
           {
             data.name
@@ -198,7 +198,7 @@ const MPTableRow: React.FC<MPTableRowProps> = (props) => {
         </div>
         <Typography className={`${classes.cell} ${classes.constituency}`}>
           {
-            data.constituency
+            data.constituencyName
           }
         </Typography>
         <Typography className={`${classes.cell} ${classes.province}`}>

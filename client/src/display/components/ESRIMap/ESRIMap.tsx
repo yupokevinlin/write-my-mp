@@ -567,13 +567,15 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
 
   const handleTableSelectedRegionGeometryChange = (Polygon): void => {
     setHighlightGeometry(tableSelectedRegionGeometry);
-    const polygon: Polygon = new Polygon({
-      rings: tableSelectedRegionGeometry,
-      spatialReference: { wkid: 4326 }
-    })
-    mapView.goTo(polygon.extent, {
-      duration: 1000
-    });
+    if (tableSelectedRegionGeometry.length > 0) {
+      const polygon: Polygon = new Polygon({
+        rings: tableSelectedRegionGeometry,
+        spatialReference: { wkid: 4326 }
+      })
+      mapView.goTo(polygon.extent, {
+        duration: 1000
+      });
+    }
   };
 
   return (

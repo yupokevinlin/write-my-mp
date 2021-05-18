@@ -144,6 +144,11 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     setTableSelectedRegionGeometry(mapPolygon.geometry);
   };
 
+  const handleTableRowRightClick = (): void => {
+    setCurrentMapPolygon(null);
+    setTableSelectedRegionGeometry([]);
+  };
+
   const handleUnableToFindPolygonAtCurrentPosition = (): void => {
 
   };
@@ -161,7 +166,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
         </Paper>
       </div>
       <Paper className={classes.mpTableContainer} square elevation={3}>
-        <MPTable mapPolygons={mapPolygons} isEnglish={isEnglish} currentMapPolygon={currentMapPolygon} handleTableRowClick={handleTableRowClick}/>
+        <MPTable mapPolygons={mapPolygons} isEnglish={isEnglish} currentMapPolygon={currentMapPolygon} handleTableRowClick={handleTableRowClick} handleTableRowRightClick={handleTableRowRightClick}/>
       </Paper>
     </div>
   );

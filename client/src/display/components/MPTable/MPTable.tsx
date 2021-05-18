@@ -26,6 +26,7 @@ export interface MPTableStyleProps {
 
 export interface MPTableEventProps {
   handleTableRowClick(mapPolygon: MapPolygon | null): void;
+  handleTableRowRightClick(): void;
 }
 
 export interface MPRowData {
@@ -244,6 +245,7 @@ const MPTable: React.FC<MPTableProps> = (props) => {
     mapPolygons,
     currentMapPolygon,
     handleTableRowClick,
+    handleTableRowRightClick,
   } = props;
 
   const [searchString, setSearchString] = useState<string>("");
@@ -433,8 +435,14 @@ const MPTable: React.FC<MPTableProps> = (props) => {
     handleTableRowClick(matchingMapPolygon);
   };
 
+  const handleMPRowRightClick = (e: React.MouseEvent<HTMLElement>): void => {
+    handleTableRowRightClick();
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onContextMenu={handleMPRowRightClick}>
       <div className={classes.titleBar}>
         <div className={classes.titleBarWrapperLeft}>
           <Typography className={classes.titleBarTitle}>

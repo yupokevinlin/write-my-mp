@@ -19,6 +19,7 @@
     "esri-loader": "^3.1.0",
     "moment": "^2.29.1",
     "react": "^16.14.0",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.14.0",
     "react-redux": "^7.2.3",
     "redux": "^4.0.5",

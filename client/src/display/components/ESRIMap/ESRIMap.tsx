@@ -17,11 +17,13 @@ import Polygon = __esri.Polygon;
 import Point = __esri.Point;
 import {MapPolygon} from "../../../../../shared/types/data/Map/MapTypes";
 import {ESRIMapLayerNames, XYCoord} from "./types";
+import {LanguageUtils} from "../../../helpers/LanguageUtils";
 
 export type ESRIMapProps = ESRIMapDataProps & ESRIMapStyleProps & ESRIMapEventProps;
 
 export interface ESRIMapDataProps {
   initComplete: boolean;
+  isEnglish: boolean;
   mapPolygons: Array<MapPolygon>;
   initialBaseMap: string;
   currentPosition: XYCoord;
@@ -73,6 +75,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
     mapPolygons,
     currentPosition,
     initialBaseMap,
+    isEnglish,
     width,
     handleMapPolygonClick,
     handleLoadComplete,
@@ -105,11 +108,14 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
         if (prevProps.width !== width) {
           handleWidthChange();
         }
+        if (prevProps.isEnglish !== isEnglish) {
+          handleIsEnglishChange();
+        }
       }
       handleHighlightGeometryChange(Polygon, Graphic);
       return destroyESRIMap;
     });
-  }, [mapPolygons, highlightGeometry, currentPosition, width]);
+  }, [mapPolygons, highlightGeometry, currentPosition, width, isEnglish]);
 
   const initialize = (Map, MapView, FeatureLayer, GraphicsLayer, Legend): void => {
     map = new Map({
@@ -122,7 +128,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
       center: [-93, 53],
       zoom: 4,
       ui: {
-        components: ["attribution", "zoom", "compass"],
+        components: ["zoom", "compass"],
       },
     });
     mapView.popup.collapseEnabled = false;
@@ -317,8 +323,6 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
   };
 
   const getPolygonLayer = (FeatureLayer): FeatureLayer => {
-    const opacity: number = 0.3;
-    const outlineOpacity: number = 0.4;
     const fields: Array<FieldProperties> = [
       {
         name: "OBJECTID",
@@ -337,97 +341,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
       }
     ];
 
-    const renderer = {
-      type: "unique-value",
-      field: "party",
-      legendOptions: {
-        title: "Political Party",
-      },
-      defaultSymbol: {
-        type: "simple-fill",
-        style: "backward-diagonal",
-        color: [126, 126, 126, opacity],
-        outline: {
-          width: 1,
-          color: [0, 0, 0, outlineOpacity],
-        },
-      },
-      defaultLabel: "Vacant",
-      uniqueValueInfos: [
-        {
-          value: "Liberal",
-          symbol: {
-            type: "simple-fill",
-            style: "solid",
-            color: [237, 46, 56, opacity],
-            outline: {
-              width: 1,
-              color: [0, 0, 0, outlineOpacity],
-            },
-          },
-        },
-        {
-          value: "Conservative",
-          symbol: {
-            type: "simple-fill",
-            style: "solid",
-            color: [0, 35, 149, opacity],
-            outline: {
-              width: 1,
-              color: [0, 0, 0, outlineOpacity],
-            },
-          },
-        },
-        {
-          value: "Bloc Québécois",
-          symbol: {
-            type: "simple-fill",
-            style: "solid",
-            color: [0, 136, 206, opacity],
-            outline: {
-              width: 1,
-              color: [0, 0, 0, outlineOpacity],
-            },
-          },
-        },
-        {
-          value: "NDP",
-          symbol: {
-            type: "simple-fill",
-            style: "solid",
-            color: [255, 88, 0, opacity],
-            outline: {
-              width: 1,
-              color: [0, 0, 0, outlineOpacity],
-            },
-          },
-        },
-        {
-          value: "Green Party",
-          symbol: {
-            type: "simple-fill",
-            style: "solid",
-            color: [66, 119, 48, opacity],
-            outline: {
-              width: 1,
-              color: [0, 0, 0, outlineOpacity],
-            },
-          },
-        },
-        {
-          value: "Independent",
-          symbol: {
-            type: "simple-fill",
-            style: "solid",
-            color: [192, 192, 192, opacity],
-            outline: {
-              width: 1,
-              color: [0, 0, 0, outlineOpacity],
-            },
-          },
-        },
-      ],
-    };
+    const renderer = getPolygonLayerRenderer();
 
     return new FeatureLayer({
       id: ESRIMapLayerNames.polygonLayer,
@@ -534,6 +448,114 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
 
   const handleWidthChange = (): void => {
     updateCurrentPositionLayer();
+  };
+
+  const getPolygonLayerRenderer = (): any => {
+    const legendOpacity: number = 0.3;
+    const legendOutlineOpacity: number = 0.4;
+    const renderer = {
+      type: "unique-value",
+      field: "party",
+      legendOptions: {
+        title: isEnglish ? "Political Affiliation" : "Affiliation politique",
+      },
+      defaultSymbol: {
+        type: "simple-fill",
+        style: "backward-diagonal",
+        color: [126, 126, 126, legendOpacity],
+        outline: {
+          width: 1,
+          color: [0, 0, 0, legendOutlineOpacity],
+        },
+      },
+      defaultLabel: isEnglish ? "Vacant" : LanguageUtils.getFrenchPartyFromParty("Vacant"),
+      uniqueValueInfos: [
+        {
+          value: "Liberal",
+          label: isEnglish ? "Liberal" : LanguageUtils.getFrenchPartyFromParty("Liberal"),
+          symbol: {
+            type: "simple-fill",
+            style: "solid",
+            color: [237, 46, 56, legendOpacity],
+            outline: {
+              width: 1,
+              color: [0, 0, 0, legendOutlineOpacity],
+            },
+          },
+        },
+        {
+          value: "Conservative",
+          label: isEnglish ? "Conservative" : LanguageUtils.getFrenchPartyFromParty("Conservative"),
+          symbol: {
+            type: "simple-fill",
+            style: "solid",
+            color: [0, 35, 149, legendOpacity],
+            outline: {
+              width: 1,
+              color: [0, 0, 0, legendOutlineOpacity],
+            },
+          },
+        },
+        {
+          value: "Bloc Québécois",
+          label: isEnglish ? "Bloc Québécois" : LanguageUtils.getFrenchPartyFromParty("Bloc Québécois"),
+          symbol: {
+            type: "simple-fill",
+            style: "solid",
+            color: [0, 136, 206, legendOpacity],
+            outline: {
+              width: 1,
+              color: [0, 0, 0, legendOutlineOpacity],
+            },
+          },
+        },
+        {
+          value: "NDP",
+          label: isEnglish ? "NDP" : LanguageUtils.getFrenchPartyFromParty("NDP"),
+          symbol: {
+            type: "simple-fill",
+            style: "solid",
+            color: [255, 88, 0, legendOpacity],
+            outline: {
+              width: 1,
+              color: [0, 0, 0, legendOutlineOpacity],
+            },
+          },
+        },
+        {
+          value: "Green Party",
+          label: isEnglish ? "Green Party" : LanguageUtils.getFrenchPartyFromParty("Green Party"),
+          symbol: {
+            type: "simple-fill",
+            style: "solid",
+            color: [66, 119, 48, legendOpacity],
+            outline: {
+              width: 1,
+              color: [0, 0, 0, legendOutlineOpacity],
+            },
+          },
+        },
+        {
+          value: "Independent",
+          label: isEnglish ? "Independent" : LanguageUtils.getFrenchPartyFromParty("Independent"),
+          symbol: {
+            type: "simple-fill",
+            style: "solid",
+            color: [192, 192, 192, legendOpacity],
+            outline: {
+              width: 1,
+              color: [0, 0, 0, legendOutlineOpacity],
+            },
+          },
+        },
+      ],
+    };
+    return renderer;
+  };
+
+  const handleIsEnglishChange = (): void => {
+    const renderer = getPolygonLayerRenderer();
+    polygonLayer.renderer = renderer;
   };
 
   return (

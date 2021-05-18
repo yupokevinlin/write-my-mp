@@ -146,7 +146,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     <div className={classes.root}>
       <div className={classes.esriMapInformationContainer}>
         <Paper className={classes.esriMapPaper} square elevation={3}>
-          <ESRIMap initComplete={isESRIMapLoaded} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition}/>
+          <ESRIMap initComplete={isESRIMapLoaded} isEnglish={isEnglish} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition}/>
           <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
         </Paper>
         <Paper className={classes.mpInformationContainer} square elevation={3}>

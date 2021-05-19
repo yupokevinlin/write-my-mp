@@ -465,9 +465,9 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
     const renderMPInfo = (): React.ReactElement => {
       return (
         <div className={classes.informationRoot}>
-          {
-            <CrossfadeImage className={classes.picture} src={isVacant ? "./resources/vacant-seat.png" : currentMapPolygon?.mpData?.photoSrc}/>
-          }
+          <div className={classes.picture}>
+            <CrossfadeImage src={isVacant ? "./resources/vacant-seat.png" : currentMapPolygon?.mpData?.photoSrc}/>
+          </div>
           <div className={classes.infoWrapper}>
             <div className={classes.title}>
               <Typography className={classes.titleText}>

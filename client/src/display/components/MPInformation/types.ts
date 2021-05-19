@@ -52,8 +52,11 @@ export const getPartyBackgroundColor = (party: string, isRow: boolean): string =
     case "Indépendant": {
       return "#c0c0c025";
     }
-    default: {
+    case "Vacant": {
       return isRow ? "#00000015" : "#fff";
+    }
+    default: {
+      return "#fff";
     }
   }
 };

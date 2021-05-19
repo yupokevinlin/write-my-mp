@@ -4,7 +4,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {MPRowData} from "../MPTable";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
-import {getPartyColor} from "../../MPInformation/types";
+import {getPartyBackgroundColor, getPartyColor} from "../../MPInformation/types";
 
 export type MPTableRowProps = MPTableRowDataProps & MPTableRowStyleProps & MPTableRowEventProps;
 
@@ -187,7 +187,7 @@ const MPTableRow: React.FC<MPTableRowProps> = (props) => {
 
   return (
     <React.Fragment>
-      <div className={classes.root} style={{backgroundColor: data.selected ? `${getPartyColor(data.party)}15` : theme.palette.background.paper}} onClick={handleRowClick}>
+      <div className={classes.root} style={{backgroundColor: data.selected ? getPartyBackgroundColor(data.party, true) : theme.palette.background.paper}} onClick={handleRowClick}>
         <Typography className={`${classes.cell} ${classes.name}`}>
           {
             data.name

@@ -5,7 +5,7 @@ import {MapPolygon} from "../../../../../shared/types/data/Map/MapTypes";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import clsx from "clsx";
-import {getPartyColor} from "../MPInformation/types";
+import {getPartyBackgroundColor, getPartyColor} from "../MPInformation/types";
 
 export type MPContactInformationProps = MPContactInformationDataProps & MPContactInformationStyleProps & MPContactInformationEventProps;
 
@@ -241,7 +241,7 @@ const MPContactInformation: React.FC<MPContactInformationProps> = (props) => {
     const hasMainOffice: boolean = !!currentMapPolygon.mpData.contact.mainOffice.name;
     const hasAlternateOffice: boolean = !!currentMapPolygon.mpData.contact.alternateOffice.name;
     return (
-      <div className={classes.root} style={{backgroundColor: `${getPartyColor(currentMapPolygon.mpData.party)}15`}}>
+      <div className={classes.root} style={{backgroundColor: getPartyBackgroundColor(currentMapPolygon.mpData.party, false)}}>
         <div className={classes.emailWebsiteWrapper}>
           <div className={classes.emailWebsite}>
             <div className={classes.label}>

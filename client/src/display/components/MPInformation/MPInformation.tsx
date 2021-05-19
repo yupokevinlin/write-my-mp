@@ -4,7 +4,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {MapPolygon} from "../../../../../shared/types/data/Map/MapTypes";
 import Typography from "@material-ui/core/Typography";
 import PersonIcon from "@material-ui/icons/Person";
-import {getPartyColor} from "./types";
+import {getPartyBackgroundColor, getPartyColor} from "./types";
 import {LanguageUtils} from "../../../helpers/LanguageUtils";
 
 export type MPInformationProps = MPInformationDataProps & MPInformationStyleProps & MPInformationEventProps;
@@ -249,7 +249,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
     const preferredLanguage: string = isVacant ? `${isEnglish ? "N/A" : "n/d"}` : (isEnglish ? currentMapPolygon.mpData.contact.preferredLanguage : currentMapPolygon.mpData.contact.preferredLanguage.replace("English", "Anglais").replace("French", "Français"));
 
     return (
-      <div className={classes.root} style={{backgroundColor: `${getPartyColor(currentMapPolygon.mpData.party)}15`}}>
+      <div className={classes.root} style={{backgroundColor: getPartyBackgroundColor(currentMapPolygon.mpData.party, false)}}>
         {
           isVacant ? (
             <div className={classes.vacantPicture}>

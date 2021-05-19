@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "flex-start",
       justifyContent: "flex-start",
       width: "100%",
+      transition: "background-color 1s",
       [theme.breakpoints.up("xs")]: {
 
       },
@@ -704,7 +705,6 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
                 </Typography>
               </div>
             </div>
-
             {
               hasAlternateOffice ? (
                 <div className={classes.contact}>
@@ -795,7 +795,6 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
       </div>
     );
   }
-
 };
 
 export default MPInformation;

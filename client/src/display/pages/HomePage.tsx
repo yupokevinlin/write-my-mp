@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {createStyles, Theme, useTheme, withWidth} from "@material-ui/core";
+import {createStyles, Snackbar, Theme, useTheme, withWidth} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {MapPolygon} from "../../../../shared/types/data/Map/MapTypes";
 import Paper from "@material-ui/core/Paper";
@@ -10,6 +10,7 @@ import {XYCoord} from "../components/ESRIMap/types";
 import MPInformation from "../components/MPInformation/MPInformation";
 import MPTable from "../components/MPTable/MPTable";
 import TopBar from "../components/TopBar/TopBar";
+import Alert from "@material-ui/lab/Alert";
 
 export type HomePageProps = HomePageDataProps & HomePageStyleProps & HomePageEventProps;
 
@@ -107,6 +108,70 @@ const useStyles = makeStyles((theme: Theme) =>
         marginBottom: "15px",
       },
     },
+    alert: {
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        height: "30px",
+      },
+    },
+    alertMessage: {
+      padding: 0,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        fontSize: "14px",
+      },
+    },
+    alertIcon: {
+      padding: 0,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        fontSize: "20px",
+      },
+    },
+    snackBar: {
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        transform: "translate(-50%, 20px)",
+      },
+    },
   }),
 );
 
@@ -124,6 +189,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
   const [tableSelectedRegionGeometry, setTableSelectedRegionGeometry] = useState<Array<Array<[number, number]>>>([]);
   const [currentPosition, setCurrentPosition] = useState<XYCoord>({x: -1, y: -1,});
   const [isEnglish, setIsEnglish] = useState<boolean>(true);
+  const [unableToFindPolygon, setUnableToFindPolygon] = useState<boolean>(false);
 
   const handleLoadComplete = (): void => {
     setIsESRIMapLoaded(true);
@@ -144,7 +210,11 @@ const HomePage: React.FC<HomePageProps> = (props) => {
   };
 
   const handleUnableToFindPolygonAtCurrentPosition = (): void => {
+    setUnableToFindPolygon(true);
+  };
 
+  const handleSnackbarClose = (): void => {
+    setUnableToFindPolygon(false);
   };
 
   const handleLanguageChange = (isEnglish: boolean): void => {
@@ -160,21 +230,34 @@ const HomePage: React.FC<HomePageProps> = (props) => {
   };
 
   return (
-    <div className={classes.root}>
-      <TopBar handleLanguageChange={handleLanguageChange}/>
-      <div className={classes.esriMapInformationContainer}>
-        <Paper className={classes.esriMapPaper} square elevation={3}>
-          <ESRIMap initComplete={isESRIMapLoaded} isEnglish={isEnglish} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} tableSelectedRegionGeometry={tableSelectedRegionGeometry} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition}/>
-          <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
-        </Paper>
-        <Paper className={classes.mpInformationContainer} square elevation={3}>
-          <MPInformation currentMapPolygon={currentMapPolygon} isEnglish={isEnglish} isESRIMapLoaded={isESRIMapLoaded} handleFindMPClick={handleFindMP}/>
+    <React.Fragment>
+      <div className={classes.root}>
+        <TopBar handleLanguageChange={handleLanguageChange}/>
+        <div className={classes.esriMapInformationContainer}>
+          <Paper className={classes.esriMapPaper} square elevation={3}>
+            <ESRIMap initComplete={isESRIMapLoaded} isEnglish={isEnglish} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} tableSelectedRegionGeometry={tableSelectedRegionGeometry} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition}/>
+            <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
+          </Paper>
+          <Paper className={classes.mpInformationContainer} square elevation={3}>
+            <MPInformation currentMapPolygon={currentMapPolygon} isEnglish={isEnglish} isESRIMapLoaded={isESRIMapLoaded} handleFindMPClick={handleFindMP}/>
+          </Paper>
+        </div>
+        <Paper className={classes.mpTableContainer} square elevation={3}>
+          <MPTable mapPolygons={mapPolygons} isEnglish={isEnglish} currentMapPolygon={currentMapPolygon} handleTableRowClick={handleTableRowClick} handleTableRowRightClick={handleTableRowRightClick}/>
         </Paper>
       </div>
-      <Paper className={classes.mpTableContainer} square elevation={3}>
-        <MPTable mapPolygons={mapPolygons} isEnglish={isEnglish} currentMapPolygon={currentMapPolygon} handleTableRowClick={handleTableRowClick} handleTableRowRightClick={handleTableRowRightClick}/>
-      </Paper>
-    </div>
+      <Snackbar className={classes.snackBar} open={unableToFindPolygon} autoHideDuration={5000} anchorOrigin={{vertical: "top", horizontal: "center"}} onClose={handleSnackbarClose}>
+        <Alert classes={{
+          root: classes.alert,
+          message: classes.alertMessage,
+          icon: classes.alertIcon,
+        }} severity={"error"}>
+          {
+            "Your IP location does not match a constituency"
+          }
+        </Alert>
+      </Snackbar>
+    </React.Fragment>
   );
 };
 

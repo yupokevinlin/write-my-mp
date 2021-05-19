@@ -253,7 +253,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
           icon: classes.alertIcon,
         }} severity={"error"}>
           {
-            "Your IP location does not match a constituency"
+            isEnglish ? "Your IP address does not match a constituency" : "Votre adresse IP ne correspond pas à une circonscription"
           }
         </Alert>
       </Snackbar>

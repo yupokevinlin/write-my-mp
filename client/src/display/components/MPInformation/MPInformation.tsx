@@ -3,7 +3,7 @@ import {createStyles, Theme, useTheme} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {MapPolygon} from "../../../../../shared/types/data/Map/MapTypes";
 import Typography from "@material-ui/core/Typography";
-import CrossfadeImage from "react-crossfade-image";
+import CrossFadeImage from "react-crossfade-image";
 import Button from "@material-ui/core/Button";
 import {getPartyBackgroundColor, getPartyColor} from "./types";
 import {LanguageUtils} from "../../../helpers/LanguageUtils";
@@ -466,7 +466,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
       return (
         <div className={classes.informationRoot}>
           <div className={classes.picture}>
-            <CrossfadeImage src={isVacant ? "./resources/vacant-seat.png" : currentMapPolygon?.mpData?.photoSrc}/>
+            <CrossFadeImage src={isVacant ? "./resources/vacant-seat.png" : currentMapPolygon?.mpData?.photoSrc}/>
           </div>
           <div className={classes.infoWrapper}>
             <div className={classes.title}>

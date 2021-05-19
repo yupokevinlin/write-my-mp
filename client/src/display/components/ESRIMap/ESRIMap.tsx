@@ -593,7 +593,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
       const polygon: Polygon = new Polygon({
         rings: tableSelectedRegionGeometry,
         spatialReference: { wkid: 4326 }
-      })
+      });
       mapView.goTo(polygon.extent, {
         duration: 1000
       });

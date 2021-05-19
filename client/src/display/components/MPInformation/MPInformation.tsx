@@ -229,8 +229,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("lg")]: {
-        width: "100%",
-        height: "100%",
+        width: "calc(100% - 30px)",
+        height: "calc(100% - 30px)",
         margin: "15px",
       },
     },
@@ -277,7 +277,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up("lg")]: {
         marginTop: "5px",
         height: "40px",
-        width: "200px",
+        width: "300px",
       },
     },
     noSelectButtonText: {
@@ -733,27 +733,27 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
         <div className={classes.noSelectWrapper}>
           <Typography className={classes.noSelectText}>
             {
-              "Welcome to Write My MP"
+              isEnglish ? "Welcome to Write My MP" : "Bienvenue à Écrire à Mon Député"
             }
           </Typography>
           <Typography className={classes.noSelectTextParagraph}>
             {
-              "You have not selected a MP"
+              isEnglish ? "You have not selected a MP" : "Vous n'avez pas choisi de député"
             }
           </Typography>
           <Typography className={classes.noSelectTextParagraph}>
             {
-              "Select a MP by left clicking their constituency on the map or by left clicking their row on the table"
+              isEnglish ? "Select a MP by left clicking their constituency on the map or by left clicking their row on the table" : "Sélectionnez un député en cliquant avec le bouton gauche sur sa circonscription sur la carte ou en cliquant avec le bouton gauche sur sa ligne sur le tableau"
             }
           </Typography>
           <Typography className={classes.noSelectTextParagraph}>
             {
-              "Right click anywhere on the map or table to unselect"
+              isEnglish ? "Right click anywhere on the map or table to unselect" : "Cliquez avec le bouton droit n'importe où sur la carte ou le tableau pour désélectionner"
             }
           </Typography>
           <Typography className={classes.noSelectTextParagraph}>
             {
-              "Use the button below to find your MP using your IP"
+              isEnglish ? "Use the button below to find your MP using your IP address" : "Utilisez le bouton ci-dessous pour trouver votre député en utilisant votre adresse IP"
             }
           </Typography>
           <Button classes={{
@@ -761,7 +761,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
             label: classes.noSelectButtonText,
           }} color={"secondary"} variant={"contained"} onClick={handleFindMPButtonClick} disabled={!isESRIMapLoaded}>
             {
-              "Find My MP"
+              isEnglish ? "Find My MP" : "Trouver Mon Député"
             }
           </Button>
         </div>

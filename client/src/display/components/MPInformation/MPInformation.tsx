@@ -499,9 +499,9 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
     const hasWebsite: boolean = isVacant ? false : !!currentMapPolygon?.mpData?.contact?.website;
     const hasMainOffice: boolean = isVacant ? false : !!currentMapPolygon?.mpData?.contact?.mainOffice?.name;
     const hasAlternateOffice: boolean = isVacant ? false : !!currentMapPolygon?.mpData?.contact?.alternateOffice?.name;
-    
-    return (
-      <div className={classes.root} style={{backgroundColor: getPartyBackgroundColor(currentMapPolygon?.mpData?.party, false)}}>
+
+    const renderMPInfo = (): React.ReactElement => {
+      return (
         <div className={classes.informationRoot}>
           {
             isVacant ? (
@@ -579,179 +579,198 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
             </div>
           </div>
         </div>
+      );
+    };
+
+    const renderMPContact = (): React.ReactElement => {
+      if (!isVacant) {
+        return (
 
 
-
-        <div className={classes.contactRoot}>
-          <div className={classes.emailWebsiteWrapper}>
-            <div className={classes.emailWebsite}>
-              <div className={classes.label}>
-                <Typography className={classes.labelText}>
-                  {
-                    isEnglish ? "Email:" : "Courriel:"
-                  }
-                </Typography>
-              </div>
-              <div className={classes.value}>
-                <Link component={"button"} variant={"h5"} className={classes.valueText} onClick={handleEmailClick}>
-                  {
-                    email
-                  }
-                </Link>
-              </div>
-            </div>
-            <div className={classes.emailWebsite}>
-              <div className={classes.label}>
-                <Typography className={classes.labelText}>
-                  {
-                    hasWebsite ? (isEnglish ? "Website:" : "Site web:") : ""
-                  }
-                </Typography>
-              </div>
-              <div className={classes.value}>
-                <Link component={"button"} variant={"h5"} className={classes.valueText} onClick={handleWebsiteClick}>
-                  {
-                    getWebsite()
-                  }
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div className={classes.contactWrapper}>
-            <div className={clsx(classes.contact, {
-              [classes.contactNoAlternateOffice]: !hasAlternateOffice
-            })}>
-              <div className={classes.contactTitle}>
-                <Typography className={classes.contactTitleText}>
-                  {
-                    isEnglish ? "Hill Office" : "Bureau de la colline"
-                  }
-                </Typography>
-              </div>
-              <div className={classes.label}>
-                <Typography className={classes.labelText}>
-                  {
-                    hillOfficeName
-                  }
-                </Typography>
-              </div>
-              {
-                hillOfficeAddress.map((address, index) => (
-                  <div className={classes.value} key={index}>
-                    <Typography className={classes.valueText}>
-                      {
-                        address
-                      }
-                    </Typography>
-                  </div>
-                ))
-              }
-              <div className={classes.value}>
-                <Typography className={classes.valueText}>
-                  {
-                    `${isEnglish ? "Telephone:" : "Téléphone:"} ${hillOfficeTelephone}`
-                  }
-                </Typography>
-              </div>
-              <div className={classes.value}>
-                <Typography className={classes.valueText}>
-                  {
-                    `${isEnglish ? "Fax:" : "Télécopieur:"} ${hillOfficeFax}`
-                  }
-                </Typography>
-              </div>
-            </div>
-
-            <div className={clsx(classes.contact, {
-              [classes.contactNoAlternateOffice]: !hasAlternateOffice
-            })}>
-              <div className={classes.contactTitle}>
-                <Typography className={classes.contactTitleText}>
-                  {
-                    hasMainOffice ? (isEnglish ? "Main Office" : "Bureau principal") : ""
-                  }
-                </Typography>
-              </div>
-              <div className={classes.label}>
-                <Typography className={classes.labelText}>
-                  {
-                    ((isEnglish ? currentMapPolygon?.mpData?.contact?.mainOffice?.name : currentMapPolygon?.mpData?.contact?.mainOfficeFrench.name) || "").replace("Main office - ", "").replace("Bureau principal - ", "")
-                  }
-                </Typography>
-              </div>
-              {
-                (hasMainOffice ? (isEnglish ? currentMapPolygon?.mpData?.contact?.mainOffice?.address : currentMapPolygon?.mpData?.contact?.mainOfficeFrench.address) : []).map((address, index) => (
-                  <div className={classes.value} key={index}>
-                    <Typography className={classes.valueText}>
-                      {
-                        address
-                      }
-                    </Typography>
-                  </div>
-                ))
-              }
-              <div className={classes.value}>
-                <Typography className={classes.valueText}>
-                  {
-                    currentMapPolygon?.mpData?.contact?.mainOffice?.telephone ? `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon?.mpData?.contact?.mainOffice?.telephone || ""}` : ""
-                  }
-                </Typography>
-              </div>
-              <div className={classes.value}>
-                <Typography className={classes.valueText}>
-                  {
-                    currentMapPolygon?.mpData?.contact?.mainOffice?.fax ? `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon?.mpData?.contact?.mainOffice?.fax || ""}` : ""
-                  }
-                </Typography>
-              </div>
-            </div>
-            {
-              hasAlternateOffice ? (
-                <div className={classes.contact}>
-                  <div className={classes.contactTitle}>
-                    <Typography className={classes.contactTitleText}>
-                      {
-                        hasAlternateOffice ? (isEnglish ? "Office" : "Bureau") : ""
-                      }
-                    </Typography>
-                  </div>
-                  <div className={classes.label}>
-                    <Typography className={classes.labelText}>
-                      {
-                        (isEnglish ? currentMapPolygon?.mpData?.contact?.alternateOffice?.name : currentMapPolygon?.mpData?.contact?.alternateOfficeFrench.name) || ""
-                      }
-                    </Typography>
-                  </div>
-                  {
-                    (hasAlternateOffice ? (isEnglish ? currentMapPolygon?.mpData?.contact?.alternateOffice?.address : currentMapPolygon?.mpData?.contact?.alternateOfficeFrench.address) : []).map((address, index) => (
-                      <div className={classes.value} key={index}>
-                        <Typography className={classes.valueText}>
-                          {
-                            address
-                          }
-                        </Typography>
-                      </div>
-                    ))
-                  }
-                  <div className={classes.value}>
-                    <Typography className={classes.valueText}>
-                      {
-                        currentMapPolygon?.mpData?.contact?.alternateOffice?.telephone ? `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon?.mpData?.contact?.alternateOffice?.telephone || ""}` : ""
-                      }
-                    </Typography>
-                  </div>
-                  <div className={classes.value}>
-                    <Typography className={classes.valueText}>
-                      {
-                        currentMapPolygon?.mpData?.contact?.alternateOffice?.fax ? `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon?.mpData?.contact?.alternateOffice?.fax || ""}` : ""
-                      }
-                    </Typography>
-                  </div>
+          <div className={classes.contactRoot}>
+            <div className={classes.emailWebsiteWrapper}>
+              <div className={classes.emailWebsite}>
+                <div className={classes.label}>
+                  <Typography className={classes.labelText}>
+                    {
+                      isEnglish ? "Email:" : "Courriel:"
+                    }
+                  </Typography>
                 </div>
-              ) : null
-            }
+                <div className={classes.value}>
+                  <Link component={"button"} variant={"h5"} className={classes.valueText} onClick={handleEmailClick}>
+                    {
+                      email
+                    }
+                  </Link>
+                </div>
+              </div>
+              <div className={classes.emailWebsite}>
+                <div className={classes.label}>
+                  <Typography className={classes.labelText}>
+                    {
+                      hasWebsite ? (isEnglish ? "Website:" : "Site web:") : ""
+                    }
+                  </Typography>
+                </div>
+                <div className={classes.value}>
+                  <Link component={"button"} variant={"h5"} className={classes.valueText} onClick={handleWebsiteClick}>
+                    {
+                      getWebsite()
+                    }
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className={classes.contactWrapper}>
+              <div className={clsx(classes.contact, {
+                [classes.contactNoAlternateOffice]: !hasAlternateOffice
+              })}>
+                <div className={classes.contactTitle}>
+                  <Typography className={classes.contactTitleText}>
+                    {
+                      isEnglish ? "Hill Office" : "Bureau de la colline"
+                    }
+                  </Typography>
+                </div>
+                <div className={classes.label}>
+                  <Typography className={classes.labelText}>
+                    {
+                      hillOfficeName
+                    }
+                  </Typography>
+                </div>
+                {
+                  hillOfficeAddress.map((address, index) => (
+                    <div className={classes.value} key={index}>
+                      <Typography className={classes.valueText}>
+                        {
+                          address
+                        }
+                      </Typography>
+                    </div>
+                  ))
+                }
+                <div className={classes.value}>
+                  <Typography className={classes.valueText}>
+                    {
+                      `${isEnglish ? "Telephone:" : "Téléphone:"} ${hillOfficeTelephone}`
+                    }
+                  </Typography>
+                </div>
+                <div className={classes.value}>
+                  <Typography className={classes.valueText}>
+                    {
+                      `${isEnglish ? "Fax:" : "Télécopieur:"} ${hillOfficeFax}`
+                    }
+                  </Typography>
+                </div>
+              </div>
+
+              <div className={clsx(classes.contact, {
+                [classes.contactNoAlternateOffice]: !hasAlternateOffice
+              })}>
+                <div className={classes.contactTitle}>
+                  <Typography className={classes.contactTitleText}>
+                    {
+                      hasMainOffice ? (isEnglish ? "Main Office" : "Bureau principal") : ""
+                    }
+                  </Typography>
+                </div>
+                <div className={classes.label}>
+                  <Typography className={classes.labelText}>
+                    {
+                      ((isEnglish ? currentMapPolygon?.mpData?.contact?.mainOffice?.name : currentMapPolygon?.mpData?.contact?.mainOfficeFrench.name) || "").replace("Main office - ", "").replace("Bureau principal - ", "")
+                    }
+                  </Typography>
+                </div>
+                {
+                  (hasMainOffice ? (isEnglish ? currentMapPolygon?.mpData?.contact?.mainOffice?.address : currentMapPolygon?.mpData?.contact?.mainOfficeFrench.address) : []).map((address, index) => (
+                    <div className={classes.value} key={index}>
+                      <Typography className={classes.valueText}>
+                        {
+                          address
+                        }
+                      </Typography>
+                    </div>
+                  ))
+                }
+                <div className={classes.value}>
+                  <Typography className={classes.valueText}>
+                    {
+                      currentMapPolygon?.mpData?.contact?.mainOffice?.telephone ? `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon?.mpData?.contact?.mainOffice?.telephone || ""}` : ""
+                    }
+                  </Typography>
+                </div>
+                <div className={classes.value}>
+                  <Typography className={classes.valueText}>
+                    {
+                      currentMapPolygon?.mpData?.contact?.mainOffice?.fax ? `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon?.mpData?.contact?.mainOffice?.fax || ""}` : ""
+                    }
+                  </Typography>
+                </div>
+              </div>
+              {
+                hasAlternateOffice ? (
+                  <div className={classes.contact}>
+                    <div className={classes.contactTitle}>
+                      <Typography className={classes.contactTitleText}>
+                        {
+                          hasAlternateOffice ? (isEnglish ? "Office" : "Bureau") : ""
+                        }
+                      </Typography>
+                    </div>
+                    <div className={classes.label}>
+                      <Typography className={classes.labelText}>
+                        {
+                          (isEnglish ? currentMapPolygon?.mpData?.contact?.alternateOffice?.name : currentMapPolygon?.mpData?.contact?.alternateOfficeFrench.name) || ""
+                        }
+                      </Typography>
+                    </div>
+                    {
+                      (hasAlternateOffice ? (isEnglish ? currentMapPolygon?.mpData?.contact?.alternateOffice?.address : currentMapPolygon?.mpData?.contact?.alternateOfficeFrench.address) : []).map((address, index) => (
+                        <div className={classes.value} key={index}>
+                          <Typography className={classes.valueText}>
+                            {
+                              address
+                            }
+                          </Typography>
+                        </div>
+                      ))
+                    }
+                    <div className={classes.value}>
+                      <Typography className={classes.valueText}>
+                        {
+                          currentMapPolygon?.mpData?.contact?.alternateOffice?.telephone ? `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon?.mpData?.contact?.alternateOffice?.telephone || ""}` : ""
+                        }
+                      </Typography>
+                    </div>
+                    <div className={classes.value}>
+                      <Typography className={classes.valueText}>
+                        {
+                          currentMapPolygon?.mpData?.contact?.alternateOffice?.fax ? `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon?.mpData?.contact?.alternateOffice?.fax || ""}` : ""
+                        }
+                      </Typography>
+                    </div>
+                  </div>
+                ) : null
+              }
+            </div>
           </div>
-        </div>
+        );
+      } else {
+        return null;
+      }
+    };
+
+    return (
+      <div className={classes.root} style={{backgroundColor: getPartyBackgroundColor(currentMapPolygon?.mpData?.party, false)}}>
+        {
+          renderMPInfo()
+        }
+        {
+          renderMPContact()
+        }
       </div>
     );
   } else {

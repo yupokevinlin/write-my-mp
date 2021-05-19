@@ -10,12 +10,12 @@ import {XYCoord} from "../components/ESRIMap/types";
 import MPInformation from "../components/MPInformation/MPInformation";
 import MPContactInformation from "../components/MPContactInformation/MPContactInformation";
 import MPTable from "../components/MPTable/MPTable";
+import TopBar from "../components/TopBar/TopBar";
 
 export type HomePageProps = HomePageDataProps & HomePageStyleProps & HomePageEventProps;
 
 export interface HomePageDataProps {
   mapPolygons: Array<MapPolygon>;
-  isEnglish: boolean;
 }
 
 export interface HomePageStyleProps {
@@ -101,13 +101,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("lg")]: {
-        height: "calc(100% - 545px)",
+        height: "calc(100% - 595px)",
         width: "calc(100% - 30px)",
         marginLeft: "15px",
         marginRight: "15px",
         marginBottom: "15px",
       },
-    }
+    },
   }),
 );
 
@@ -117,7 +117,6 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 
   const {
     mapPolygons,
-    isEnglish,
     width,
   } = props;
 
@@ -125,14 +124,15 @@ const HomePage: React.FC<HomePageProps> = (props) => {
   const [currentMapPolygon, setCurrentMapPolygon] = useState<MapPolygon | null>(null);
   const [tableSelectedRegionGeometry, setTableSelectedRegionGeometry] = useState<Array<Array<[number, number]>>>([]);
   const [currentPosition, setCurrentPosition] = useState<XYCoord>({x: -1, y: -1,});
+  const [isEnglish, setIsEnglish] = useState<boolean>(true);
 
   const handleLoadComplete = (): void => {
     setIsESRIMapLoaded(true);
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setCurrentPosition({x: position.coords.longitude, y: position.coords.latitude,});
-      });
-    }
+    // if ("geolocation" in navigator) {
+    //   navigator.geolocation.getCurrentPosition((position) => {
+    //     setCurrentPosition({x: position.coords.longitude, y: position.coords.latitude,});
+    //   });
+    // }
   };
 
   const handleMapPolygonClick = (mapPolygon: MapPolygon | null): void => {
@@ -153,8 +153,13 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 
   };
 
+  const handleLanguageChange = (isEnglish: boolean): void => {
+    setIsEnglish(isEnglish);
+  };
+
   return (
     <div className={classes.root}>
+      <TopBar handleLanguageChange={handleLanguageChange}/>
       <div className={classes.esriMapInformationContainer}>
         <Paper className={classes.esriMapPaper} square elevation={3}>
           <ESRIMap initComplete={isESRIMapLoaded} isEnglish={isEnglish} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} tableSelectedRegionGeometry={tableSelectedRegionGeometry} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition}/>

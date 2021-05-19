@@ -743,7 +743,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
           </Typography>
           <Typography className={classes.noSelectTextParagraph}>
             {
-              "Select a MP by clicking their constituency on the map or find them using the table"
+              "Select a MP by left clicking their constituency on the map or by left clicking their row on the table"
             }
           </Typography>
           <Typography className={classes.noSelectTextParagraph}>

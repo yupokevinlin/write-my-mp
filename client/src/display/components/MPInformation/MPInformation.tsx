@@ -738,7 +738,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
           </Typography>
           <Typography className={classes.noSelectTextParagraph}>
             {
-              "No MP Selected"
+              "You have not selected a MP"
             }
           </Typography>
           <Typography className={classes.noSelectTextParagraph}>

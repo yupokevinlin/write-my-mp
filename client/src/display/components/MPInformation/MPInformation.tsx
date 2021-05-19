@@ -4,6 +4,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {MapPolygon} from "../../../../../shared/types/data/Map/MapTypes";
 import Typography from "@material-ui/core/Typography";
 import PersonIcon from "@material-ui/icons/Person";
+import Button from "@material-ui/core/Button";
 import {getPartyBackgroundColor, getPartyColor} from "./types";
 import {LanguageUtils} from "../../../helpers/LanguageUtils";
 
@@ -12,6 +13,7 @@ export type MPInformationProps = MPInformationDataProps & MPInformationStyleProp
 export interface MPInformationDataProps {
   isEnglish: boolean;
   currentMapPolygon: MapPolygon | null;
+  isESRIMapLoaded: boolean;
 }
 
 export interface MPInformationStyleProps {
@@ -19,7 +21,7 @@ export interface MPInformationStyleProps {
 }
 
 export interface MPInformationEventProps {
-
+  handleFindMPClick(): void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -228,6 +230,86 @@ const useStyles = makeStyles((theme: Theme) =>
         marginLeft: "15px",
       },
     },
+    noSelectWrapper: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+      justifyContent: "flex-start",
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        width: "100%",
+        height: "100%",
+        margin: "15px",
+      },
+    },
+    noSelectText: {
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        fontSize: "20px",
+        marginBottom: "5px",
+      },
+    },
+    noSelectTextParagraph: {
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        fontSize: "14px",
+        marginBottom: "3px",
+      },
+    },
+    noSelectButton: {
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        marginTop: "5px",
+        height: "40px",
+        width: "200px",
+      },
+    },
+    noSelectButtonText: {
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        fontSize: "14px",
+      },
+    },
   }),
 );
 
@@ -238,7 +320,13 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
   const {
     isEnglish,
     currentMapPolygon,
+    isESRIMapLoaded,
+    handleFindMPClick,
   } = props;
+
+  const handleFindMPButtonClick = (e: React.MouseEvent<HTMLElement>): void => {
+    handleFindMPClick();
+  };
 
   if (!!currentMapPolygon && !!currentMapPolygon.mpData) {
     const isVacant: boolean = currentMapPolygon.mpData.party === "Vacant";
@@ -330,7 +418,41 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
   } else {
     return (
       <div className={classes.root}>
-
+        <div className={classes.noSelectWrapper}>
+          <Typography className={classes.noSelectText}>
+            {
+              "Welcome to Write My MP"
+            }
+          </Typography>
+          <Typography className={classes.noSelectTextParagraph}>
+            {
+              "No MP Selected"
+            }
+          </Typography>
+          <Typography className={classes.noSelectTextParagraph}>
+            {
+              "Select a MP by clicking their constituency on the map or find them using the table"
+            }
+          </Typography>
+          <Typography className={classes.noSelectTextParagraph}>
+            {
+              "Right click anywhere on the map or table to unselect"
+            }
+          </Typography>
+          <Typography className={classes.noSelectTextParagraph}>
+            {
+              "Use the button below to find your MP using your IP"
+            }
+          </Typography>
+          <Button classes={{
+            root: classes.noSelectButton,
+            label: classes.noSelectButtonText,
+          }} color={"secondary"} variant={"contained"} onClick={handleFindMPButtonClick} disabled={!isESRIMapLoaded}>
+            {
+              "Find My MP"
+            }
+          </Button>
+        </div>
       </div>
     );
   }

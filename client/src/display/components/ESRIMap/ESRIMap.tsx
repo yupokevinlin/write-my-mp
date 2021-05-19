@@ -302,7 +302,26 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
     }
   };
 
+  const clearCurrentPositionLayer = (): void => {
+    const renderer = (currentPositionLayer.renderer as __esri.UniqueValueRenderer).clone();
+    currentPositionLayer.queryObjectIds().then(oldObjectIds => {
+      const deleteFeatures: Array<{ objectId: number }> = oldObjectIds.map(oldObjectId => ({ objectId: oldObjectId }));
+
+      currentPositionLayer.renderer = renderer;
+
+      currentPositionLayer.applyEdits({
+        addFeatures: [],
+        deleteFeatures: deleteFeatures,
+      }).then(rsp => {
+
+      });
+    });
+  }
+
   const handleHighlightGeometryChange = (Polygon, Graphic): void => {
+    if (currentPositionLayer) {
+      clearCurrentPositionLayer();
+    }
     const polygon: Polygon = new Polygon({
       rings: highlightGeometry,
       spatialReference: { wkid: 4326 }
@@ -566,6 +585,9 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
   };
 
   const handleTableSelectedRegionGeometryChange = (Polygon): void => {
+    if (currentPositionLayer) {
+      clearCurrentPositionLayer();
+    }
     setHighlightGeometry(tableSelectedRegionGeometry);
     if (tableSelectedRegionGeometry.length > 0) {
       const polygon: Polygon = new Polygon({

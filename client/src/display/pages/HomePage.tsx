@@ -128,11 +128,6 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 
   const handleLoadComplete = (): void => {
     setIsESRIMapLoaded(true);
-    // if ("geolocation" in navigator) {
-    //   navigator.geolocation.getCurrentPosition((position) => {
-    //     setCurrentPosition({x: position.coords.longitude, y: position.coords.latitude,});
-    //   });
-    // }
   };
 
   const handleMapPolygonClick = (mapPolygon: MapPolygon | null): void => {
@@ -157,6 +152,14 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     setIsEnglish(isEnglish);
   };
 
+  const handleFindMP = (): void => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setCurrentPosition({x: position.coords.longitude, y: position.coords.latitude,});
+      });
+    }
+  };
+
   return (
     <div className={classes.root}>
       <TopBar handleLanguageChange={handleLanguageChange}/>
@@ -166,7 +169,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
           <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
         </Paper>
         <Paper className={classes.mpInformationContainer} square elevation={3}>
-          <MPInformation currentMapPolygon={currentMapPolygon} isEnglish={isEnglish}/>
+          <MPInformation currentMapPolygon={currentMapPolygon} isEnglish={isEnglish} isESRIMapLoaded={isESRIMapLoaded} handleFindMPClick={handleFindMP}/>
           <MPContactInformation currentMapPolygon={currentMapPolygon} isEnglish={isEnglish}/>
         </Paper>
       </div>

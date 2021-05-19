@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
     text: {
       marginBottom: "50px",
     },
+    progress: {
+      color: "#d61820",
+    },
   }),
 );
 
@@ -60,13 +63,13 @@ const LoadingPage: React.FC<LoadingPageProps> = (props) => {
             text
           }
         </Typography>
-        <CircularProgress size={size} disableShrink/>
+        <CircularProgress className={classes.progress} size={size} disableShrink/>
       </div>
     );
   } else {
     return (
       <div className={classes.loadingPage}>
-        <CircularProgress size={size} disableShrink/>
+        <CircularProgress className={classes.progress} size={size} disableShrink/>
       </div>
     );
   }

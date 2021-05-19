@@ -89,44 +89,6 @@ const useStyles = makeStyles((theme: Theme) =>
         marginLeft: "15px",
       },
     },
-    vacantPicture: {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: theme.palette.grey["400"],
-      [theme.breakpoints.up("xs")]: {
-
-      },
-      [theme.breakpoints.up("sm")]: {
-
-      },
-      [theme.breakpoints.up("md")]: {
-
-      },
-      [theme.breakpoints.up("lg")]: {
-        height: "100%",
-        width: "142px",
-        marginTop: "15px",
-        marginLeft: "15px",
-      },
-    },
-    vacantPictureIcon: {
-      color: theme.palette.grey["600"],
-      [theme.breakpoints.up("xs")]: {
-
-      },
-      [theme.breakpoints.up("sm")]: {
-
-      },
-      [theme.breakpoints.up("md")]: {
-
-      },
-      [theme.breakpoints.up("lg")]: {
-        height: "50%",
-        width: "50%",
-      },
-    },
     infoWrapper: {
       [theme.breakpoints.up("xs")]: {
 

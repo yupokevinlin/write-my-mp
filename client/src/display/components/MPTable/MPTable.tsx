@@ -313,7 +313,8 @@ const MPTable: React.FC<MPTableProps> = (props) => {
     if (filterString === "") {
       return dataToFilter;
     } else {
-      return dataToFilter.filter(e => e.name.includes(filterString) || e.province.includes(filterString) || e.constituency.includes(filterString) || e.party.includes(filterString));
+      const lowerCaseFilterString: string = filterString.toLowerCase();
+      return dataToFilter.filter(e => e.name.toLowerCase().includes(lowerCaseFilterString) || e.province.toLowerCase().includes(lowerCaseFilterString) || e.constituency.toLowerCase().includes(lowerCaseFilterString) || e.party.toLowerCase().includes(lowerCaseFilterString));
     }
   };
 

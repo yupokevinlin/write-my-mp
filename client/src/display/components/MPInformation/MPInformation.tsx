@@ -7,6 +7,8 @@ import PersonIcon from "@material-ui/icons/Person";
 import Button from "@material-ui/core/Button";
 import {getPartyBackgroundColor, getPartyColor} from "./types";
 import {LanguageUtils} from "../../../helpers/LanguageUtils";
+import Link from "@material-ui/core/Link";
+import clsx from "clsx";
 
 export type MPInformationProps = MPInformationDataProps & MPInformationStyleProps & MPInformationEventProps;
 
@@ -27,6 +29,25 @@ export interface MPInformationEventProps {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+      justifyContent: "flex-start",
+      width: "100%",
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        height: "500px",
+      },
+    },
+    informationRoot: {
       display: "flex",
       flexDirection: "row",
       alignItems: "flex-start",
@@ -310,6 +331,119 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: "14px",
       },
     },
+    contactRoot: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+      justifyContent: "flex-start",
+      width: "100%",
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        height: "255px",
+      },
+    },
+    emailWebsiteWrapper: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "flex-start",
+      justifyContent: "flex-start",
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        marginTop: "10px",
+        height: "44px",
+        width: "100%",
+      },
+    },
+    emailWebsite: {
+      height: "100%",
+      width: "50%",
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+
+      },
+    },
+    contactWrapper: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "flex-start",
+      justifyContent: "flex-start",
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        marginTop: "10px",
+        height: "44px",
+        width: "100%",
+      },
+    },
+    contact: {
+      height: "100%",
+      width: "33%",
+    },
+    contactNoAlternateOffice: {
+      width: "50%",
+    },
+    contactTitle: {
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        height: "26px",
+        width: "100%",
+      },
+    },
+    contactTitleText: {
+      fontWeight: "bold",
+      [theme.breakpoints.up("xs")]: {
+
+      },
+      [theme.breakpoints.up("sm")]: {
+
+      },
+      [theme.breakpoints.up("md")]: {
+
+      },
+      [theme.breakpoints.up("lg")]: {
+        fontSize: "16px",
+        marginLeft: "15px",
+      },
+    },
   }),
 );
 
@@ -328,6 +462,26 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
     handleFindMPClick();
   };
 
+  const handleEmailClick = (e: React.MouseEvent<HTMLElement>): void => {
+    const email: string = currentMapPolygon.mpData.contact.email.toLowerCase();
+    const newWindow: Window = window.open(`mailto:${email}`, "_blank", "noopener,noreferrer")
+    if (newWindow) {
+      newWindow.opener = null;
+    }
+  };
+
+  const handleWebsiteClick = (e: React.MouseEvent<HTMLElement>): void => {
+    const website: string = getWebsite();
+    const newWindow: Window = window.open(website, "_blank", "noopener,noreferrer")
+    if (newWindow) {
+      newWindow.opener = null;
+    }
+  };
+
+  const getWebsite = (): string => {
+    return isEnglish ? currentMapPolygon.mpData.contact.website : (currentMapPolygon.mpData.contact.website ? currentMapPolygon.mpData.contact.website.replace(".ca/?lang=en", ".ca").replace(".ca/en", ".ca") : "") || "";
+  };
+
   if (!!currentMapPolygon && !!currentMapPolygon.mpData) {
     const isVacant: boolean = currentMapPolygon.mpData.party === "Vacant";
     const name: string = isVacant ? (isEnglish ? "This seat is vacant" : "Ce siège est vacant") : (isEnglish ? (`${!!currentMapPolygon.mpData.title ? `The ${currentMapPolygon.mpData.title.replace("Hon.", "Honourable")} ` : ""}${currentMapPolygon.mpData.firstName} ${currentMapPolygon.mpData.lastName}`) : (`${!!currentMapPolygon.mpData.title ? `L'${currentMapPolygon.mpData.title.replace("Hon.", "honorable")} `.replace("L'Right", "Le très") : ""}${currentMapPolygon.mpData.firstName} ${currentMapPolygon.mpData.lastName}`));
@@ -335,82 +489,267 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
     const constituencyName: string = (isEnglish ? currentMapPolygon.constituency : currentMapPolygon.constituencyFrench).replace(/—/g, "-").replace(/-/g, " - ");
     const province: string = isEnglish ? currentMapPolygon.mpData.province : LanguageUtils.getFrenchProvinceFromProvince(currentMapPolygon.mpData.province);
     const preferredLanguage: string = isVacant ? `${isEnglish ? "N/A" : "n/d"}` : (isEnglish ? currentMapPolygon.mpData.contact.preferredLanguage : currentMapPolygon.mpData.contact.preferredLanguage.replace("English", "Anglais").replace("French", "Français"));
+    const hillOfficeName: string = isEnglish ? "House of Commons" : "Chambre des communes";
+    const hillOfficeAddress: Array<string> = isEnglish ? ["Ottawa, Ontario,", "Canada", "K1A 0A6"] : ["Ottawa (Ontario)", "Canada", "K1A 0A6"];
+    const hillOfficeTelephone: string = "613-992-4211";
+    const hillOfficeFax: string = "613-947-0310";
+
+    const email: string = isVacant ? "" : currentMapPolygon.mpData.contact.email.toLowerCase();
+    const hasWebsite: boolean = isVacant ? false : !!currentMapPolygon.mpData.contact.website;
+    const hasMainOffice: boolean = isVacant ? false : !!currentMapPolygon.mpData.contact.mainOffice.name;
+    const hasAlternateOffice: boolean = isVacant ? false : !!currentMapPolygon.mpData.contact.alternateOffice.name;
 
     return (
       <div className={classes.root} style={{backgroundColor: getPartyBackgroundColor(currentMapPolygon.mpData.party, false)}}>
-        {
-          isVacant ? (
-            <div className={classes.vacantPicture}>
-              <PersonIcon className={classes.vacantPictureIcon}/>
+        <div className={classes.informationRoot}>
+          {
+            isVacant ? (
+              <div className={classes.vacantPicture}>
+                <PersonIcon className={classes.vacantPictureIcon}/>
+              </div>
+            ) : (
+              <img className={classes.picture} src={currentMapPolygon.mpData.photoSrc}/>
+            )
+          }
+          <div className={classes.infoWrapper}>
+            <div className={classes.title}>
+              <Typography className={classes.titleText}>
+                {
+                  name
+                }
+              </Typography>
             </div>
-          ) : (
-            <img className={classes.picture} src={currentMapPolygon.mpData.photoSrc}/>
-          )
-        }
-        <div className={classes.infoWrapper}>
-          <div className={classes.title}>
-            <Typography className={classes.titleText}>
-              {
-                name
-              }
-            </Typography>
+            <div className={classes.label}>
+              <Typography className={classes.labelText}>
+                {
+                  isEnglish ? "Political Affiliation:" : "Affiliation politique:"
+                }
+              </Typography>
+            </div>
+            <div className={classes.value}>
+              <Typography className={classes.valueText}>
+                {
+                  party
+                }
+              </Typography>
+            </div>
+            <div className={classes.partyBar} style={{backgroundColor: getPartyColor(currentMapPolygon.mpData.party)}}/>
+            <div className={classes.label}>
+              <Typography className={classes.labelText}>
+                {
+                  isEnglish ? "Constituency:" : "Circonscription:"
+                }
+              </Typography>
+            </div>
+            <div className={classes.value}>
+              <Typography className={classes.valueText}>
+                {
+                  constituencyName
+                }
+              </Typography>
+            </div>
+            <div className={classes.label}>
+              <Typography className={classes.labelText}>
+                {
+                  isEnglish ? "Province / Territory:" : "Province / Territoire:"
+                }
+              </Typography>
+            </div>
+            <div className={classes.value}>
+              <Typography className={classes.valueText}>
+                {
+                  province
+                }
+              </Typography>
+            </div>
+            <div className={classes.label}>
+              <Typography className={classes.labelText}>
+                {
+                  isEnglish ? "Preferred Language:" : "Langue préférée:"
+                }
+              </Typography>
+            </div>
+            <div className={classes.value}>
+              <Typography className={classes.valueText}>
+                {
+                  preferredLanguage
+                }
+              </Typography>
+            </div>
           </div>
-          <div className={classes.label}>
-            <Typography className={classes.labelText}>
-              {
-                isEnglish ? "Political Affiliation:" : "Affiliation politique:"
-              }
-            </Typography>
+        </div>
+
+
+
+        <div className={classes.contactRoot}>
+          <div className={classes.emailWebsiteWrapper}>
+            <div className={classes.emailWebsite}>
+              <div className={classes.label}>
+                <Typography className={classes.labelText}>
+                  {
+                    isEnglish ? "Email:" : "Courriel:"
+                  }
+                </Typography>
+              </div>
+              <div className={classes.value}>
+                <Link component={"button"} variant={"h5"} className={classes.valueText} onClick={handleEmailClick}>
+                  {
+                    email
+                  }
+                </Link>
+              </div>
+            </div>
+            <div className={classes.emailWebsite}>
+              <div className={classes.label}>
+                <Typography className={classes.labelText}>
+                  {
+                    hasWebsite ? (isEnglish ? "Website:" : "Site web:") : ""
+                  }
+                </Typography>
+              </div>
+              <div className={classes.value}>
+                <Link component={"button"} variant={"h5"} className={classes.valueText} onClick={handleWebsiteClick}>
+                  {
+                    getWebsite()
+                  }
+                </Link>
+              </div>
+            </div>
           </div>
-          <div className={classes.value}>
-            <Typography className={classes.valueText}>
+          <div className={classes.contactWrapper}>
+            <div className={clsx(classes.contact, {
+              [classes.contactNoAlternateOffice]: !hasAlternateOffice
+            })}>
+              <div className={classes.contactTitle}>
+                <Typography className={classes.contactTitleText}>
+                  {
+                    isEnglish ? "Hill Office" : "Bureau de la colline"
+                  }
+                </Typography>
+              </div>
+              <div className={classes.label}>
+                <Typography className={classes.labelText}>
+                  {
+                    hillOfficeName
+                  }
+                </Typography>
+              </div>
               {
-                party
+                hillOfficeAddress.map((address, index) => (
+                  <div className={classes.value} key={index}>
+                    <Typography className={classes.valueText}>
+                      {
+                        address
+                      }
+                    </Typography>
+                  </div>
+                ))
               }
-            </Typography>
-          </div>
-          <div className={classes.partyBar} style={{backgroundColor: getPartyColor(currentMapPolygon.mpData.party)}}/>
-          <div className={classes.label}>
-            <Typography className={classes.labelText}>
+              <div className={classes.value}>
+                <Typography className={classes.valueText}>
+                  {
+                    `${isEnglish ? "Telephone:" : "Téléphone:"} ${hillOfficeTelephone}`
+                  }
+                </Typography>
+              </div>
+              <div className={classes.value}>
+                <Typography className={classes.valueText}>
+                  {
+                    `${isEnglish ? "Fax:" : "Télécopieur:"} ${hillOfficeFax}`
+                  }
+                </Typography>
+              </div>
+            </div>
+
+            <div className={clsx(classes.contact, {
+              [classes.contactNoAlternateOffice]: !hasAlternateOffice
+            })}>
+              <div className={classes.contactTitle}>
+                <Typography className={classes.contactTitleText}>
+                  {
+                    hasMainOffice ? (isEnglish ? "Main Office" : "Bureau principal") : ""
+                  }
+                </Typography>
+              </div>
+              <div className={classes.label}>
+                <Typography className={classes.labelText}>
+                  {
+                    ((isEnglish ? currentMapPolygon.mpData.contact.mainOffice?.name : currentMapPolygon.mpData.contact.mainOfficeFrench?.name) || "").replace("Main office - ", "").replace("Bureau principal - ", "")
+                  }
+                </Typography>
+              </div>
               {
-                isEnglish ? "Constituency:" : "Circonscription:"
+                (hasMainOffice ? (isEnglish ? currentMapPolygon.mpData.contact.mainOffice.address : currentMapPolygon.mpData.contact.mainOfficeFrench.address) : []).map((address, index) => (
+                  <div className={classes.value} key={index}>
+                    <Typography className={classes.valueText}>
+                      {
+                        address
+                      }
+                    </Typography>
+                  </div>
+                ))
               }
-            </Typography>
-          </div>
-          <div className={classes.value}>
-            <Typography className={classes.valueText}>
-              {
-                constituencyName
-              }
-            </Typography>
-          </div>
-          <div className={classes.label}>
-            <Typography className={classes.labelText}>
-              {
-                isEnglish ? "Province / Territory:" : "Province / Territoire:"
-              }
-            </Typography>
-          </div>
-          <div className={classes.value}>
-            <Typography className={classes.valueText}>
-              {
-                province
-              }
-            </Typography>
-          </div>
-          <div className={classes.label}>
-            <Typography className={classes.labelText}>
-              {
-                isEnglish ? "Preferred Language:" : "Langue préférée:"
-              }
-            </Typography>
-          </div>
-          <div className={classes.value}>
-            <Typography className={classes.valueText}>
-              {
-                preferredLanguage
-              }
-            </Typography>
+              <div className={classes.value}>
+                <Typography className={classes.valueText}>
+                  {
+                    currentMapPolygon.mpData.contact.mainOffice?.telephone ? `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon.mpData.contact.mainOffice?.telephone || ""}` : ""
+                  }
+                </Typography>
+              </div>
+              <div className={classes.value}>
+                <Typography className={classes.valueText}>
+                  {
+                    currentMapPolygon.mpData.contact.mainOffice?.fax ? `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon.mpData.contact.mainOffice?.fax || ""}` : ""
+                  }
+                </Typography>
+              </div>
+            </div>
+
+            {
+              hasAlternateOffice ? (
+                <div className={classes.contact}>
+                  <div className={classes.contactTitle}>
+                    <Typography className={classes.contactTitleText}>
+                      {
+                        hasAlternateOffice ? (isEnglish ? "Office" : "Bureau") : ""
+                      }
+                    </Typography>
+                  </div>
+                  <div className={classes.label}>
+                    <Typography className={classes.labelText}>
+                      {
+                        (isEnglish ? currentMapPolygon.mpData.contact.alternateOffice?.name : currentMapPolygon.mpData.contact.alternateOfficeFrench?.name) || ""
+                      }
+                    </Typography>
+                  </div>
+                  {
+                    (hasAlternateOffice ? (isEnglish ? currentMapPolygon.mpData.contact.alternateOffice.address : currentMapPolygon.mpData.contact.alternateOfficeFrench.address) : []).map((address, index) => (
+                      <div className={classes.value} key={index}>
+                        <Typography className={classes.valueText}>
+                          {
+                            address
+                          }
+                        </Typography>
+                      </div>
+                    ))
+                  }
+                  <div className={classes.value}>
+                    <Typography className={classes.valueText}>
+                      {
+                        currentMapPolygon.mpData.contact.alternateOffice?.telephone ? `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon.mpData.contact.alternateOffice?.telephone || ""}` : ""
+                      }
+                    </Typography>
+                  </div>
+                  <div className={classes.value}>
+                    <Typography className={classes.valueText}>
+                      {
+                        currentMapPolygon.mpData.contact.alternateOffice?.fax ? `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon.mpData.contact.alternateOffice?.fax || ""}` : ""
+                      }
+                    </Typography>
+                  </div>
+                </div>
+              ) : null
+            }
           </div>
         </div>
       </div>

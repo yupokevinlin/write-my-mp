@@ -8,7 +8,6 @@ import {Breakpoint} from "@material-ui/core/styles/createBreakpoints";
 import LoadingPageTransparent from "./statelessPages/LoadingPageTransparent";
 import {XYCoord} from "../components/ESRIMap/types";
 import MPInformation from "../components/MPInformation/MPInformation";
-import MPContactInformation from "../components/MPContactInformation/MPContactInformation";
 import MPTable from "../components/MPTable/MPTable";
 import TopBar from "../components/TopBar/TopBar";
 
@@ -170,7 +169,6 @@ const HomePage: React.FC<HomePageProps> = (props) => {
         </Paper>
         <Paper className={classes.mpInformationContainer} square elevation={3}>
           <MPInformation currentMapPolygon={currentMapPolygon} isEnglish={isEnglish} isESRIMapLoaded={isESRIMapLoaded} handleFindMPClick={handleFindMP}/>
-          <MPContactInformation currentMapPolygon={currentMapPolygon} isEnglish={isEnglish}/>
         </Paper>
       </div>
       <Paper className={classes.mpTableContainer} square elevation={3}>

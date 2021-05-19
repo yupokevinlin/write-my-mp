@@ -464,7 +464,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
   };
 
   const handleEmailClick = (e: React.MouseEvent<HTMLElement>): void => {
-    const email: string = currentMapPolygon.mpData.contact.email.toLowerCase();
+    const email: string = currentMapPolygon?.mpData?.contact?.email.toLowerCase();
     const newWindow: Window = window.open(`mailto:${email}`, "_blank", "noopener,noreferrer")
     if (newWindow) {
       newWindow.opener = null;
@@ -480,28 +480,28 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
   };
 
   const getWebsite = (): string => {
-    return isEnglish ? currentMapPolygon.mpData.contact.website : (currentMapPolygon.mpData.contact.website ? currentMapPolygon.mpData.contact.website.replace(".ca/?lang=en", ".ca").replace(".ca/en", ".ca") : "") || "";
+    return isEnglish ? currentMapPolygon?.mpData?.contact?.website : (currentMapPolygon?.mpData?.contact?.website ? currentMapPolygon?.mpData?.contact?.website.replace(".ca/?lang=en", ".ca").replace(".ca/en", ".ca") : "") || "";
   };
 
-  if (!!currentMapPolygon && !!currentMapPolygon.mpData) {
-    const isVacant: boolean = currentMapPolygon.mpData.party === "Vacant";
-    const name: string = isVacant ? (isEnglish ? "This seat is vacant" : "Ce siège est vacant") : (isEnglish ? (`${!!currentMapPolygon.mpData.title ? `The ${currentMapPolygon.mpData.title.replace("Hon.", "Honourable")} ` : ""}${currentMapPolygon.mpData.firstName} ${currentMapPolygon.mpData.lastName}`) : (`${!!currentMapPolygon.mpData.title ? `L'${currentMapPolygon.mpData.title.replace("Hon.", "honorable")} `.replace("L'Right", "Le très") : ""}${currentMapPolygon.mpData.firstName} ${currentMapPolygon.mpData.lastName}`));
-    const party: string = isVacant ? `${isEnglish ? "N/A" : "n/d"}` : (isEnglish ? currentMapPolygon.mpData.party : LanguageUtils.getFrenchPartyFromParty(currentMapPolygon.mpData.party));
-    const constituencyName: string = (isEnglish ? currentMapPolygon.constituency : currentMapPolygon.constituencyFrench).replace(/—/g, "-").replace(/-/g, " - ");
-    const province: string = isEnglish ? currentMapPolygon.mpData.province : LanguageUtils.getFrenchProvinceFromProvince(currentMapPolygon.mpData.province);
-    const preferredLanguage: string = isVacant ? `${isEnglish ? "N/A" : "n/d"}` : (isEnglish ? currentMapPolygon.mpData.contact.preferredLanguage : currentMapPolygon.mpData.contact.preferredLanguage.replace("English", "Anglais").replace("French", "Français"));
+  if (!!currentMapPolygon && !!currentMapPolygon?.mpData) {
+    const isVacant: boolean = currentMapPolygon?.mpData?.party === "Vacant";
+    const name: string = isVacant ? (isEnglish ? "This seat is vacant" : "Ce siège est vacant") : (isEnglish ? (`${!!currentMapPolygon?.mpData?.title ? `The ${currentMapPolygon?.mpData?.title.replace("Hon.", "Honourable")} ` : ""}${currentMapPolygon?.mpData?.firstName} ${currentMapPolygon?.mpData?.lastName}`) : (`${!!currentMapPolygon?.mpData?.title ? `L'${currentMapPolygon?.mpData?.title.replace("Hon.", "honorable")} `.replace("L'Right", "Le très") : ""}${currentMapPolygon?.mpData?.firstName} ${currentMapPolygon?.mpData?.lastName}`));
+    const party: string = isVacant ? `${isEnglish ? "N/A" : "n/d"}` : (isEnglish ? currentMapPolygon?.mpData?.party : LanguageUtils.getFrenchPartyFromParty(currentMapPolygon?.mpData?.party));
+    const constituencyName: string = (isEnglish ? currentMapPolygon?.constituency : currentMapPolygon?.constituencyFrench).replace(/—/g, "-").replace(/-/g, " - ");
+    const province: string = isEnglish ? currentMapPolygon?.mpData?.province : LanguageUtils.getFrenchProvinceFromProvince(currentMapPolygon?.mpData?.province);
+    const preferredLanguage: string = isVacant ? `${isEnglish ? "N/A" : "n/d"}` : (isEnglish ? currentMapPolygon?.mpData?.contact?.preferredLanguage : currentMapPolygon?.mpData?.contact?.preferredLanguage.replace("English", "Anglais").replace("French", "Français"));
     const hillOfficeName: string = isEnglish ? "House of Commons" : "Chambre des communes";
     const hillOfficeAddress: Array<string> = isEnglish ? ["Ottawa, Ontario,", "Canada", "K1A 0A6"] : ["Ottawa (Ontario)", "Canada", "K1A 0A6"];
     const hillOfficeTelephone: string = "613-992-4211";
     const hillOfficeFax: string = "613-947-0310";
 
-    const email: string = isVacant ? "" : currentMapPolygon.mpData.contact.email.toLowerCase();
-    const hasWebsite: boolean = isVacant ? false : !!currentMapPolygon.mpData.contact.website;
-    const hasMainOffice: boolean = isVacant ? false : !!currentMapPolygon.mpData.contact.mainOffice.name;
-    const hasAlternateOffice: boolean = isVacant ? false : !!currentMapPolygon.mpData.contact.alternateOffice.name;
-
+    const email: string = isVacant ? "" : currentMapPolygon?.mpData?.contact?.email.toLowerCase();
+    const hasWebsite: boolean = isVacant ? false : !!currentMapPolygon?.mpData?.contact?.website;
+    const hasMainOffice: boolean = isVacant ? false : !!currentMapPolygon?.mpData?.contact?.mainOffice?.name;
+    const hasAlternateOffice: boolean = isVacant ? false : !!currentMapPolygon?.mpData?.contact?.alternateOffice?.name;
+    
     return (
-      <div className={classes.root} style={{backgroundColor: getPartyBackgroundColor(currentMapPolygon.mpData.party, false)}}>
+      <div className={classes.root} style={{backgroundColor: getPartyBackgroundColor(currentMapPolygon?.mpData?.party, false)}}>
         <div className={classes.informationRoot}>
           {
             isVacant ? (
@@ -509,7 +509,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
                 <PersonIcon className={classes.vacantPictureIcon}/>
               </div>
             ) : (
-              <img className={classes.picture} src={currentMapPolygon.mpData.photoSrc}/>
+              <img className={classes.picture} src={currentMapPolygon?.mpData?.photoSrc}/>
             )
           }
           <div className={classes.infoWrapper}>
@@ -534,7 +534,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
                 }
               </Typography>
             </div>
-            <div className={classes.partyBar} style={{backgroundColor: getPartyColor(currentMapPolygon.mpData.party)}}/>
+            <div className={classes.partyBar} style={{backgroundColor: getPartyColor(currentMapPolygon?.mpData?.party)}}/>
             <div className={classes.label}>
               <Typography className={classes.labelText}>
                 {
@@ -675,12 +675,12 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
               <div className={classes.label}>
                 <Typography className={classes.labelText}>
                   {
-                    ((isEnglish ? currentMapPolygon.mpData.contact.mainOffice?.name : currentMapPolygon.mpData.contact.mainOfficeFrench?.name) || "").replace("Main office - ", "").replace("Bureau principal - ", "")
+                    ((isEnglish ? currentMapPolygon?.mpData?.contact?.mainOffice?.name : currentMapPolygon?.mpData?.contact?.mainOfficeFrench.name) || "").replace("Main office - ", "").replace("Bureau principal - ", "")
                   }
                 </Typography>
               </div>
               {
-                (hasMainOffice ? (isEnglish ? currentMapPolygon.mpData.contact.mainOffice.address : currentMapPolygon.mpData.contact.mainOfficeFrench.address) : []).map((address, index) => (
+                (hasMainOffice ? (isEnglish ? currentMapPolygon?.mpData?.contact?.mainOffice?.address : currentMapPolygon?.mpData?.contact?.mainOfficeFrench.address) : []).map((address, index) => (
                   <div className={classes.value} key={index}>
                     <Typography className={classes.valueText}>
                       {
@@ -693,14 +693,14 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
               <div className={classes.value}>
                 <Typography className={classes.valueText}>
                   {
-                    currentMapPolygon.mpData.contact.mainOffice?.telephone ? `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon.mpData.contact.mainOffice?.telephone || ""}` : ""
+                    currentMapPolygon?.mpData?.contact?.mainOffice?.telephone ? `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon?.mpData?.contact?.mainOffice?.telephone || ""}` : ""
                   }
                 </Typography>
               </div>
               <div className={classes.value}>
                 <Typography className={classes.valueText}>
                   {
-                    currentMapPolygon.mpData.contact.mainOffice?.fax ? `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon.mpData.contact.mainOffice?.fax || ""}` : ""
+                    currentMapPolygon?.mpData?.contact?.mainOffice?.fax ? `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon?.mpData?.contact?.mainOffice?.fax || ""}` : ""
                   }
                 </Typography>
               </div>
@@ -718,12 +718,12 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
                   <div className={classes.label}>
                     <Typography className={classes.labelText}>
                       {
-                        (isEnglish ? currentMapPolygon.mpData.contact.alternateOffice?.name : currentMapPolygon.mpData.contact.alternateOfficeFrench?.name) || ""
+                        (isEnglish ? currentMapPolygon?.mpData?.contact?.alternateOffice?.name : currentMapPolygon?.mpData?.contact?.alternateOfficeFrench.name) || ""
                       }
                     </Typography>
                   </div>
                   {
-                    (hasAlternateOffice ? (isEnglish ? currentMapPolygon.mpData.contact.alternateOffice.address : currentMapPolygon.mpData.contact.alternateOfficeFrench.address) : []).map((address, index) => (
+                    (hasAlternateOffice ? (isEnglish ? currentMapPolygon?.mpData?.contact?.alternateOffice?.address : currentMapPolygon?.mpData?.contact?.alternateOfficeFrench.address) : []).map((address, index) => (
                       <div className={classes.value} key={index}>
                         <Typography className={classes.valueText}>
                           {
@@ -736,14 +736,14 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
                   <div className={classes.value}>
                     <Typography className={classes.valueText}>
                       {
-                        currentMapPolygon.mpData.contact.alternateOffice?.telephone ? `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon.mpData.contact.alternateOffice?.telephone || ""}` : ""
+                        currentMapPolygon?.mpData?.contact?.alternateOffice?.telephone ? `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon?.mpData?.contact?.alternateOffice?.telephone || ""}` : ""
                       }
                     </Typography>
                   </div>
                   <div className={classes.value}>
                     <Typography className={classes.valueText}>
                       {
-                        currentMapPolygon.mpData.contact.alternateOffice?.fax ? `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon.mpData.contact.alternateOffice?.fax || ""}` : ""
+                        currentMapPolygon?.mpData?.contact?.alternateOffice?.fax ? `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon?.mpData?.contact?.alternateOffice?.fax || ""}` : ""
                       }
                     </Typography>
                   </div>

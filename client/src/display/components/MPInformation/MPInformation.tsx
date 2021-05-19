@@ -3,7 +3,7 @@ import {createStyles, Theme, useTheme} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {MapPolygon} from "../../../../../shared/types/data/Map/MapTypes";
 import Typography from "@material-ui/core/Typography";
-import PersonIcon from "@material-ui/icons/Person";
+import CrossfadeImage from "react-crossfade-image";
 import Button from "@material-ui/core/Button";
 import {getPartyBackgroundColor, getPartyColor} from "./types";
 import {LanguageUtils} from "../../../helpers/LanguageUtils";
@@ -504,13 +504,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
       return (
         <div className={classes.informationRoot}>
           {
-            isVacant ? (
-              <div className={classes.vacantPicture}>
-                <PersonIcon className={classes.vacantPictureIcon}/>
-              </div>
-            ) : (
-              <img className={classes.picture} src={currentMapPolygon?.mpData?.photoSrc}/>
-            )
+            <CrossfadeImage className={classes.picture} src={isVacant ? "./resources/vacant-seat.png" : currentMapPolygon?.mpData?.photoSrc}/>
           }
           <div className={classes.infoWrapper}>
             <div className={classes.title}>
@@ -585,8 +579,6 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
     const renderMPContact = (): React.ReactElement => {
       if (!isVacant) {
         return (
-
-
           <div className={classes.contactRoot}>
             <div className={classes.emailWebsiteWrapper}>
               <div className={classes.emailWebsite}>

@@ -30,13 +30,13 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       userSelect: "none",
       [theme.breakpoints.up("xs")]: {
-
+        height: "26px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "32px",
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "44px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "50px",
@@ -44,29 +44,48 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     topBarLeft: {
       height: "100%",
-      width: "50%",
       display: "flex",
       flexDirection: "row",
       justifyContent: "flex-start",
       alignItems: "center",
+      [theme.breakpoints.up("xs")]: {
+        width: "70%",
+      },
+      [theme.breakpoints.up("md")]: {
+        width: "50%",
+      },
     },
     topBarRight: {
       height: "100%",
-      width: "50%",
       display: "flex",
       flexDirection: "row",
       justifyContent: "flex-end",
       alignItems: "center",
+      [theme.breakpoints.up("xs")]: {
+        width: "30%",
+      },
+      [theme.breakpoints.up("md")]: {
+        width: "50%",
+      },
     },
     topBarLeftText: {
       [theme.breakpoints.up("xs")]: {
-
+        fontSize: "12px",
+        fontWeight: "bold",
+        marginLeft: "8px",
+        marginRight: "8px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        fontSize: "16px",
+        fontWeight: "bold",
+        marginLeft: "12px",
+        marginRight: "12px",
       },
       [theme.breakpoints.up("md")]: {
-
+        fontSize: "20px",
+        fontWeight: "bold",
+        marginLeft: "16px",
+        marginRight: "16px",
       },
       [theme.breakpoints.up("lg")]: {
         fontSize: "24px",
@@ -77,13 +96,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     topBarMapleLeafIcon: {
       [theme.breakpoints.up("xs")]: {
-
+        height: "18px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "22px",
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "26px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "30px",
@@ -91,13 +110,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     topBarFeatherIcon: {
       [theme.breakpoints.up("xs")]: {
-
+        height: "18px",
+        marginLeft: "40px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "22px",
+        marginLeft: "60px",
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "26px",
+        marginLeft: "80px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "30px",
@@ -111,13 +133,25 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       cursor: "pointer",
       [theme.breakpoints.up("xs")]: {
-
+        height: "18px",
+        width: "48px",
+        marginRight: "40px",
+        border: "2px solid white",
+        borderRadius: "3px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "20px",
+        width: "52px",
+        marginRight: "60px",
+        border: "2px solid white",
+        borderRadius: "3px",
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "22px",
+        width: "56px",
+        marginRight: "80px",
+        border: "3px solid white",
+        borderRadius: "3px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "24px",
@@ -140,31 +174,47 @@ const useStyles = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.leavingScreen,
       }),
       [theme.breakpoints.up("xs")]: {
-
+        height: "12px",
+        width: "20px",
+        borderRadius: "3px",
+        fontSize: "10px",
+        lineHeight: "10px",
+        marginLeft: "3px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "14px",
+        width: "22px",
+        borderRadius: "3px",
+        fontSize: "11px",
+        lineHeight: "11px",
+        marginLeft: "3px",
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "16px",
+        width: "24px",
+        borderRadius: "3px",
+        fontSize: "12px",
+        lineHeight: "12px",
+        marginLeft: "4px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "18px",
         width: "26px",
         borderRadius: "3px",
+        lineHeight: "14px",
         fontSize: "14px",
         marginLeft: "4px",
       },
     },
     languageSwitchTextFrench: {
       [theme.breakpoints.up("xs")]: {
-
+        marginLeft: "25px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        marginLeft: "27px",
       },
       [theme.breakpoints.up("md")]: {
-
+        marginLeft: "28px",
       },
       [theme.breakpoints.up("lg")]: {
         marginLeft: "30px",

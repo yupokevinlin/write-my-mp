@@ -743,7 +743,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
           </Typography>
           <Typography className={classes.noSelectTextParagraph}>
             {
-              isEnglish ? "Select a MP by left clicking their constituency on the map or by left clicking their row on the table" : "Sélectionnez un député en cliquant avec le bouton gauche sur sa circonscription sur la carte ou en cliquant avec le bouton gauche sur sa ligne sur le tableau"
+              isEnglish ? "Select a MP by left clicking their constituency on the map or by left clicking their row on the table" : "Sélectionnez un député en cliquant avec le bouton gauche sur sa circonscription dans la carte ou en cliquant avec le bouton gauche sur sa ligne dans le tableau"
             }
           </Typography>
           <Typography className={classes.noSelectTextParagraph}>

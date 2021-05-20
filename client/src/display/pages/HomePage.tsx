@@ -44,7 +44,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "400px",
+        width: "calc(40% - 13px)",
+        marginLeft: "13px",
+        marginRight: 0,
+        marginTop: "13px",
+        marginBottom: "13px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "500px",
@@ -67,7 +72,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "426px",
+        width: "100%",
       },
       [theme.breakpoints.up("lg")]: {
         height: "530px",
@@ -82,7 +88,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "400px",
+        width: "calc(60% - 26px)",
+        margin: "13px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "500px",
@@ -98,7 +106,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "calc(100% - 483px)",
+        width: "calc(100% - 26px)",
+        marginLeft: "13px",
+        marginRight: "13px",
+        marginBottom: "13px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "calc(100% - 595px)",
@@ -116,7 +128,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "26px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "30px",
@@ -134,7 +146,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        fontSize: "12px",
       },
       [theme.breakpoints.up("lg")]: {
         fontSize: "14px",
@@ -152,7 +164,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        fontSize: "18px",
       },
       [theme.breakpoints.up("lg")]: {
         fontSize: "20px",
@@ -166,7 +178,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        transform: "translate(-50%, 14px)",
       },
       [theme.breakpoints.up("lg")]: {
         transform: "translate(-50%, 20px)",
@@ -239,7 +251,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
             <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
           </Paper>
           <Paper className={classes.mpInformationContainer} square elevation={3}>
-            <MPInformation currentMapPolygon={currentMapPolygon} isEnglish={isEnglish} isESRIMapLoaded={isESRIMapLoaded} handleFindMPClick={handleFindMP}/>
+            <MPInformation currentMapPolygon={currentMapPolygon} isEnglish={isEnglish} isESRIMapLoaded={isESRIMapLoaded} width={width} handleFindMPClick={handleFindMP}/>
           </Paper>
         </div>
         <Paper className={classes.mpTableContainer} square elevation={3}>

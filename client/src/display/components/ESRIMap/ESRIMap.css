@@ -54,7 +54,7 @@
   height: 100px;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1280px) {
   .esri-legend__layer-body {
     display: flex;
     flex-direction: row-reverse;
@@ -69,14 +69,14 @@
     overflow-y: hidden !important;
   }
   .esri-legend__layer-caption {
-    height: 10px;
-    font-size: 10px;
+    height: 12px;
+    font-size: 12px;
     font-weight: bold;
     padding: 0 !important;
   }
   .esri-legend__layer-row {
-    height: 14px !important;
-    font-size: 14px;
+    height: 16px !important;
+    font-size: 16px;
     width: max-content !important;
   }
   .esri-legend__layer-table {
@@ -88,15 +88,15 @@
   }
   .esri-legend__layer-cell.esri-legend__layer-cell--symbols {
     padding: 0 !important;
-    height: 14px !important;
+    height: 16px !important;
   }
   .esri-legend__layer-cell.esri-legend__layer-cell--info {
     padding: 0 !important;
-    height: 14px !important;
+    height: 16px !important;
     width: max-content !important;
     min-width: 0 !important;
   }
   .esri-legend__layer-cell.esri-legend__layer-cell--symbols > div > div > svg {
-    transform: scale(0.45);
+    transform: scale(0.6);
   }
 }

@@ -9,6 +9,7 @@ import {getPartyBackgroundColor, getPartyColor} from "./types";
 import {LanguageUtils} from "../../../helpers/LanguageUtils";
 import Link from "@material-ui/core/Link";
 import clsx from "clsx";
+import {Breakpoint} from "@material-ui/core/styles/createBreakpoints";
 
 export type MPInformationProps = MPInformationDataProps & MPInformationStyleProps & MPInformationEventProps;
 
@@ -19,7 +20,7 @@ export interface MPInformationDataProps {
 }
 
 export interface MPInformationStyleProps {
-
+  width: Breakpoint;
 }
 
 export interface MPInformationEventProps {
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "400px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "500px",
@@ -61,7 +62,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "184px",
+        paddingBottom: "13px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "230px",
@@ -80,10 +82,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "184px",
+        width: "113.6px",
+        marginTop: "13px",
+        marginLeft: "13px",
       },
       [theme.breakpoints.up("lg")]: {
-        height: "100%",
+        height: "230px",
         width: "142px",
         marginTop: "15px",
         marginLeft: "15px",
@@ -97,7 +102,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "100%",
+        width: "calc(100% - 126.6px)",
+        marginTop: "13px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "100%",
@@ -113,7 +120,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "26px",
+        marginBottom: "4px",
+        width: "100%",
       },
       [theme.breakpoints.up("lg")]: {
         height: "30px",
@@ -129,7 +138,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        fontSize: "20px",
+        marginLeft: "13px",
       },
       [theme.breakpoints.up("lg")]: {
         fontSize: "24px",
@@ -144,7 +154,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "18px",
+        width: "100%",
       },
       [theme.breakpoints.up("lg")]: {
         height: "22px",
@@ -160,7 +171,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        fontSize: "12px",
+        marginLeft: "13px",
       },
       [theme.breakpoints.up("lg")]: {
         fontSize: "14px",
@@ -175,7 +187,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "18px",
+        width: "100%",
       },
       [theme.breakpoints.up("lg")]: {
         height: "22px",
@@ -183,6 +196,9 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     valueText: {
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+      overflow: "hidden",
       [theme.breakpoints.up("xs")]: {
 
       },
@@ -190,7 +206,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        fontSize: "12px",
+        marginLeft: "13px",
       },
       [theme.breakpoints.up("lg")]: {
         fontSize: "14px",
@@ -205,7 +222,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        width: "calc(100% - 26px)",
+        height: "4px",
+        marginBottom: "4px",
+        marginLeft: "13px",
       },
       [theme.breakpoints.up("lg")]: {
         width: "calc(100% - 30px)",
@@ -226,7 +246,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        width: "calc(100% - 26px)",
+        height: "calc(100% - 26px)",
+        margin: "13px",
       },
       [theme.breakpoints.up("lg")]: {
         width: "calc(100% - 30px)",
@@ -242,7 +264,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        fontSize: "20px",
+        marginBottom: "5px",
       },
       [theme.breakpoints.up("lg")]: {
         fontSize: "20px",
@@ -257,7 +280,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        fontSize: "14px",
+        marginBottom: "3px",
       },
       [theme.breakpoints.up("lg")]: {
         fontSize: "14px",
@@ -272,7 +296,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        marginTop: "4px",
+        height: "32px",
+        width: "250px",
       },
       [theme.breakpoints.up("lg")]: {
         marginTop: "5px",
@@ -288,7 +314,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        fontSize: "12px",
       },
       [theme.breakpoints.up("lg")]: {
         fontSize: "14px",
@@ -307,7 +333,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "203px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "255px",
@@ -325,7 +351,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        marginTop: "8px",
+        height: "38px",
+        width: "100%",
       },
       [theme.breakpoints.up("lg")]: {
         marginTop: "10px",
@@ -336,18 +364,6 @@ const useStyles = makeStyles((theme: Theme) =>
     emailWebsite: {
       height: "100%",
       width: "50%",
-      [theme.breakpoints.up("xs")]: {
-
-      },
-      [theme.breakpoints.up("sm")]: {
-
-      },
-      [theme.breakpoints.up("md")]: {
-
-      },
-      [theme.breakpoints.up("lg")]: {
-
-      },
     },
     contactWrapper: {
       display: "flex",
@@ -361,7 +377,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        marginTop: "8px",
+        height: "38px",
+        width: "100%",
       },
       [theme.breakpoints.up("lg")]: {
         marginTop: "10px",
@@ -384,7 +402,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "20px",
+        width: "100%",
       },
       [theme.breakpoints.up("lg")]: {
         height: "26px",
@@ -400,7 +419,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        fontSize: "14px",
+        marginLeft: "13px",
       },
       [theme.breakpoints.up("lg")]: {
         fontSize: "16px",
@@ -418,6 +438,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
     isEnglish,
     currentMapPolygon,
     isESRIMapLoaded,
+    width,
     handleFindMPClick,
   } = props;
 
@@ -466,7 +487,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
       return (
         <div className={classes.informationRoot}>
           <div className={classes.picture}>
-            <CrossFadeImage src={isVacant ? "./resources/vacant-seat.png" : currentMapPolygon?.mpData?.photoSrc}/>
+            <CrossFadeImage style={{height: "100%", width: "100%",}} src={isVacant ? "./resources/vacant-seat.png" : currentMapPolygon?.mpData?.photoSrc}/>
           </div>
           <div className={classes.infoWrapper}>
             <div className={classes.title}>
@@ -578,7 +599,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
             </div>
             <div className={classes.contactWrapper}>
               <div className={clsx(classes.contact, {
-                [classes.contactNoAlternateOffice]: !hasAlternateOffice
+                [classes.contactNoAlternateOffice]: !hasAlternateOffice || !hasMainOffice
               })}>
                 <div className={classes.contactTitle}>
                   <Typography className={classes.contactTitleText}>
@@ -620,53 +641,58 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
                   </Typography>
                 </div>
               </div>
-
-              <div className={clsx(classes.contact, {
-                [classes.contactNoAlternateOffice]: !hasAlternateOffice
-              })}>
-                <div className={classes.contactTitle}>
-                  <Typography className={classes.contactTitleText}>
-                    {
-                      hasMainOffice ? (isEnglish ? "Main Office" : "Bureau principal") : ""
-                    }
-                  </Typography>
-                </div>
-                <div className={classes.label}>
-                  <Typography className={classes.labelText}>
-                    {
-                      ((isEnglish ? currentMapPolygon?.mpData?.contact?.mainOffice?.name : currentMapPolygon?.mpData?.contact?.mainOfficeFrench.name) || "").replace("Main office - ", "").replace("Bureau principal - ", "")
-                    }
-                  </Typography>
-                </div>
-                {
-                  (hasMainOffice ? (isEnglish ? currentMapPolygon?.mpData?.contact?.mainOffice?.address : currentMapPolygon?.mpData?.contact?.mainOfficeFrench.address) : []).map((address, index) => (
-                    <div className={classes.value} key={index}>
-                      <Typography className={classes.valueText}>
+              {
+                hasMainOffice ? (
+                  <div className={clsx(classes.contact, {
+                    [classes.contactNoAlternateOffice]: !hasAlternateOffice || !hasMainOffice
+                  })}>
+                    <div className={classes.contactTitle}>
+                      <Typography className={classes.contactTitleText}>
                         {
-                          address
+                          hasMainOffice ? (isEnglish ? "Main Office" : "Bureau principal") : ""
                         }
                       </Typography>
                     </div>
-                  ))
-                }
-                <div className={classes.value}>
-                  <Typography className={classes.valueText}>
+                    <div className={classes.label}>
+                      <Typography className={classes.labelText}>
+                        {
+                          ((isEnglish ? currentMapPolygon?.mpData?.contact?.mainOffice?.name : currentMapPolygon?.mpData?.contact?.mainOfficeFrench.name) || "").replace("Main office - ", "").replace("Bureau principal - ", "")
+                        }
+                      </Typography>
+                    </div>
                     {
-                      currentMapPolygon?.mpData?.contact?.mainOffice?.telephone ? `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon?.mpData?.contact?.mainOffice?.telephone || ""}` : ""
+                      (hasMainOffice ? (isEnglish ? currentMapPolygon?.mpData?.contact?.mainOffice?.address : currentMapPolygon?.mpData?.contact?.mainOfficeFrench.address) : []).map((address, index) => (
+                        <div className={classes.value} key={index}>
+                          <Typography className={classes.valueText}>
+                            {
+                              address
+                            }
+                          </Typography>
+                        </div>
+                      ))
                     }
-                  </Typography>
-                </div>
-                <div className={classes.value}>
-                  <Typography className={classes.valueText}>
-                    {
-                      currentMapPolygon?.mpData?.contact?.mainOffice?.fax ? `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon?.mpData?.contact?.mainOffice?.fax || ""}` : ""
-                    }
-                  </Typography>
-                </div>
-              </div>
+                    <div className={classes.value}>
+                      <Typography className={classes.valueText}>
+                        {
+                          currentMapPolygon?.mpData?.contact?.mainOffice?.telephone ? `${isEnglish ? "Telephone:" : "Téléphone:"} ${currentMapPolygon?.mpData?.contact?.mainOffice?.telephone || ""}` : ""
+                        }
+                      </Typography>
+                    </div>
+                    <div className={classes.value}>
+                      <Typography className={classes.valueText}>
+                        {
+                          currentMapPolygon?.mpData?.contact?.mainOffice?.fax ? `${isEnglish ? "Fax:" : "Télécopieur:"} ${currentMapPolygon?.mpData?.contact?.mainOffice?.fax || ""}` : ""
+                        }
+                      </Typography>
+                    </div>
+                  </div>
+                ) : null
+              }
               {
                 hasAlternateOffice ? (
-                  <div className={classes.contact}>
+                  <div className={clsx(classes.contact, {
+                    [classes.contactNoAlternateOffice]: !hasAlternateOffice || !hasMainOffice
+                  })}>
                     <div className={classes.contactTitle}>
                       <Typography className={classes.contactTitleText}>
                         {

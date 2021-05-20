@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "36px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "30px",
@@ -53,7 +53,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        marginLeft: "13px",
+        fontSize: "12px",
       },
       [theme.breakpoints.up("lg")]: {
         marginLeft: "15px",
@@ -68,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        width: "calc(30% - 13px)",
       },
       [theme.breakpoints.up("lg")]: {
         width: "calc(30% - 15px)",
@@ -87,7 +88,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        width: "calc(20% - 13px)",
+        marginLeft: "13px",
+        fontSize: "12px",
       },
       [theme.breakpoints.up("lg")]: {
         width: "calc(20% - 15px)",
@@ -103,7 +106,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        fontSize: "12px",
       },
       [theme.breakpoints.up("lg")]: {
         fontSize: "12px",
@@ -118,13 +121,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        height: "12px",
+        width: "12px",
+        marginRight: "9px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "12px",
         width: "12px",
-        marginTop: "9px",
-        marginBottom: "9px",
         marginRight: "9px",
       },
     },
@@ -136,7 +139,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        width: "calc(20% - 13px)",
       },
       [theme.breakpoints.up("lg")]: {
         width: "calc(20% - 15px)",
@@ -150,7 +153,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        width: "calc(25% - 13px)",
       },
       [theme.breakpoints.up("lg")]: {
         width: "calc(25% - 15px)",
@@ -164,7 +167,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
       },
       [theme.breakpoints.up("md")]: {
-
+        width: "calc(25% - 13px)",
       },
       [theme.breakpoints.up("lg")]: {
         width: "calc(25% - 15px)",

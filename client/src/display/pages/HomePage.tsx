@@ -145,10 +145,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     alert: {
       [theme.breakpoints.up("xs")]: {
-
+        height: "18px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "18px",
       },
       [theme.breakpoints.up("md")]: {
         height: "26px",
@@ -163,10 +163,10 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       justifyContent: "center",
       [theme.breakpoints.up("xs")]: {
-
+        fontSize: "10px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        fontSize: "11px",
       },
       [theme.breakpoints.up("md")]: {
         fontSize: "12px",
@@ -181,10 +181,10 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       justifyContent: "center",
       [theme.breakpoints.up("xs")]: {
-
+        fontSize: "14px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        fontSize: "14px",
       },
       [theme.breakpoints.up("md")]: {
         fontSize: "18px",
@@ -195,16 +195,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     snackBar: {
       [theme.breakpoints.up("xs")]: {
-
+        transform: "translate(0, 22px)",
       },
       [theme.breakpoints.up("sm")]: {
-
+        transform: "translate(-50%, 18px)",
       },
       [theme.breakpoints.up("md")]: {
-        transform: "translate(-50%, 14px)",
+        transform: "translate(-50%, 30px)",
       },
       [theme.breakpoints.up("lg")]: {
-        transform: "translate(-50%, 20px)",
+        transform: "translate(-50%, 40px)",
       },
     },
   }),

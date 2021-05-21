@@ -240,7 +240,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
   const [tableSelectedRegionGeometry, setTableSelectedRegionGeometry] = useState<Array<Array<[number, number]>>>([]);
   const [currentPosition, setCurrentPosition] = useState<XYCoord>({x: -1, y: -1,});
   const [isEnglish, setIsEnglish] = useState<boolean>(true);
-  const [unableToFindPolygon, setUnableToFindPolygon] = useState<boolean>(false);
+  const [snackbarMessage, setSnackbarMessage] = useState<string>("");
 
   const handleLoadComplete = (): void => {
     setIsESRIMapLoaded(true);
@@ -261,11 +261,11 @@ const HomePage: React.FC<HomePageProps> = (props) => {
   };
 
   const handleUnableToFindPolygonAtCurrentPosition = (): void => {
-    setUnableToFindPolygon(true);
+    setSnackbarMessage(isEnglish ? "Your IP address does not match a constituency" : "Votre adresse IP ne correspond pas à une circonscription");
   };
 
   const handleSnackbarClose = (): void => {
-    setUnableToFindPolygon(false);
+    setSnackbarMessage("");
   };
 
   const handleLanguageChange = (isEnglish: boolean): void => {
@@ -277,6 +277,8 @@ const HomePage: React.FC<HomePageProps> = (props) => {
       navigator.geolocation.getCurrentPosition((position) => {
         setCurrentPosition({x: position.coords.longitude, y: position.coords.latitude,});
       });
+    } else {
+      setSnackbarMessage(isEnglish ? "Geolocation is not supported" : "La localisation n'est pas prise en charge");
     }
   };
 
@@ -297,14 +299,14 @@ const HomePage: React.FC<HomePageProps> = (props) => {
           <MPTable mapPolygons={mapPolygons} isEnglish={isEnglish} currentMapPolygon={currentMapPolygon} handleTableRowClick={handleTableRowClick} handleTableRowRightClick={handleTableRowRightClick}/>
         </Paper>
       </div>
-      <Snackbar className={classes.snackBar} open={unableToFindPolygon} autoHideDuration={5000} anchorOrigin={{vertical: "top", horizontal: "center"}} onClose={handleSnackbarClose}>
+      <Snackbar className={classes.snackBar} open={snackbarMessage !== ""} autoHideDuration={5000} anchorOrigin={{vertical: "top", horizontal: "center"}} onClose={handleSnackbarClose}>
         <Alert classes={{
           root: classes.alert,
           message: classes.alertMessage,
           icon: classes.alertIcon,
         }} severity={"error"}>
           {
-            isEnglish ? "Your IP address does not match a constituency" : "Votre adresse IP ne correspond pas à une circonscription"
+            snackbarMessage
           }
         </Alert>
       </Snackbar>

@@ -341,12 +341,20 @@ const MPTable: React.FC<MPTableProps> = (props) => {
         return dataToSort.sort((a, b) => {
           const aName: string = a.name.replace("The Honourable", "").replace("L'honorable", "").replace("The Right Honourable", "").replace("Le très honorable", "").trim();
           const bName: string = b.name.replace("The Honourable", "").replace("L'honorable", "").replace("The Right Honourable", "").replace("Le très honorable", "").trim();
+          if (aName === bName) {
+            return 0;
+          }
+          if (aName === "This seat is vacant" || aName === "Ce siège est vacant") {
+            return 1;
+          }
+          if (bName === "This seat is vacant" || bName === "Ce siège est vacant") {
+            return -1;
+          }
           if (aName > bName) {
             return 1;
-          } else if (aName < bName) {
+          }
+          if (aName < bName) {
             return -1;
-          } else {
-            return 0;
           }
         });
       }
@@ -354,12 +362,20 @@ const MPTable: React.FC<MPTableProps> = (props) => {
         return dataToSort.sort((a, b) => {
           const aName: string = a.name.replace("The Honourable", "").replace("L'honorable", "").replace("The Right Honourable", "").replace("Le très honorable", "").trim();
           const bName: string = b.name.replace("The Honourable", "").replace("L'honorable", "").replace("The Right Honourable", "").replace("Le très honorable", "").trim();
+          if (aName === bName) {
+            return 0;
+          }
+          if (aName === "This seat is vacant" || aName === "Ce siège est vacant") {
+            return -1;
+          }
+          if (bName === "This seat is vacant" || bName === "Ce siège est vacant") {
+            return 1;
+          }
           if (aName > bName) {
             return -1;
-          } else if (aName < bName) {
+          }
+          if (aName < bName) {
             return 1;
-          } else {
-            return 0;
           }
         });
       }

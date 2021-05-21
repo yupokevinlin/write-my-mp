@@ -29,6 +29,10 @@ export interface HomePageEventProps {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      "@media (min-width: 0px) and (max-width: 599px) and (min-height: 0px) and (max-height: 599px)": {
+        overflowY: "auto",
+        height: "max-content",
+      },
       display: "flex",
       flexDirection: "column",
       alignItems: "flex-start",
@@ -73,6 +77,12 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "flex-start",
       justifyContent: "flex-start",
       [theme.breakpoints.up("xs")]: {
+        "@media (min-height: 0px) and (max-height: 599px)": {
+          height: "max-content",
+        },
+        "@media (min-height: 600px)": {
+          height: "459px",
+        },
         flexDirection: "column-reverse",
         height: "459px",
         width: "100%",
@@ -114,8 +124,14 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     mpTableContainer: {
+
       [theme.breakpoints.up("xs")]: {
-        height: "calc(100% - 459px)",
+        "@media (min-height: 0px) and (max-height: 599px)": {
+          height: "350px",
+        },
+        "@media (min-height: 600px)": {
+          height: "calc(100% - 459px)",
+        },
         width: "calc(100% - 18px)",
         marginLeft: "9px",
         marginRight: "9px",

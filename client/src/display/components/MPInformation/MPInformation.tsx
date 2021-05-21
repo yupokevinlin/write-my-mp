@@ -148,8 +148,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     titleText: {
       [theme.breakpoints.up("xs")]: {
-        fontSize: "12px",
         marginLeft: "9px",
+        "@media (min-height: 0px) and (max-height: 599px)": {
+          fontSize: "10px",
+          fontWeight: "bold",
+        },
+        "@media (min-height: 600px)": {
+          fontSize: "12px",
+        },
       },
       [theme.breakpoints.up("sm")]: {
         fontSize: "18px",

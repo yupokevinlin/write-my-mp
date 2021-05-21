@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     name: {
       [theme.breakpoints.up("xs")]: {
-        width: "calc(25% - 9px)",
+        width: "calc(23% - 9px)",
       },
       [theme.breakpoints.up("sm")]: {
         width: "calc(30% - 11px)",
@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       justifyContent: "flex-start",
       [theme.breakpoints.up("xs")]: {
-        width: "calc(25% - 9px)",
+        width: "calc(27% - 9px)",
         marginLeft: "9px",
         fontSize: "8px",
       },
@@ -143,7 +143,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     party: {
       [theme.breakpoints.up("xs")]: {
-        width: "calc(20% - 9px)",
+        width: "calc(27% - 9px)",
       },
       [theme.breakpoints.up("sm")]: {
         width: "calc(20% - 11px)",

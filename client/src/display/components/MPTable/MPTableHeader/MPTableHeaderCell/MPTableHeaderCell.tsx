@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     name: {
       [theme.breakpoints.up("xs")]: {
-        width: "calc(25% - 9px)",
+        width: "calc(23% - 9px)",
       },
       [theme.breakpoints.up("sm")]: {
         width: "calc(30% - 11px)",
@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     party: {
       [theme.breakpoints.up("xs")]: {
-        width: "calc(25% - 9px)",
+        width: "calc(27% - 9px)",
       },
       [theme.breakpoints.up("sm")]: {
         width: "calc(20% - 11px)",
@@ -124,7 +124,12 @@ const useStyles = makeStyles((theme: Theme) =>
       userSelect: "none",
       fontWeight: "bold",
       [theme.breakpoints.up("xs")]: {
-        fontSize: "8px",
+        "@media (min-height: 0px) and (max-height: 599px)": {
+          fontSize: "6px",
+        },
+        "@media (min-height: 600px)": {
+          fontSize: "8px",
+        },
       },
       [theme.breakpoints.up("sm")]: {
         fontSize: "10px",
@@ -138,9 +143,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     icon: {
       [theme.breakpoints.up("xs")]: {
-        height: "8px",
-        width: "8px",
-        margin: "5px 2px"
+        "@media (min-height: 0px) and (max-height: 599px)": {
+          height: "6px",
+          width: "6px",
+          margin: "6px 2px",
+        },
+        "@media (min-height: 600px)": {
+          height: "8px",
+          width: "8px",
+          margin: "5px 2px"
+        },
       },
       [theme.breakpoints.up("sm")]: {
         height: "10px",

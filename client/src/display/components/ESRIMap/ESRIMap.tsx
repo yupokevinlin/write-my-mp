@@ -135,7 +135,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
       center: [-93, 53],
       zoom: 4,
       ui: {
-        components: ["zoom", "compass"],
+        components: ["attribution", "zoom", "compass"],
       },
     });
     mapView.popup.collapseEnabled = false;

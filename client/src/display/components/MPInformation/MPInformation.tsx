@@ -340,12 +340,12 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up("xs")]: {
         marginTop: "4px",
         height: "24px",
-        width: "150px",
+        width: "200px",
       },
       [theme.breakpoints.up("sm")]: {
         marginTop: "4px",
         height: "28px",
-        width: "250px",
+        width: "230px",
       },
       [theme.breakpoints.up("md")]: {
         marginTop: "4px",

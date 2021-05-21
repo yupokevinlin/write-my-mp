@@ -28,10 +28,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "row",
       transition: "background-color 1s",
       [theme.breakpoints.up("xs")]: {
-
+        height: "32px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "32px",
       },
       [theme.breakpoints.up("md")]: {
         height: "36px",
@@ -47,10 +47,12 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       justifyContent: "flex-start",
       [theme.breakpoints.up("xs")]: {
-
+        marginLeft: "9px",
+        fontSize: "8px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        marginLeft: "11px",
+        fontSize: "10px",
       },
       [theme.breakpoints.up("md")]: {
         marginLeft: "13px",
@@ -63,10 +65,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     name: {
       [theme.breakpoints.up("xs")]: {
-
+        width: "calc(25% - 9px)",
       },
       [theme.breakpoints.up("sm")]: {
-
+        width: "calc(30% - 11px)",
       },
       [theme.breakpoints.up("md")]: {
         width: "calc(30% - 13px)",
@@ -82,10 +84,14 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       justifyContent: "flex-start",
       [theme.breakpoints.up("xs")]: {
-
+        width: "calc(25% - 9px)",
+        marginLeft: "9px",
+        fontSize: "8px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        width: "calc(20% - 11px)",
+        marginLeft: "11px",
+        fontSize: "10px",
       },
       [theme.breakpoints.up("md")]: {
         width: "calc(20% - 13px)",
@@ -100,10 +106,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     partyText: {
       [theme.breakpoints.up("xs")]: {
-
+        fontSize: "8px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        fontSize: "10px",
       },
       [theme.breakpoints.up("md")]: {
         fontSize: "12px",
@@ -115,10 +121,14 @@ const useStyles = makeStyles((theme: Theme) =>
     partySquare: {
       borderRadius: "3px",
       [theme.breakpoints.up("xs")]: {
-
+        height: "8px",
+        width: "8px",
+        marginRight: "5px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "10px",
+        width: "10px",
+        marginRight: "5px",
       },
       [theme.breakpoints.up("md")]: {
         height: "12px",
@@ -133,10 +143,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     party: {
       [theme.breakpoints.up("xs")]: {
-
+        width: "calc(20% - 9px)",
       },
       [theme.breakpoints.up("sm")]: {
-
+        width: "calc(20% - 11px)",
       },
       [theme.breakpoints.up("md")]: {
         width: "calc(20% - 13px)",
@@ -147,10 +157,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     constituency: {
       [theme.breakpoints.up("xs")]: {
-
+        width: "calc(25% - 9px)",
       },
       [theme.breakpoints.up("sm")]: {
-
+        width: "calc(25% - 11px)",
       },
       [theme.breakpoints.up("md")]: {
         width: "calc(25% - 13px)",
@@ -161,10 +171,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     province: {
       [theme.breakpoints.up("xs")]: {
-
+        width: "calc(25% - 9px)",
       },
       [theme.breakpoints.up("sm")]: {
-
+        width: "calc(25% - 11px)",
       },
       [theme.breakpoints.up("md")]: {
         width: "calc(25% - 13px)",

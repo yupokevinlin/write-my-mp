@@ -133,7 +133,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       cursor: "pointer",
       [theme.breakpoints.up("xs")]: {
-        height: "18px",
+        height: "14px",
         width: "48px",
         marginRight: "40px",
         border: "2px solid white",
@@ -174,10 +174,10 @@ const useStyles = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.leavingScreen,
       }),
       [theme.breakpoints.up("xs")]: {
-        height: "12px",
+        height: "10px",
         width: "20px",
-        borderRadius: "3px",
-        fontSize: "10px",
+        borderRadius: "2px",
+        fontSize: "8px",
         lineHeight: "10px",
         marginLeft: "3px",
       },

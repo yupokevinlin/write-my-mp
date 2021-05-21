@@ -37,10 +37,10 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       transition: "background-color 1s",
       [theme.breakpoints.up("xs")]: {
-
+        height: "230px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "320px",
       },
       [theme.breakpoints.up("md")]: {
         height: "400px",
@@ -56,10 +56,12 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "flex-start",
       width: "100%",
       [theme.breakpoints.up("xs")]: {
-
+        height: "126.5px",
+        paddingBottom: "9px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "172.5px",
+        paddingBottom: "11px",
       },
       [theme.breakpoints.up("md")]: {
         height: "184px",
@@ -76,10 +78,16 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       justifyContent: "center",
       [theme.breakpoints.up("xs")]: {
-
+        height: "126.5px",
+        width: "78.1px",
+        marginTop: "9px",
+        marginLeft: "9px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "172.5px",
+        width: "106.5px",
+        marginTop: "11px",
+        marginLeft: "11px",
       },
       [theme.breakpoints.up("md")]: {
         height: "184px",
@@ -96,10 +104,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     infoWrapper: {
       [theme.breakpoints.up("xs")]: {
-
+        height: "100%",
+        width: "calc(100% - 87.1px)",
+        marginTop: "9px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "100%",
+        width: "calc(100% - 117.5px)",
+        marginTop: "11px",
       },
       [theme.breakpoints.up("md")]: {
         height: "100%",
@@ -114,10 +126,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       [theme.breakpoints.up("xs")]: {
-
+        height: "12px",
+        marginBottom: "8px",
+        width: "100%",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "22px",
+        marginBottom: "6px",
+        width: "100%",
       },
       [theme.breakpoints.up("md")]: {
         height: "26px",
@@ -132,10 +148,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     titleText: {
       [theme.breakpoints.up("xs")]: {
-
+        fontSize: "12px",
+        marginLeft: "9px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        fontSize: "18px",
+        marginLeft: "11px",
       },
       [theme.breakpoints.up("md")]: {
         fontSize: "20px",
@@ -147,11 +165,17 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     label: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "flex-start",
       [theme.breakpoints.up("xs")]: {
-
+        height: "14px",
+        width: "100%",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "16px",
+        width: "100%",
       },
       [theme.breakpoints.up("md")]: {
         height: "18px",
@@ -165,10 +189,12 @@ const useStyles = makeStyles((theme: Theme) =>
     labelText: {
       fontWeight: "bold",
       [theme.breakpoints.up("xs")]: {
-
+        fontSize: "8px",
+        marginLeft: "9px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        fontSize: "10px",
+        marginLeft: "11px",
       },
       [theme.breakpoints.up("md")]: {
         fontSize: "12px",
@@ -180,11 +206,17 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     value: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "flex-start",
       [theme.breakpoints.up("xs")]: {
-
+        height: "10px",
+        width: "100%",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "16px",
+        width: "100%",
       },
       [theme.breakpoints.up("md")]: {
         height: "18px",
@@ -200,10 +232,12 @@ const useStyles = makeStyles((theme: Theme) =>
       textOverflow: "ellipsis",
       overflow: "hidden",
       [theme.breakpoints.up("xs")]: {
-
+        fontSize: "8px",
+        marginLeft: "9px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        fontSize: "11px",
+        marginLeft: "11px",
       },
       [theme.breakpoints.up("md")]: {
         fontSize: "12px",
@@ -216,10 +250,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     partyBar: {
       [theme.breakpoints.up("xs")]: {
-
+        width: "calc(100% - 18px)",
+        height: "2px",
+        marginBottom: "2px",
+        marginLeft: "9px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        width: "calc(100% - 22px)",
+        height: "3px",
+        marginBottom: "3px",
+        marginLeft: "11px",
       },
       [theme.breakpoints.up("md")]: {
         width: "calc(100% - 26px)",
@@ -240,10 +280,14 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "flex-start",
       justifyContent: "flex-start",
       [theme.breakpoints.up("xs")]: {
-
+        width: "calc(100% - 18px)",
+        height: "calc(100% - 18px)",
+        margin: "9px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        width: "calc(100% - 22px)",
+        height: "calc(100% - 22px)",
+        margin: "11px",
       },
       [theme.breakpoints.up("md")]: {
         width: "calc(100% - 26px)",
@@ -258,10 +302,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     noSelectText: {
       [theme.breakpoints.up("xs")]: {
-
+        fontSize: "14px",
+        marginBottom: "3px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        fontSize: "18px",
+        marginBottom: "3px",
       },
       [theme.breakpoints.up("md")]: {
         fontSize: "20px",
@@ -274,10 +320,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     noSelectTextParagraph: {
       [theme.breakpoints.up("xs")]: {
-
+        fontSize: "10px",
+        marginBottom: "2px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        fontSize: "14px",
+        marginBottom: "2px",
       },
       [theme.breakpoints.up("md")]: {
         fontSize: "14px",
@@ -290,10 +338,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     noSelectButton: {
       [theme.breakpoints.up("xs")]: {
-
+        marginTop: "4px",
+        height: "24px",
+        width: "150px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        marginTop: "4px",
+        height: "28px",
+        width: "250px",
       },
       [theme.breakpoints.up("md")]: {
         marginTop: "4px",
@@ -308,10 +360,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     noSelectButtonText: {
       [theme.breakpoints.up("xs")]: {
-
+        fontSize: "10px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        fontSize: "12px",
       },
       [theme.breakpoints.up("md")]: {
         fontSize: "12px",
@@ -326,30 +378,13 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "flex-start",
       justifyContent: "flex-start",
       width: "100%",
-      [theme.breakpoints.up("xs")]: {
-
-      },
-      [theme.breakpoints.up("sm")]: {
-
-      },
-      [theme.breakpoints.up("md")]: {
-        height: "203px",
-      },
-      [theme.breakpoints.up("lg")]: {
-        height: "255px",
-      },
+      height: "max-content",
     },
     emailWebsiteWrapper: {
       display: "flex",
       flexDirection: "row",
       alignItems: "flex-start",
       justifyContent: "flex-start",
-      [theme.breakpoints.up("xs")]: {
-
-      },
-      [theme.breakpoints.up("sm")]: {
-
-      },
       [theme.breakpoints.up("md")]: {
         marginTop: "8px",
         height: "38px",
@@ -370,20 +405,21 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "row",
       alignItems: "flex-start",
       justifyContent: "flex-start",
+      height: "max-content",
       [theme.breakpoints.up("xs")]: {
-
+        marginTop: "2px",
+        width: "100%",
       },
       [theme.breakpoints.up("sm")]: {
-
+        marginTop: "4px",
+        width: "100%",
       },
       [theme.breakpoints.up("md")]: {
         marginTop: "8px",
-        height: "38px",
         width: "100%",
       },
       [theme.breakpoints.up("lg")]: {
         marginTop: "10px",
-        height: "44px",
         width: "100%",
       },
     },
@@ -396,10 +432,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     contactTitle: {
       [theme.breakpoints.up("xs")]: {
-
+        height: "14px",
+        width: "100%",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "18px",
+        width: "100%",
       },
       [theme.breakpoints.up("md")]: {
         height: "20px",
@@ -413,10 +451,12 @@ const useStyles = makeStyles((theme: Theme) =>
     contactTitleText: {
       fontWeight: "bold",
       [theme.breakpoints.up("xs")]: {
-
+        fontSize: "10px",
+        marginLeft: "9px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        fontSize: "12px",
+        marginLeft: "11px",
       },
       [theme.breakpoints.up("md")]: {
         fontSize: "14px",
@@ -466,6 +506,8 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
     return isEnglish ? currentMapPolygon?.mpData?.contact?.website : (currentMapPolygon?.mpData?.contact?.website ? currentMapPolygon?.mpData?.contact?.website.replace(".ca/?lang=en", ".ca").replace(".ca/en", ".ca") : "") || "";
   };
 
+  const isSmall: boolean = width === "xs" || width === "sm";
+
   if (!!currentMapPolygon && !!currentMapPolygon?.mpData) {
     const isVacant: boolean = currentMapPolygon?.mpData?.party === "Vacant";
     const name: string = isVacant ? (isEnglish ? "This seat is vacant" : "Ce siège est vacant") : (isEnglish ? (`${!!currentMapPolygon?.mpData?.title ? `The ${currentMapPolygon?.mpData?.title.replace("Hon.", "Honourable")} ` : ""}${currentMapPolygon?.mpData?.firstName} ${currentMapPolygon?.mpData?.lastName}`) : (`${!!currentMapPolygon?.mpData?.title ? `L'${currentMapPolygon?.mpData?.title.replace("Hon.", "honorable")} `.replace("L'Right", "Le très") : ""}${currentMapPolygon?.mpData?.firstName} ${currentMapPolygon?.mpData?.lastName}`));
@@ -487,7 +529,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
       return (
         <div className={classes.informationRoot}>
           <div className={classes.picture}>
-            <CrossFadeImage style={{height: "100%", width: "100%",}} src={isVacant ? "./resources/vacant-seat.png" : currentMapPolygon?.mpData?.photoSrc}/>
+            <CrossFadeImage src={isVacant ? "./resources/vacant-seat.png" : currentMapPolygon?.mpData?.photoSrc}/>
           </div>
           <div className={classes.infoWrapper}>
             <div className={classes.title}>
@@ -526,34 +568,108 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
                 }
               </Typography>
             </div>
-            <div className={classes.label}>
-              <Typography className={classes.labelText}>
-                {
-                  isEnglish ? "Province / Territory:" : "Province / Territoire:"
-                }
-              </Typography>
-            </div>
-            <div className={classes.value}>
-              <Typography className={classes.valueText}>
-                {
-                  province
-                }
-              </Typography>
-            </div>
-            <div className={classes.label}>
-              <Typography className={classes.labelText}>
-                {
-                  isEnglish ? "Preferred Language:" : "Langue préférée:"
-                }
-              </Typography>
-            </div>
-            <div className={classes.value}>
-              <Typography className={classes.valueText}>
-                {
-                  preferredLanguage
-                }
-              </Typography>
-            </div>
+            {
+              isSmall ? (
+                <React.Fragment>
+                  <div className={classes.label}>
+                    <div className={classes.label} style={{width: "50%"}}>
+                      <Typography className={classes.labelText}>
+                        {
+                          isEnglish ? "Province / Territory:" : "Province / Territoire:"
+                        }
+                      </Typography>
+                    </div>
+                    <div className={classes.label} style={{width: "50%"}}>
+                      <Typography className={classes.labelText}>
+                        {
+                          isEnglish ? "Email:" : "Courriel:"
+                        }
+                      </Typography>
+                    </div>
+                  </div>
+                  <div className={classes.value}>
+                    <div className={classes.value} style={{width: "50%"}}>
+                      <Typography className={classes.valueText}>
+                        {
+                          province
+                        }
+                      </Typography>
+                    </div>
+                    <div className={classes.value} style={{width: "50%"}}>
+                      <Link component={"button"} variant={"h5"} className={classes.valueText} onClick={handleEmailClick}>
+                        {
+                          email
+                        }
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className={classes.label}>
+                    <div className={classes.label} style={{width: "50%"}}>
+                      <Typography className={classes.labelText}>
+                        {
+                          isEnglish ? "Preferred Language:" : "Langue préférée:"
+                        }
+                      </Typography>
+                    </div>
+                    <div className={classes.label} style={{width: "50%"}}>
+                      <Typography className={classes.labelText}>
+                        {
+                          hasWebsite ? (isEnglish ? "Website:" : "Site web:") : ""
+                        }
+                      </Typography>
+                    </div>
+                  </div>
+                  <div className={classes.value}>
+                    <div className={classes.value} style={{width: "50%"}}>
+                      <Typography className={classes.valueText}>
+                        {
+                          preferredLanguage
+                        }
+                      </Typography>
+                    </div>
+                    <div className={classes.value} style={{width: "50%"}}>
+                      <Link component={"button"} variant={"h5"} className={classes.valueText} onClick={handleWebsiteClick}>
+                        {
+                          getWebsite()
+                        }
+                      </Link>
+                    </div>
+                  </div>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <div className={classes.label}>
+                    <Typography className={classes.labelText}>
+                      {
+                        isEnglish ? "Constituency:" : "Circonscription:"
+                      }
+                    </Typography>
+                  </div>
+                  <div className={classes.value}>
+                    <Typography className={classes.valueText}>
+                      {
+                        constituencyName
+                      }
+                    </Typography>
+                  </div>
+                  <div className={classes.label}>
+                    <Typography className={classes.labelText}>
+                      {
+                        isEnglish ? "Province / Territory:" : "Province / Territoire:"
+                      }
+                    </Typography>
+                  </div>
+                  <div className={classes.value}>
+                    <Typography className={classes.valueText}>
+                      {
+                        province
+                      }
+                    </Typography>
+                  </div>
+                </React.Fragment>
+              )
+            }
           </div>
         </div>
       );
@@ -563,40 +679,44 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
       if (!isVacant) {
         return (
           <div className={classes.contactRoot}>
-            <div className={classes.emailWebsiteWrapper}>
-              <div className={classes.emailWebsite}>
-                <div className={classes.label}>
-                  <Typography className={classes.labelText}>
-                    {
-                      isEnglish ? "Email:" : "Courriel:"
-                    }
-                  </Typography>
+            {
+              isSmall ? null : (
+                <div className={classes.emailWebsiteWrapper}>
+                  <div className={classes.emailWebsite}>
+                    <div className={classes.label}>
+                      <Typography className={classes.labelText}>
+                        {
+                          isEnglish ? "Email:" : "Courriel:"
+                        }
+                      </Typography>
+                    </div>
+                    <div className={classes.value}>
+                      <Link component={"button"} variant={"h5"} className={classes.valueText} onClick={handleEmailClick}>
+                        {
+                          email
+                        }
+                      </Link>
+                    </div>
+                  </div>
+                  <div className={classes.emailWebsite}>
+                    <div className={classes.label}>
+                      <Typography className={classes.labelText}>
+                        {
+                          hasWebsite ? (isEnglish ? "Website:" : "Site web:") : ""
+                        }
+                      </Typography>
+                    </div>
+                    <div className={classes.value}>
+                      <Link component={"button"} variant={"h5"} className={classes.valueText} onClick={handleWebsiteClick}>
+                        {
+                          getWebsite()
+                        }
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-                <div className={classes.value}>
-                  <Link component={"button"} variant={"h5"} className={classes.valueText} onClick={handleEmailClick}>
-                    {
-                      email
-                    }
-                  </Link>
-                </div>
-              </div>
-              <div className={classes.emailWebsite}>
-                <div className={classes.label}>
-                  <Typography className={classes.labelText}>
-                    {
-                      hasWebsite ? (isEnglish ? "Website:" : "Site web:") : ""
-                    }
-                  </Typography>
-                </div>
-                <div className={classes.value}>
-                  <Link component={"button"} variant={"h5"} className={classes.valueText} onClick={handleWebsiteClick}>
-                    {
-                      getWebsite()
-                    }
-                  </Link>
-                </div>
-              </div>
-            </div>
+              )
+            }
             <div className={classes.contactWrapper}>
               <div className={clsx(classes.contact, {
                 [classes.contactNoAlternateOffice]: !hasAlternateOffice || !hasMainOffice

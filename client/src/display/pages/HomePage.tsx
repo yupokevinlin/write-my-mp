@@ -38,10 +38,18 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     esriMapPaper: {
       [theme.breakpoints.up("xs")]: {
-
+        height: "220px",
+        width: "calc(100% - 18px)",
+        marginLeft: "9px",
+        marginRight: "9px",
+        marginBottom: "9px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "250px",
+        width: "calc(100% - 22px)",
+        marginLeft: "11px",
+        marginRight: "11px",
+        marginBottom: "11px",
       },
       [theme.breakpoints.up("md")]: {
         height: "400px",
@@ -62,16 +70,19 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     esriMapInformationContainer: {
       display: "flex",
-      flexDirection: "row",
       alignItems: "flex-start",
       justifyContent: "flex-start",
       [theme.breakpoints.up("xs")]: {
-
+        flexDirection: "column-reverse",
+        height: "459px",
+        width: "100%",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "603px",
+        width: "100%",
       },
       [theme.breakpoints.up("md")]: {
+        flexDirection: "row",
         height: "426px",
         width: "100%",
       },
@@ -82,10 +93,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     mpInformationContainer: {
       [theme.breakpoints.up("xs")]: {
-
+        height: "230px",
+        width: "calc(100% - 18px)",
+        margin: "9px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "320px",
+        width: "calc(100% - 22px)",
+        margin: "11px",
       },
       [theme.breakpoints.up("md")]: {
         height: "400px",
@@ -100,10 +115,18 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     mpTableContainer: {
       [theme.breakpoints.up("xs")]: {
-
+        height: "calc(100% - 459px)",
+        width: "calc(100% - 18px)",
+        marginLeft: "9px",
+        marginRight: "9px",
+        marginBottom: "9px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "calc(100% - 625px)",
+        width: "calc(100% - 22px)",
+        marginLeft: "11px",
+        marginRight: "11px",
+        marginBottom: "11px",
       },
       [theme.breakpoints.up("md")]: {
         height: "calc(100% - 483px)",

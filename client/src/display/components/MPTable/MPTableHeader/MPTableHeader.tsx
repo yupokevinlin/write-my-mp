@@ -30,10 +30,12 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "row",
       [theme.breakpoints.up("xs")]: {
-
+        marginTop: "3px",
+        height: "18px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        marginTop: "3px",
+        height: "20px",
       },
       [theme.breakpoints.up("md")]: {
         marginTop: "5px",

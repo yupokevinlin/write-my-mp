@@ -62,10 +62,10 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       justifyContent: "flex-start",
       [theme.breakpoints.up("xs")]: {
-
+        height: "18px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "20px",
       },
       [theme.breakpoints.up("md")]: {
         height: "26px",
@@ -76,10 +76,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     titleBarTitle: {
       [theme.breakpoints.up("xs")]: {
-
+        fontSize: "11px",
+        marginLeft: "9px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        fontSize: "13px",
+        marginLeft: "11px",
       },
       [theme.breakpoints.up("md")]: {
         fontSize: "18px",
@@ -98,10 +100,10 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100%",
       width: "50%",
       [theme.breakpoints.up("xs")]: {
-
+        marginTop: "4px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        marginTop: "6px",
       },
       [theme.breakpoints.up("md")]: {
         marginTop: "8px",
@@ -118,10 +120,12 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100%",
       width: "50%",
       [theme.breakpoints.up("xs")]: {
-
+        marginTop: "4px",
+        marginRight: "5px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        marginTop: "6px",
+        marginRight: "5px",
       },
       [theme.breakpoints.up("md")]: {
         marginTop: "8px",
@@ -141,10 +145,16 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: 0,
       paddingBottom: 0,
       [theme.breakpoints.up("xs")]: {
-
+        width: "130px",
+        marginRight: "10px",
+        paddingLeft: "10px",
+        height: "16px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        width: "130px",
+        marginRight: "10px",
+        paddingLeft: "10px",
+        height: "16px",
       },
       [theme.breakpoints.up("md")]: {
         width: "150px",
@@ -162,10 +172,10 @@ const useStyles = makeStyles((theme: Theme) =>
     inputInput: {
       padding: 0,
       [theme.breakpoints.up("xs")]: {
-
+        fontSize: "10px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        fontSize: "10px",
       },
       [theme.breakpoints.up("md")]: {
         fontSize: "12px",
@@ -176,10 +186,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     iconButton: {
       [theme.breakpoints.up("xs")]: {
-
+        width: "14px",
+        height: "14px",
+        margin: "2px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        width: "20px",
+        height: "20px",
+        margin: "3px",
       },
       [theme.breakpoints.up("md")]: {
         width: "26px",
@@ -194,15 +208,19 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     icon: {
       [theme.breakpoints.up("xs")]: {
-
+        width: "12px",
+        height: "12px",
+        margin: "1px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        width: "14px",
+        height: "14px",
+        margin: "3px",
       },
       [theme.breakpoints.up("md")]: {
         width: "18px",
         height: "18px",
-        margin: "5px",
+        margin: "4px",
       },
       [theme.breakpoints.up("lg")]: {
         width: "20px",
@@ -213,18 +231,17 @@ const useStyles = makeStyles((theme: Theme) =>
     rowWrapper: {
       overflowY: "auto",
       overflowX: "hidden",
+      width: "100%",
       [theme.breakpoints.up("xs")]: {
-
+        height: "calc(100% - 40px)",
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "calc(100% - 44px)",
       },
       [theme.breakpoints.up("md")]: {
-        width: "100%",
-        height: "calc(100% - 63px)",
+        height: "calc(100% - 58px)",
       },
       [theme.breakpoints.up("lg")]: {
-        width: "100%",
         height: "calc(100% - 71px)",
       },
     },

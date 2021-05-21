@@ -51,10 +51,10 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "flex-start",
       cursor: "pointer",
       [theme.breakpoints.up("xs")]: {
-
+        marginLeft: "9px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        marginLeft: "11px",
       },
       [theme.breakpoints.up("md")]: {
         marginLeft: "13px",
@@ -65,10 +65,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     name: {
       [theme.breakpoints.up("xs")]: {
-
+        width: "calc(25% - 9px)",
       },
       [theme.breakpoints.up("sm")]: {
-
+        width: "calc(30% - 11px)",
       },
       [theme.breakpoints.up("md")]: {
         width: "calc(30% - 13px)",
@@ -79,10 +79,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     party: {
       [theme.breakpoints.up("xs")]: {
-
+        width: "calc(25% - 9px)",
       },
       [theme.breakpoints.up("sm")]: {
-
+        width: "calc(20% - 11px)",
       },
       [theme.breakpoints.up("md")]: {
         width: "calc(20% - 13px)",
@@ -93,10 +93,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     constituency: {
       [theme.breakpoints.up("xs")]: {
-
+        width: "calc(25% - 9px)",
       },
       [theme.breakpoints.up("sm")]: {
-
+        width: "calc(25% - 11px)",
       },
       [theme.breakpoints.up("md")]: {
         width: "calc(25% - 13px)",
@@ -107,10 +107,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     province: {
       [theme.breakpoints.up("xs")]: {
-
+        width: "calc(25% - 9px)",
       },
       [theme.breakpoints.up("sm")]: {
-
+        width: "calc(25% - 11px)",
       },
       [theme.breakpoints.up("md")]: {
         width: "calc(25% - 13px)",
@@ -124,10 +124,10 @@ const useStyles = makeStyles((theme: Theme) =>
       userSelect: "none",
       fontWeight: "bold",
       [theme.breakpoints.up("xs")]: {
-
+        fontSize: "8px",
       },
       [theme.breakpoints.up("sm")]: {
-
+        fontSize: "10px",
       },
       [theme.breakpoints.up("md")]: {
         fontSize: "12px",
@@ -138,15 +138,19 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     icon: {
       [theme.breakpoints.up("xs")]: {
-
+        height: "8px",
+        width: "8px",
+        margin: "5px 2px"
       },
       [theme.breakpoints.up("sm")]: {
-
+        height: "10px",
+        width: "10px",
+        margin: "5px 2px"
       },
       [theme.breakpoints.up("md")]: {
         height: "12px",
         width: "12px",
-        margin: "9px 4px"
+        margin: "7px 4px"
       },
       [theme.breakpoints.up("lg")]: {
         height: "12px",

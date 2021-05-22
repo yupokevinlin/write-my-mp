@@ -1,6 +1,6 @@
 {
   "name": "write-my-mp",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Website to easily access MP contact information.",
   "main": "index.js",
   "scripts": {

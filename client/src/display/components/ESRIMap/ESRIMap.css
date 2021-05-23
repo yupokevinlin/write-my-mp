@@ -15,6 +15,9 @@
   .esri-compass {
     transform: scale(0.6) translate(-25px, -65px) !important;
   }
+  .esri-search {
+    transform: scale(0.6) translate(85px, -20px) !important;
+  }
   .esri-attribution {
     height: 10px !important;
   }
@@ -115,7 +118,12 @@
   .esri-compass {
     transform: scale(0.7) translate(-15px, -45px) !important;
   }
-
+  .esri-search {
+    transform: scale(0.7) translate(55px, -15px) !important;
+  }
+  .esri-attribution {
+    height: 10px !important;
+  }
   .esri-legend {
     padding: 0 !important;
     margin: 0 !important;
@@ -199,6 +207,9 @@
   }
   .esri-compass {
     transform: scale(0.8) translate(-10px, -30px) !important;
+  }
+  .esri-search {
+    transform: scale(0.8) translate(30px, -10px) !important;
   }
   .esri-attribution {
     height: 11px !important;
@@ -298,6 +309,9 @@
   }
   .esri-compass {
     transform: scale(0.9) translate(-5px, -10px) !important;
+  }
+  .esri-search {
+    transform: scale(0.9) translate(10px, -5px) !important;
   }
 
   .esri-legend {

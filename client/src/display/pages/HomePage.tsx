@@ -298,13 +298,17 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     setIsInfoDisplayed(false);
   };
 
+  const handleESRIMapSearchComplete = (lat: number, lon: number): void => {
+    setCurrentPosition({x: lon, y: lat,});
+  };
+
   return (
     <React.Fragment>
       <div className={classes.root}>
         <TopBar handleLanguageChange={handleLanguageChange} handleDisplayInfo={handleDisplayInfo}/>
         <div className={classes.esriMapInformationContainer}>
           <Paper className={classes.esriMapPaper} square elevation={3}>
-            <ESRIMap initComplete={isESRIMapLoaded} isEnglish={isEnglish} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} tableSelectedRegionGeometry={tableSelectedRegionGeometry} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition}/>
+            <ESRIMap initComplete={isESRIMapLoaded} isEnglish={isEnglish} enableAddressSearch={true} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} tableSelectedRegionGeometry={tableSelectedRegionGeometry} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition} handleSearchComplete={handleESRIMapSearchComplete}/>
             <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
           </Paper>
           <Paper className={classes.mpInformationContainer} square elevation={3}>

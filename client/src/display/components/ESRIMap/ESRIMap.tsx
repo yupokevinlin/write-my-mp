@@ -24,6 +24,7 @@ export type ESRIMapProps = ESRIMapDataProps & ESRIMapStyleProps & ESRIMapEventPr
 export interface ESRIMapDataProps {
   initComplete: boolean;
   isEnglish: boolean;
+  enableAddressSearch: boolean;
   mapPolygons: Array<MapPolygon>;
   initialBaseMap: string;
   currentPosition: XYCoord;
@@ -38,6 +39,7 @@ export interface ESRIMapEventProps {
   handleMapPolygonClick(mapPolygon: MapPolygon | null): void;
   handleLoadComplete(): void;
   handleUnableToFindPolygonAtCurrentPosition(): void;
+  handleSearchComplete(lat: number, lon: number): void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -55,6 +57,9 @@ let polygonLayer: FeatureLayer = null;
 let highlightLayer: GraphicsLayer = null;
 let currentPositionLayer: FeatureLayer = null;
 let localMapPolygons: Array<MapPolygon> = [];
+let localZoomWidget = null;
+let localCompassWidget = null;
+let localSearchWidget = null;
 
 export const destroyESRIMap = (): void => {
   map = null;
@@ -63,6 +68,9 @@ export const destroyESRIMap = (): void => {
   highlightLayer = null;
   currentPositionLayer = null;
   localMapPolygons = [];
+  localZoomWidget = null;
+  localCompassWidget = null;
+  localSearchWidget = null;
 };
 
 const ESRIMap: React.FC<ESRIMapProps> = (props) => {
@@ -77,11 +85,13 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
     currentPosition,
     initialBaseMap,
     isEnglish,
+    enableAddressSearch,
     tableSelectedRegionGeometry,
     width,
     handleMapPolygonClick,
     handleLoadComplete,
     handleUnableToFindPolygonAtCurrentPosition,
+    handleSearchComplete,
   } = props;
 
   const [highlightGeometry, setHighlightGeometry] = useState<Array<Array<[number, number]>>>([]);
@@ -89,14 +99,14 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
   const prevProps: ESRIMapProps = usePreviousProps<ESRIMapProps>(props);
   useEffect(() => {
     loadModules(
-      ["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer", "esri/layers/GraphicsLayer", "esri/widgets/Legend", "esri/geometry/Point", "esri/geometry/Polygon", "esri/Graphic", "esri/geometry/geometryEngine"],
+      ["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer", "esri/layers/GraphicsLayer", "esri/widgets/Legend", "esri/widgets/Search", "esri/widgets/Zoom", "esri/widgets/Compass", "esri/geometry/Point", "esri/geometry/Polygon", "esri/Graphic", "esri/geometry/geometryEngine", "esri/intl"],
       {
         css: true,
       }
-    ).then(([Map, MapView, FeatureLayer, GraphicsLayer, Legend, Point, Polygon, Graphic, geometryEngine]) => {
+    ).then(([Map, MapView, FeatureLayer, GraphicsLayer, Legend, SearchBar, Zoom, Compass, Point, Polygon, Graphic, geometryEngine, intl]) => {
 
       if (!map) {
-        initialize(Map, MapView, FeatureLayer, GraphicsLayer, Legend);
+        initialize(intl, Map, MapView, FeatureLayer, GraphicsLayer, Legend, SearchBar, Zoom, Compass);
       }
 
       if (prevProps) {
@@ -111,7 +121,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
           handleWidthChange();
         }
         if (prevProps.isEnglish !== isEnglish) {
-          handleIsEnglishChange();
+          handleIsEnglishChange(intl, SearchBar, Zoom, Compass);
         }
         if (prevProps.tableSelectedRegionGeometry !== tableSelectedRegionGeometry) {
           handleTableSelectedRegionGeometryChange(Polygon);
@@ -124,7 +134,57 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
     });
   }, [mapPolygons, highlightGeometry, currentPosition, width, isEnglish, tableSelectedRegionGeometry]);
 
-  const initialize = (Map, MapView, FeatureLayer, GraphicsLayer, Legend): void => {
+  const addWidgets = (isEnglish: boolean, mapView: MapView, intl, SearchBar, Zoom, Compass): void => {
+    //Clear Widgets
+    mapView.ui.remove(localSearchWidget);
+    localSearchWidget = null;
+    mapView.ui.remove(localZoomWidget);
+    localZoomWidget = null;
+    mapView.ui.remove(localCompassWidget);
+    localCompassWidget = null;
+
+    //Set Language
+    if (isEnglish) {
+      intl.setLocale("en");
+    } else {
+      intl.setLocale("fr");
+    }
+
+    if (enableAddressSearch) {
+      //Add Search Widget
+      const searchWidget = new SearchBar({
+        view: mapView,
+        resultGraphicEnabled: false,
+        goToOverride: () => {},
+      });
+      localSearchWidget = searchWidget;
+      mapView.ui.add(searchWidget, "top-right");
+      searchWidget.on("search-complete", (event) => {
+        if (event?.results[0]?.results[0]?.feature?.geometry) {
+          const geometry = event?.results[0]?.results[0]?.feature?.geometry;
+          handleSearchComplete(geometry.latitude, geometry.longitude);
+        } else {
+          handleUnableToFindPolygonAtCurrentPosition();
+        }
+      });
+    }
+
+    //Add Zoom Widget
+    const zoomWidget = new Zoom({
+      view: mapView,
+    });
+    localZoomWidget = zoomWidget;
+    mapView.ui.add(zoomWidget, "top-left");
+
+    //Add Compass Widget
+    const compassWidget = new Compass({
+      view: mapView,
+    });
+    localCompassWidget = compassWidget;
+    mapView.ui.add(compassWidget, "top-left");
+  };
+
+  const initialize = (intl, Map, MapView, FeatureLayer, GraphicsLayer, Legend, SearchBar, Zoom, Compass): void => {
     map = new Map({
       basemap: initialBaseMap,
     });
@@ -135,7 +195,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
       center: [-93, 53],
       zoom: 4,
       ui: {
-        components: ["attribution", "zoom", "compass"],
+        components: ["attribution"],
       },
     });
     mapView.popup.collapseEnabled = false;
@@ -158,6 +218,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
     });
 
     mapView.ui.add(legend, "bottom-left");
+    addWidgets(isEnglish, mapView, intl, SearchBar, Zoom, Compass);
 
     mapView.on("click", (event) => {
       switch (event.button) {
@@ -579,7 +640,8 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
     return renderer;
   };
 
-  const handleIsEnglishChange = (): void => {
+  const handleIsEnglishChange = (intl, SearchBar, Zoom, Compass): void => {
+    addWidgets(isEnglish, mapView, intl, SearchBar, Zoom, Compass);
     const renderer = getPolygonLayerRenderer();
     polygonLayer.renderer = renderer;
   };

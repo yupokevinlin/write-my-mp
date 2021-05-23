@@ -3,6 +3,8 @@ import {createStyles, Theme, useTheme} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import clsx from "clsx";
+import InfoIcon from "@material-ui/icons/Info";
+import IconButton from "@material-ui/core/IconButton";
 
 export type TopBarProps = TopBarDataProps & TopBarStyleProps & TopBarEventProps;
 
@@ -16,6 +18,7 @@ export interface TopBarStyleProps {
 
 export interface TopBarEventProps {
   handleLanguageChange(isEnglish: boolean): void;
+  handleDisplayInfo(): void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -126,6 +129,74 @@ const useStyles = makeStyles((theme: Theme) =>
         marginLeft: "100px",
       },
     },
+    informationButtonWrapper: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      [theme.breakpoints.up("xs")]: {
+        height: "26px",
+        width: "40px",
+      },
+      [theme.breakpoints.up("sm")]: {
+        height: "32px",
+        width: "60px",
+      },
+      [theme.breakpoints.up("md")]: {
+        height: "44px",
+        width: "80px",
+      },
+      [theme.breakpoints.up("lg")]: {
+        height: "50px",
+        width: "100px",
+      },
+    },
+    infoButton: {
+      padding: "0px",
+      [theme.breakpoints.up("xs")]: {
+        height: "18px",
+        width: "18px",
+        "& .MuiIconButton-label": {
+          "& .MuiSvgIcon-root": {
+            width: "18px",
+            height: "18px",
+          }
+        },
+      },
+      [theme.breakpoints.up("sm")]: {
+        height: "22px",
+        width: "22px",
+        "& .MuiIconButton-label": {
+          "& .MuiSvgIcon-root": {
+            width: "22px",
+            height: "22px",
+          }
+        },
+      },
+      [theme.breakpoints.up("md")]: {
+        height: "26px",
+        width: "26px",
+        "& .MuiIconButton-label": {
+          "& .MuiSvgIcon-root": {
+            width: "26px",
+            height: "26px",
+          }
+        },
+      },
+      [theme.breakpoints.up("lg")]: {
+        height: "30px",
+        width: "30px",
+        "& .MuiIconButton-label": {
+          "& .MuiSvgIcon-root": {
+            width: "30px",
+            height: "30px",
+          }
+        },
+      },
+    },
+    infoButtonIcon: {
+      color: "#fff",
+    },
     languageSwitch: {
       display: "flex",
       flexDirection: "row",
@@ -135,28 +206,24 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up("xs")]: {
         height: "14px",
         width: "48px",
-        marginRight: "40px",
         border: "2px solid white",
         borderRadius: "3px",
       },
       [theme.breakpoints.up("sm")]: {
         height: "20px",
         width: "52px",
-        marginRight: "60px",
         border: "2px solid white",
         borderRadius: "3px",
       },
       [theme.breakpoints.up("md")]: {
         height: "22px",
         width: "56px",
-        marginRight: "80px",
         border: "3px solid white",
         borderRadius: "3px",
       },
       [theme.breakpoints.up("lg")]: {
         height: "24px",
         width: "60px",
-        marginRight: "100px",
         border: "3px solid white",
         borderRadius: "3px",
       },
@@ -229,11 +296,12 @@ const TopBar: React.FC<TopBarProps> = (props) => {
 
   const {
     handleLanguageChange,
+    handleDisplayInfo,
   } = props;
 
   const [isEnglish, setIsEnglish] = useState<boolean>(true);
 
-  const handleToggleClick = (e: React.MouseEvent<HTMLElement>): void => {
+  const handleToggleLanguageButtonClick = (e: React.MouseEvent<HTMLElement>): void => {
     setIsEnglish(prevState => {
       setTimeout(() => {
         handleLanguageChange(!prevState);
@@ -241,6 +309,10 @@ const TopBar: React.FC<TopBarProps> = (props) => {
       }, 300);
       return !prevState;
     });
+  };
+
+  const handleInfoButtonClick = (e: React.MouseEvent<HTMLElement>): void => {
+    handleDisplayInfo();
   };
 
   return (
@@ -255,7 +327,7 @@ const TopBar: React.FC<TopBarProps> = (props) => {
         <img className={classes.topBarMapleLeafIcon} src={"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMTA5LjM1IDEyMi44OCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTA5LjM1IDEyMi44ODtmaWxsOiNmZmYiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+LnN0MHtmaWxsLXJ1bGU6ZXZlbm9kZDtjbGlwLXJ1bGU6ZXZlbm9kZDt9PC9zdHlsZT48Zz48cGF0aCBjbGFzcz0ic3QwIiBkPSJNNTUuMTUsODUuNjJjMS43MywxMS45LTAuOTMsMjEuNTEtOC4wNSwzMS4zN2MtMS42LDIuMjEtMy4yOSwzLjk5LTUuMjUsNS44OWMtMC4wMS0yLjYzLTEuNjktMy43Ni00LjIyLTQuMzQgQzQ4LjA0LDEwOC4yNSw1Mi4zMyw5Ni45LDUzLjcsODUuNjJoLTIuMzZjLTcuNzktMC43Ny0xNi4zMywxMi4zNS0yNi4zNSwxNS45MmM0Ljc3LTkuMTYtMC41Ni0xMC40LTEyLjY2LTYuMzMgYzkuMDUtMTAuOCw5LjkzLTE0Ljc5LDAtMTMuMzVjNS4xMy0zLjg4LDkuOS02LjExLDE0LjM4LTcuMDJjLTkuMzMtMi45Ny0xNy42My03Ljk3LTI0LjY0LTE1LjU3YzEzLjE2LTAuNDgsOS45My05LjM3LTIuMDUtMjIuNzYgYzE1LjkzLDguMDEsMjQuMzMsOS4wMiwyMS43My0wLjE3YzQuNzEsMy4xOCwxMC43NSw5LjI3LDE3LjExLDE2LjA5Yy0yLjQ1LTEyLjUtNC4yOS0yNC4zNC0zLjQyLTMzLjIgQzQxLjYzLDI4LjU2LDQ4LjMsMTkuMTIsNTQuODQsMGM1LjUxLDE3LjQ0LDExLjQzLDI3LjEyLDE4LjkyLDIwLjA4YzAuOTcsNy43Ni0wLjA3LDE2LjA2LTIuNzQsMjQuODFsLTAuMTcsNi42NyBjNi4yMS02LjcsMTIuMzEtMTMuMDMsMTcuMjItMTUuNDRjLTMuMDUsMTAuMDksNy42Myw2LjU3LDIxLjI4LDAuMzhjLTEyLjkyLDE0LjQ0LTEzLjk0LDIyLjA2LTIuNTcsMjIuNTkgYy00LjczLDcuMzYtMTMuMDcsMTEuODQtMjIuNzYsMTUuMjNjNC4yMiwxLjIxLDguNDQsMy40OSwxMi42Niw3LjAyYy04LjczLTAuNzItNi45LDUsMC4yNSwxNC4yYy0xMC45Mi0zLjItMTYuNDktMi4zMy0xMy4wNCw2IEM3MC45OCw5MC43NCw2MS43Nyw4NS41MSw1Ni4xMyw4NS42Mkg1NS4xNUw1NS4xNSw4NS42MnoiLz48L2c+PC9zdmc+DQo="}/>
       </div>
       <div className={classes.topBarRight}>
-        <div className={classes.languageSwitch} onClick={handleToggleClick}>
+        <div className={classes.languageSwitch} onClick={handleToggleLanguageButtonClick}>
           <Typography className={clsx(classes.languageSwitchText, {
             [classes.languageSwitchTextFrench]: !isEnglish,
           })}>
@@ -263,6 +335,11 @@ const TopBar: React.FC<TopBarProps> = (props) => {
               isEnglish ? "en" : "fr"
             }
           </Typography>
+        </div>
+        <div className={classes.informationButtonWrapper}>
+          <IconButton className={classes.infoButton} onClick={handleInfoButtonClick}>
+            <InfoIcon className={classes.infoButtonIcon}/>
+          </IconButton>
         </div>
       </div>
     </div>

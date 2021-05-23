@@ -11,6 +11,8 @@ import MPInformation from "../components/MPInformation/MPInformation";
 import MPTable from "../components/MPTable/MPTable";
 import TopBar from "../components/TopBar/TopBar";
 import Alert from "@material-ui/lab/Alert";
+import Modal from "@material-ui/core/Modal";
+import InfoPage from "../components/InfoPage/InfoPage";
 
 export type HomePageProps = HomePageDataProps & HomePageStyleProps & HomePageEventProps;
 
@@ -223,6 +225,11 @@ const useStyles = makeStyles((theme: Theme) =>
         transform: "translate(-50%, 40px)",
       },
     },
+    modal: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
   }),
 );
 
@@ -241,6 +248,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
   const [currentPosition, setCurrentPosition] = useState<XYCoord>({x: -1, y: -1,});
   const [isEnglish, setIsEnglish] = useState<boolean>(true);
   const [snackbarMessage, setSnackbarMessage] = useState<string>("");
+  const [isInfoDisplayed, setIsInfoDisplayed] = useState<boolean>(false);
 
   const handleLoadComplete = (): void => {
     setIsESRIMapLoaded(true);
@@ -282,10 +290,18 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     }
   };
 
+  const handleDisplayInfo = (): void => {
+    setIsInfoDisplayed(true);
+  };
+
+  const handleCloseModal = (): void => {
+    setIsInfoDisplayed(false);
+  };
+
   return (
     <React.Fragment>
       <div className={classes.root}>
-        <TopBar handleLanguageChange={handleLanguageChange}/>
+        <TopBar handleLanguageChange={handleLanguageChange} handleDisplayInfo={handleDisplayInfo}/>
         <div className={classes.esriMapInformationContainer}>
           <Paper className={classes.esriMapPaper} square elevation={3}>
             <ESRIMap initComplete={isESRIMapLoaded} isEnglish={isEnglish} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} tableSelectedRegionGeometry={tableSelectedRegionGeometry} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition}/>
@@ -310,6 +326,9 @@ const HomePage: React.FC<HomePageProps> = (props) => {
           }
         </Alert>
       </Snackbar>
+      <Modal className={classes.modal} open={isInfoDisplayed} onClose={handleCloseModal}>
+        <InfoPage isEnglish={isEnglish}/>
+      </Modal>
     </React.Fragment>
   );
 };

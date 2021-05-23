@@ -164,8 +164,6 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
         if (event?.results[0]?.results[0]?.feature?.geometry) {
           const geometry = event?.results[0]?.results[0]?.feature?.geometry;
           handleSearchComplete(geometry.latitude, geometry.longitude);
-        } else {
-          handleUnableToFindPolygonAtCurrentPosition();
         }
       });
     }

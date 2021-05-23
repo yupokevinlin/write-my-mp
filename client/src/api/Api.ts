@@ -1,3 +1,3 @@
 export namespace Api {
-  export const serverLocation: string = "http://localhost";
+  export const serverLocation: string = "https://writemymp.ca";
 }

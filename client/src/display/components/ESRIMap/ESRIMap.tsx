@@ -29,6 +29,7 @@ export interface ESRIMapDataProps {
   initialBaseMap: string;
   currentPosition: XYCoord;
   tableSelectedRegionGeometry: Array<Array<[number, number]>>;
+  apiKey: string;
 }
 
 export interface ESRIMapStyleProps {
@@ -87,6 +88,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
     isEnglish,
     enableAddressSearch,
     tableSelectedRegionGeometry,
+    apiKey,
     width,
     handleMapPolygonClick,
     handleLoadComplete,
@@ -184,7 +186,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
   };
 
   const initialize = (esriConfig, intl, Map, MapView, FeatureLayer, GraphicsLayer, Legend, SearchBar, Zoom, Compass): void => {
-
+    esriConfig.apiKey = apiKey;
     map = new Map({
       basemap: initialBaseMap,
     });

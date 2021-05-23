@@ -302,13 +302,15 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     setCurrentPosition({x: lon, y: lat,});
   };
 
+  const apiKey: string = "AAPK8b6c99cca90340a3bec495c6b1d5f003Xn-pWi99zIvlftE-XFYNAF5woruB6OXMAxkSyZAeLgzGYkno1HfeF5gK1_JRnuiv";
+
   return (
     <React.Fragment>
       <div className={classes.root}>
         <TopBar handleLanguageChange={handleLanguageChange} handleDisplayInfo={handleDisplayInfo}/>
         <div className={classes.esriMapInformationContainer}>
           <Paper className={classes.esriMapPaper} square elevation={3}>
-            <ESRIMap initComplete={isESRIMapLoaded} isEnglish={isEnglish} enableAddressSearch={true} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} tableSelectedRegionGeometry={tableSelectedRegionGeometry} width={width} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition} handleSearchComplete={handleESRIMapSearchComplete}/>
+            <ESRIMap initComplete={isESRIMapLoaded} isEnglish={isEnglish} enableAddressSearch={true} mapPolygons={mapPolygons} currentPosition={currentPosition} initialBaseMap={"topo"} tableSelectedRegionGeometry={tableSelectedRegionGeometry} width={width} apiKey={apiKey} handleMapPolygonClick={handleMapPolygonClick} handleLoadComplete={handleLoadComplete} handleUnableToFindPolygonAtCurrentPosition={handleUnableToFindPolygonAtCurrentPosition} handleSearchComplete={handleESRIMapSearchComplete}/>
             <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
           </Paper>
           <Paper className={classes.mpInformationContainer} square elevation={3}>

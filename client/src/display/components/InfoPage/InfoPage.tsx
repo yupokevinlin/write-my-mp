@@ -191,7 +191,7 @@ const InfoPage: React.FC<InfoPageProps> = (props) => {
           variant={"contained"}
           className={classes.buttonRow}
           style={{backgroundColor: "#24292e"}}
-          onClick={handleEmailClick}
+          onClick={handleGithubClick}
         >
           <GitHubIcon className={classes.buttonIcon}/>
           <Typography className={classes.buttonText}>
@@ -202,7 +202,7 @@ const InfoPage: React.FC<InfoPageProps> = (props) => {
           variant={"contained"}
           className={classes.buttonRow}
           style={{backgroundColor: "#3e65cf"}}
-          onClick={handleGithubClick}
+          onClick={handleEmailClick}
         >
           <MailIcon className={classes.buttonIcon}/>
           <Typography className={classes.buttonText}>

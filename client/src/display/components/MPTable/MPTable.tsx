@@ -76,11 +76,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     titleBarTitle: {
       [theme.breakpoints.up("xs")]: {
-        fontSize: "11px",
+        fontSize: "9px",
         marginLeft: "9px",
       },
       [theme.breakpoints.up("sm")]: {
-        fontSize: "13px",
+        fontSize: "11px",
         marginLeft: "11px",
       },
       [theme.breakpoints.up("md")]: {

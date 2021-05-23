@@ -99,14 +99,14 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
   const prevProps: ESRIMapProps = usePreviousProps<ESRIMapProps>(props);
   useEffect(() => {
     loadModules(
-      ["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer", "esri/layers/GraphicsLayer", "esri/widgets/Legend", "esri/widgets/Search", "esri/widgets/Zoom", "esri/widgets/Compass", "esri/geometry/Point", "esri/geometry/Polygon", "esri/Graphic", "esri/geometry/geometryEngine", "esri/intl"],
+      ["esri/config", "esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer", "esri/layers/GraphicsLayer", "esri/widgets/Legend", "esri/widgets/Search", "esri/widgets/Zoom", "esri/widgets/Compass", "esri/geometry/Point", "esri/geometry/Polygon", "esri/Graphic", "esri/geometry/geometryEngine", "esri/intl"],
       {
         css: true,
       }
-    ).then(([Map, MapView, FeatureLayer, GraphicsLayer, Legend, SearchBar, Zoom, Compass, Point, Polygon, Graphic, geometryEngine, intl]) => {
+    ).then(([esriConfig, Map, MapView, FeatureLayer, GraphicsLayer, Legend, SearchBar, Zoom, Compass, Point, Polygon, Graphic, geometryEngine, intl]) => {
 
       if (!map) {
-        initialize(intl, Map, MapView, FeatureLayer, GraphicsLayer, Legend, SearchBar, Zoom, Compass);
+        initialize(esriConfig, intl, Map, MapView, FeatureLayer, GraphicsLayer, Legend, SearchBar, Zoom, Compass);
       }
 
       if (prevProps) {
@@ -183,7 +183,8 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
     mapView.ui.add(compassWidget, "top-left");
   };
 
-  const initialize = (intl, Map, MapView, FeatureLayer, GraphicsLayer, Legend, SearchBar, Zoom, Compass): void => {
+  const initialize = (esriConfig, intl, Map, MapView, FeatureLayer, GraphicsLayer, Legend, SearchBar, Zoom, Compass): void => {
+
     map = new Map({
       basemap: initialBaseMap,
     });

@@ -155,6 +155,7 @@ const ESRIMap: React.FC<ESRIMapProps> = (props) => {
       const searchWidget = new SearchBar({
         view: mapView,
         resultGraphicEnabled: false,
+        locationEnabled: false,
         goToOverride: () => {},
       });
       localSearchWidget = searchWidget;

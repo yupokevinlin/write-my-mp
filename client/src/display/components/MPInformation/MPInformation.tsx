@@ -961,12 +961,17 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
           </Typography>
           <Typography className={classes.noSelectTextParagraph}>
             {
-              isEnglish ? "Right click anywhere on the map or table to unselect." : "Cliquez avec le bouton droit n'importe où sur la carte ou le tableau pour désélectionner."
+              isEnglish ? "Close the MP window or right click anywhere on the map or table to unselect." : "Fermez la fenêtre de député ou cliquez avec le bouton droit n'importe où dans la carte ou le tableau pour désélectionner."
             }
           </Typography>
           <Typography className={classes.noSelectTextParagraph}>
             {
-              isEnglish ? "Use the button below to find your MP using your IP address." : "Utilisez le bouton ci-dessous pour trouver votre député en utilisant votre adresse IP."
+              isEnglish ? "You can find your MP using your address." : "Vous pouvez trouver votre député en utilisant votre adresse."
+            }
+          </Typography>
+          <Typography className={classes.noSelectTextParagraph}>
+            {
+              isEnglish ? "Alternatively, you can also use the button below to find your MP using your IP address." : "En alternative, vous pouvez aussi utilisez le bouton ci-dessous pour trouver votre député en utilisant votre adresse IP."
             }
           </Typography>
           <Button classes={{

@@ -263,7 +263,7 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     setTableSelectedRegionGeometry(mapPolygon.geometry);
   };
 
-  const handleTableRowRightClick = (): void => {
+  const handleUnselectMP = (): void => {
     setCurrentMapPolygon(null);
     setTableSelectedRegionGeometry([]);
   };
@@ -314,11 +314,11 @@ const HomePage: React.FC<HomePageProps> = (props) => {
             <LoadingPageTransparent isLoading={!isESRIMapLoaded}/>
           </Paper>
           <Paper className={classes.mpInformationContainer} square elevation={3}>
-            <MPInformation currentMapPolygon={currentMapPolygon} isEnglish={isEnglish} isESRIMapLoaded={isESRIMapLoaded} width={width} handleFindMPClick={handleFindMP}/>
+            <MPInformation currentMapPolygon={currentMapPolygon} isEnglish={isEnglish} isESRIMapLoaded={isESRIMapLoaded} width={width} handleFindMPClick={handleFindMP} handleClose={handleUnselectMP}/>
           </Paper>
         </div>
         <Paper className={classes.mpTableContainer} square elevation={3}>
-          <MPTable mapPolygons={mapPolygons} isEnglish={isEnglish} currentMapPolygon={currentMapPolygon} handleTableRowClick={handleTableRowClick} handleTableRowRightClick={handleTableRowRightClick}/>
+          <MPTable mapPolygons={mapPolygons} isEnglish={isEnglish} currentMapPolygon={currentMapPolygon} handleTableRowClick={handleTableRowClick} handleTableRowRightClick={handleUnselectMP}/>
         </Paper>
       </div>
       <Snackbar className={classes.snackBar} open={snackbarMessage !== ""} autoHideDuration={5000} anchorOrigin={{vertical: "top", horizontal: "center"}} onClose={handleSnackbarClose}>

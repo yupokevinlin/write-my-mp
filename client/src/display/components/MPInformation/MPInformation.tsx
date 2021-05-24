@@ -10,6 +10,8 @@ import {LanguageUtils} from "../../../helpers/LanguageUtils";
 import Link from "@material-ui/core/Link";
 import clsx from "clsx";
 import {Breakpoint} from "@material-ui/core/styles/createBreakpoints";
+import IconButton from "@material-ui/core/IconButton";
+import CloseOutlinedIcon from "@material-ui/icons/CloseOutlined";
 
 export type MPInformationProps = MPInformationDataProps & MPInformationStyleProps & MPInformationEventProps;
 
@@ -25,6 +27,7 @@ export interface MPInformationStyleProps {
 
 export interface MPInformationEventProps {
   handleFindMPClick(): void;
+  handleClose(): void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -146,9 +149,18 @@ const useStyles = makeStyles((theme: Theme) =>
         width: "100%",
       },
     },
+    titleButtonWrapper: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "flex-start",
+      height: "100%",
+      width: "100%",
+    },
     titleText: {
       [theme.breakpoints.up("xs")]: {
         marginLeft: "9px",
+        width: "calc(100% - 39px)",
         "@media (min-height: 0px) and (max-height: 599px)": {
           fontSize: "10px",
           fontWeight: "bold",
@@ -160,14 +172,53 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up("sm")]: {
         fontSize: "18px",
         marginLeft: "11px",
+        width: "calc(100% - 44px)",
       },
       [theme.breakpoints.up("md")]: {
         fontSize: "20px",
         marginLeft: "13px",
+        width: "calc(100% - 52px)",
       },
       [theme.breakpoints.up("lg")]: {
         fontSize: "24px",
         marginLeft: "15px",
+        width: "calc(100% - 60px)",
+      },
+    },
+    titleButton: {
+      [theme.breakpoints.up("xs")]: {
+        height: "12px",
+        width: "12px",
+      },
+      [theme.breakpoints.up("sm")]: {
+        height: "22px",
+        width: "22px",
+      },
+      [theme.breakpoints.up("md")]: {
+        height: "26px",
+        width: "26px",
+      },
+      [theme.breakpoints.up("lg")]: {
+        height: "30px",
+        width: "30px",
+      },
+    },
+    titleButtonIcon: {
+      [theme.breakpoints.up("xs")]: {
+        height: "10px",
+        width: "10px",
+      },
+      [theme.breakpoints.up("sm")]: {
+        height: "14px",
+        width: "14px",
+      },
+      [theme.breakpoints.up("md")]: {
+        height: "18px",
+        width: "18px",
+      },
+      [theme.breakpoints.up("lg")]: {
+        height: "22px",
+        width: "22px",
       },
     },
     label: {
@@ -486,10 +537,15 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
     isESRIMapLoaded,
     width,
     handleFindMPClick,
+    handleClose,
   } = props;
 
   const handleFindMPButtonClick = (e: React.MouseEvent<HTMLElement>): void => {
     handleFindMPClick();
+  };
+
+  const handleCloseButtonClick = (e: React.MouseEvent<HTMLElement>): void => {
+    handleClose();
   };
 
   const handleEmailClick = (e: React.MouseEvent<HTMLElement>): void => {
@@ -539,11 +595,16 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
           </div>
           <div className={classes.infoWrapper}>
             <div className={classes.title}>
-              <Typography className={classes.titleText}>
-                {
-                  name
-                }
-              </Typography>
+              <div className={classes.titleButtonWrapper}>
+                <Typography className={classes.titleText}>
+                  {
+                    name
+                  }
+                </Typography>
+                <IconButton className={classes.titleButton} onClick={handleCloseButtonClick}>
+                  <CloseOutlinedIcon className={classes.titleButtonIcon}/>
+                </IconButton>
+              </div>
             </div>
             <div className={classes.label}>
               <Typography className={classes.labelText}>

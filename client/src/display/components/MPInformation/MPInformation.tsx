@@ -979,7 +979,7 @@ const MPInformation: React.FC<MPInformationProps> = (props) => {
             label: classes.noSelectButtonText,
           }} color={"secondary"} variant={"contained"} onClick={handleFindMPButtonClick} disabled={!isESRIMapLoaded}>
             {
-              isEnglish ? "Find My MP" : "Trouver Mon Député"
+              isEnglish ? "Find My MP" : "Trouvez Mon Député"
             }
           </Button>
         </div>
